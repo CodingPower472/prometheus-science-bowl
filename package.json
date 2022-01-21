@@ -1,0 +1,26 @@
+{
+  "name": "prometheus-science-bowl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auth-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodingPower472/prometheus-science-bowl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodingPower472/prometheus-science-bowl/issues"
+  },
+  "homepage": "https://github.com/CodingPower472/prometheus-science-bowl#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dotenv": "^13.0.1",
+    "express": "^4.17.2",
+    "google-auth-library": "^7.11.0"
+  }
+}
