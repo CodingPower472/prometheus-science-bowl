@@ -6,7 +6,7 @@ console.log(process.env.DB_URL);
 
 const db = new Sequelize(process.env.DB_URL);
 
-const { Team, User, SessionToken, TournamentInfo } = require('./models');
+const { Team, User, SessionToken, TournamentInfo, Room } = require('./models');
 
 try {
     db.authenticate().then(() => {
@@ -46,7 +46,7 @@ async function addAdmin(fullName, payload) {
 }
 
 async function addTeamMember(team, fullName, payload) {
-    await User.create({
+    return await User.create({
         fullName,
         email: payload.email,
         googleId: payload.sub,
@@ -91,6 +91,33 @@ async function findTeamWithJoinCode(code) {
     });
 }
 
+async function findTeamWithName(name, options) {
+    let opts = options || {};
+    return await Team.findOne({
+        where: {
+            name
+        },
+        ...opts
+    });
+}
+
+async function findModWithEmail(email) {
+    return await User.findOne({
+        where: {
+            email,
+            isMod: true
+        }
+    });
+}
+
+async function findRoomWithName(name) {
+    return await Room.findOne({
+        where: {
+            roomName: name
+        }
+    });
+}
+
 async function addToken(user, token) {
     let sessionToken = await SessionToken.create({
         token
@@ -122,6 +149,48 @@ async function updateTournamentInfo(next) {
     );
 }
 
+async function clearTeamRoomAssignments() {
+    return await Team.update(
+        {
+            roomId: null
+        },
+        { where: {} }
+    );
+}
+
+async function assignTeamRoom(team, roomId) {
+    let changeTeamProm = team.update({
+        roomId
+    });
+    let changeMembersProm = User.update({
+        roomId
+    }, {
+        where: {
+            teamId: team.id
+        }
+    });
+    return await Promise.all([changeTeamProm, changeMembersProm])
+}
+
+async function clearModRoomAssignments() {
+    return await User.update(
+        {
+            roomId: null
+        },
+        {
+            where: {
+                isMod: true
+            }
+        }
+    );
+}
+
+async function assignModRoom(mod, roomId) {
+    return await mod.update({
+        roomId
+    });
+}
+
 module.exports = {
     addMod,
     addAdmin,
@@ -129,8 +198,15 @@ module.exports = {
     findUserWithGID,
     findUserWithAuthToken,
     findTeamWithJoinCode,
+    findTeamWithName,
+    findRoomWithName,
+    findModWithEmail,
     addToken,
     createTeam,
     getTournamentInfo,
-    updateTournamentInfo
+    updateTournamentInfo,
+    clearTeamRoomAssignments,
+    assignTeamRoom,
+    clearModRoomAssignments,
+    assignModRoom
 };

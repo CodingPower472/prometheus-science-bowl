@@ -17,7 +17,7 @@ class App extends Component {
     console.log('login success');
     var token = gdata.tokenId;
     this.setState({ loggedIn: true })
-    fetch('http://localhost:8080/api', {
+    fetch('http://localhost:8000/api', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

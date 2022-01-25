@@ -26,7 +26,9 @@ app.post('/api', cors({ origin: true }), async (req, res) => {
         audience: process.env.REACT_APP_CLIENT_ID
     });
 
-    const { name, email, picture } = ticket.getPayload();
+    const { name, email, picture, sub } = ticket.getPayload();
+
+    console.log(sub);
     res.send({
         yo: 'lets go',
         name,
@@ -35,4 +37,4 @@ app.post('/api', cors({ origin: true }), async (req, res) => {
     });
 });
 
-app.listen(8080);
+app.listen(8000);

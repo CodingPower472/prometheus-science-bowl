@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    roomId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     isPlayer: {
       type: DataTypes.BOOLEAN,
       allowNull: false

@@ -3,3 +3,4 @@ server/config/config.json
 **/node_modules
 **/package-lock.json
 **/.env
+server/secure
