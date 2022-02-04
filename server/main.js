@@ -1,7 +1,4 @@
 
-const MOD_JOIN_CODE = '6hlwclnfv4oazgggwvdrrhkynezwjnvo';
-const ADMIN_JOIN_CODE = 'cosd7jbn59ayaqvudwiylkywf2kddomm';
-
 const db = require('./db');
 const gen = require('./gen-codes');
 const autoRound = require('./auto-round');
@@ -19,14 +16,41 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 const app = express();
 
 app.use(cors({
-    origin: process.env.CLIENT_URL
+    origin: process.env.CLIENT_URL,
+    credentials: true
 }));
 app.use(bodyParser.json());
 app.use(sessions({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
-    resave: false
+    resave: false,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'none'
+    }
 }));
+
+const MOD_JOIN_CODE = process.env.MOD_JOIN_CODE;
+const ADMIN_JOIN_CODE = process.env.ADMIN_JOIN_CODE;
+
+const INVALID_TOKEN = {
+    success: false,
+    errorCode: 'errInvalidToken',
+    errorMessage: 'Sorry, your session token is either invalid or missing.'
+};
+
+const INTERNAL = {
+    success: false,
+    errorCode: 'errInternal',
+    errorMessage: 'Sorry, an internal server error occured.'
+};
+
+const NO_PERMS = {
+    success: false,
+    errorCode: 'errNoPerms',
+    errorMessage: 'You do not have sufficient permissions to do this.'
+};
 
 app.post('/api/check-code', async (req, res) => {
     console.log('check code');
@@ -53,7 +77,9 @@ app.post('/api/check-code', async (req, res) => {
         } else {
             res.send({
                 success: false,
-                role: null
+                role: null,
+                errorCode: 'errInvalidCode',
+                errorMessage: 'Code could not be found.'
             });
         }
     }
@@ -104,13 +130,11 @@ app.post('/api/join', async (req, res) => {
     const payload = ticket.getPayload();
     console.log(payload.sub);
     let previous = await db.findUserWithGID(payload.sub);
-    //let previous = await db.findUserWithGID('abcd');
-    console.log(previous);
     if (previous !== null) {
         res.send({
             success: false,
             errorCode: 'errAlreadyExists',
-            errorMessage: 'This token already exists'
+            errorMessage: 'Sorry, a user has already been created with this Google account.'
         });
         return;
     }
@@ -147,12 +171,30 @@ app.post('/api/join', async (req, res) => {
     }
     if (success) {
         let token = await assignToken(req, user);
+        console.log('req session');
+        console.log(req.session);
         toSend.token = token;
         res.send(toSend);
     }
 });
 
-app.post('/api/auth', async (req, res) => {
+function userInfo(user) {
+    let role = db.getRole(user);
+    console.log(user);
+    return {
+        fullName: user.fullName,
+        email: user.email,
+        teamPosition: user.teamPosition,
+        roomId: user.roomId,
+        isPlayer: user.isPlayer,
+        isMod: user.isMod,
+        isAdmin: user.isAdmin,
+        team: user.Team,
+        role
+    };
+}
+
+app.post('/api/signin', async (req, res) => {
     let googleAuthToken = req.body.googleToken;
     const ticket = await client.verifyIdToken({
         idToken: googleAuthToken,
@@ -165,39 +207,57 @@ app.post('/api/auth', async (req, res) => {
         let token = await assignToken(req, user);
         res.send({
             success: true,
+            isAuthed: true,
             token,
-            fullName: user.fullName,
-            picture: payload.picture,
-            email: payload.email,
-            googleId: payload.sub
+            user: userInfo(user)
+        });
+    } else {
+        res.send({
+            success: false,
+            isAuthed: false,
+            errorCode: 'errUserNotFound',
+            errorMessage: 'Existing user with this Google account could not be found'
         });
     }
 });
 
+app.post('/api/signout', async (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            res.send(INTERNAL);
+        } else {
+            res.send({
+                success: true
+            });
+        }
+    });
+});
+
 async function authUser(req) {
+    console.log(req.session);
     let token = req.session.token || req.body.authToken;
     if (!token) return null;
     let user = await db.findUserWithAuthToken(token);
     return user;
 }
 
-const INVALID_TOKEN = {
-    success: false,
-    errorCode: 'errInvalidToken',
-    errorMessage: 'Sorry, your session token is either invalid or missing.'
-};
-
-const INTERNAL = {
-    success: false,
-    errorCode: 'errInternal',
-    errorMessage: 'Sorry, an internal server error occured.'
-};
-
-const NO_PERMS = {
-    success: false,
-    errorCode: 'errNoPerms',
-    errorMessage: 'You do not have sufficient permissions to do this.'
-};
+app.get('/api/auth', async (req, res) => {
+    let user = await authUser(req);
+    if (user) {
+        let role = db.getRole(user);
+        res.send({
+            success: true,
+            isAuthed: true,
+            user: userInfo(user)
+        });
+    } else {
+        res.send({
+            success: true,
+            isAuthed: false,
+            user: null
+        });
+    }
+});
 
 app.get('/api/get-room', async (req, res) => {
     let user = await authUser(req);

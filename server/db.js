@@ -78,7 +78,10 @@ async function findUserWithAuthToken(token) {
         where: {
             token
         },
-        include: User
+        include: {
+            model: User,
+            include: Team
+        }
     });
     return sessionToken ? sessionToken.User : null;
 }
@@ -191,6 +194,19 @@ async function assignModRoom(mod, roomId) {
     });
 }
 
+function getRole(user) {
+    if (user.isAdmin) {
+        return 'admin';
+    }
+    if (user.isMod) {
+        return 'mod';
+    }
+    if (user.isPlayer) {
+        return 'player';
+    }
+    throw new Error('User has no role.');
+}
+
 module.exports = {
     addMod,
     addAdmin,
@@ -208,5 +224,6 @@ module.exports = {
     clearTeamRoomAssignments,
     assignTeamRoom,
     clearModRoomAssignments,
-    assignModRoom
+    assignModRoom,
+    getRole
 };
