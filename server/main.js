@@ -2,6 +2,7 @@
 const db = require('./db');
 const gen = require('./gen-codes');
 const autoRound = require('./auto-round');
+const { Game } = require('./Game');
 
 const express = require('express');
 require('dotenv').config();
@@ -12,15 +13,27 @@ const { OAuth2Client } = require('google-auth-library');
 const { application } = require('express');
 const { use } = require('express/lib/application');
 const client = new OAuth2Client(process.env.CLIENT_ID);
+const http = require('http');
+const sharedsession = require('express-socket.io-session');
+
+const { Server } = require('socket.io');
 
 const app = express();
+const server = http.Server(app);
+const io = new Server(server, {
+    cors: {
+        origin: `${process.env.CLIENT_URL}`,
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
+});
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true
 }));
 app.use(bodyParser.json());
-app.use(sessions({
+let session = sessions({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
@@ -29,7 +42,88 @@ app.use(sessions({
         secure: false,
         sameSite: 'none'
     }
+})
+app.use(session);
+io.use(sharedsession(session, {
+    autoSave: false // NOTE: if i need to change variables from socketio later, change this to true
 }));
+
+db.start(async () => {
+    let info = await db.getTournamentInfo();
+    if (info.currentRound !== null) {
+        await saveGames();
+        await autoRound.updateRoomAssignments(info.currentRound);
+        await createGames();
+    }
+});
+
+async function authSocket(socket) {
+    let session = socket.handshake.session;
+    if (!session.token) {
+        let sessions = socket.handshake.sessionStore.sessions;
+        if (Object.values(sessions).length > 1) {
+            console.warn('Warning: more than one value in session store.');
+        }
+        sessions = Object.values(sessions);
+        session = sessions[sessions.length - 1];
+        if (!session) return null;
+        session = JSON.parse(session);
+    }
+    return await db.findUserWithAuthToken(session.token);
+}
+
+let currentGames = {};
+
+io.on('connection', async socket => {
+    let user = await authSocket(socket);
+    if (!user) {
+        console.log('Unauthed user tried to join websocket');
+        socket.emit('joinerr', {
+            errorCode: 'unauthed',
+            errorMessage: 'Could not successfully authenticate user.'
+        });
+        return;
+    }
+    socket.on('join', async data => {
+        // TODO: check if player should actually be there
+        let roomId = data.room;
+        socket.join(roomId);
+        let room = await db.findRoomWithId(data.room);
+        let nextRoom = await room.get({ plain: true });
+        let game = null;
+        if (data.room in currentGames) {
+            currentGames[data.room].setJoined(user.googleId, true);
+            game = currentGames[data.room];
+        }
+        nextRoom.game = game.state();
+        console.log('Successfully joined');
+        socket.emit('joined', {
+            room: nextRoom,
+            user: userInfo(user)
+        });
+        socket.on('disconnect', () => {
+            console.log('USER DISCONNECT');
+            if (game) {
+                game.setJoined(user.googleId, false);
+            }
+        });
+        if (user.isAdmin || user.isMod) {
+            socket.on('start', async () => {
+                if (game) {
+                    game.start();
+                    io.to(roomId).emit('update', game.state());
+                }
+            });
+        }
+        if (user.isPlayer) {
+            socket.on('buzz', async () => {
+                if (!game.buzzActive) {
+                    game.buzz(user.googleId);
+                }
+            });
+        }
+    });
+});
 
 const MOD_JOIN_CODE = process.env.MOD_JOIN_CODE;
 const ADMIN_JOIN_CODE = process.env.ADMIN_JOIN_CODE;
@@ -92,7 +186,6 @@ app.post('/api/user-info', async (req, res) => {
             idToken: token,
             audience: process.env.CLIENT_ID
         });
-        console.log(ticket.getPayload());
         const { name, email, picture, sub } = ticket.getPayload();
         // USE SUB FOR USER ID
         res.send({
@@ -111,7 +204,6 @@ app.post('/api/user-info', async (req, res) => {
 });
 
 async function assignToken(req, user) {
-    console.log(user);
     let token = gen.genSessionToken();
     req.session.token = token;
     req.session.created = Date.now();
@@ -128,7 +220,6 @@ app.post('/api/join', async (req, res) => {
         audience: process.env.CLIENT_ID
     });
     const payload = ticket.getPayload();
-    console.log(payload.sub);
     let previous = await db.findUserWithGID(payload.sub);
     if (previous !== null) {
         res.send({
@@ -171,8 +262,6 @@ app.post('/api/join', async (req, res) => {
     }
     if (success) {
         let token = await assignToken(req, user);
-        console.log('req session');
-        console.log(req.session);
         toSend.token = token;
         res.send(toSend);
     }
@@ -180,7 +269,6 @@ app.post('/api/join', async (req, res) => {
 
 function userInfo(user) {
     let role = db.getRole(user);
-    console.log(user);
     return {
         fullName: user.fullName,
         email: user.email,
@@ -234,8 +322,7 @@ app.post('/api/signout', async (req, res) => {
 });
 
 async function authUser(req) {
-    console.log(req.session);
-    let token = req.session.token || req.body.authToken;
+    let token = req.session.token || (req.body && req.body.authToken);
     if (!token) return null;
     let user = await db.findUserWithAuthToken(token);
     return user;
@@ -285,7 +372,6 @@ app.get('/api/get-room', async (req, res) => {
 
 app.post('/api/create-team', async (req, res) => {
     let user = await authUser(req);
-    console.log(user);
     if (!user) {
         res.send(INVALID_TOKEN);
         return;
@@ -306,6 +392,24 @@ app.post('/api/create-team', async (req, res) => {
     } catch (err) {
         console.error(`Error creating team: ${err}`);
         res.send(INTERNAL);
+    }
+});
+
+app.get('/api/tournament-info', async (req, res) => {
+    let user = await authUser(req);
+    if (!user) {
+        res.send(INVALID_TOKEN);
+        return;
+    }
+    if (!user.isAdmin) {
+        res.send(NO_PERMS);
+    }
+    try {
+        let tournamentInfo = await db.getTournamentInfo();
+        res.send(tournamentInfo);
+    } catch (err) {
+        res.send(INTERNAL);
+        console.error(err);
     }
 });
 
@@ -333,16 +437,41 @@ app.post('/api/start-tournament', async (req, res) => {
                 errorMessage: 'Can\'t start the tournament because it\'s already started!'
             });
         }
+        await createGames();
     } catch (err) {
         console.error(`Error starting the tournament: ${err}`);
         res.send(INTERNAL);
     }
 });
 
+async function saveGames() {
+    // TODO: save all games from this current round to database
+}
+
+async function createGames() {
+    let teams = await db.listTeams();
+    currentGames = {};
+    for (let team of teams) {
+        team = await team.get({ plain: true })
+        let roomId = team.roomId;
+        if (roomId === null) continue;
+        if (roomId in currentGames) {
+            let game = currentGames[roomId];
+            if (game.teamB() !== null) {
+                console.warn('More than two teams assigned to the same room.');
+                continue;
+            }
+            game.setTeamB(team);
+        } else {
+            currentGames[roomId] = new Game(team, null);
+        }
+    }
+}
+
 app.post('/api/advance-round', async (req, res) => {
+    await saveGames();
     console.log('Request to advance round');
     let user = await authUser(req);
-    console.log(user);
     if (!user) {
         res.send(INVALID_TOKEN);
         return;
@@ -365,10 +494,38 @@ app.post('/api/advance-round', async (req, res) => {
             success: true,
             currentRound: worked
         });
+        await createGames();
     } catch (err) {
         res.send(INTERNAL);
         console.error(err);
     }
 });
 
-app.listen(8080);
+app.get('/api/list-teams', async (req, res) => {
+    let user = await authUser(req);
+    if (!user) {
+        res.send(INVALID_TOKEN);
+        return;
+    }
+    if (!user.isAdmin) {
+        res.send(NO_PERMS);
+        return;
+    }
+    try {
+        let teams = await db.listTeams();
+        teams.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+        teams = teams.map(team => {
+            team.members = team.members.map(userInfo);
+            return team;
+        });
+        res.json({
+            success: true,
+            teams
+        });
+    } catch (err) {
+        console.error(err);
+        res.send(INTERNAL);
+    }
+});
+
+server.listen(8080);

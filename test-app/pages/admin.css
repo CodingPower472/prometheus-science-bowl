@@ -1,0 +1,19 @@
+
+.toast {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+#tournament-display {
+    margin-bottom: 30px;
+}
+
+#tournament-display > h2 {
+    margin-bottom: 10px;
+}
+
+#create-team-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

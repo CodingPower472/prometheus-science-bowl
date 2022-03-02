@@ -5,7 +5,7 @@ import { checkJoinCode, getUserInfo, join } from '../api';
 import GoogleLogin from 'react-google-login';
 import ErrorPage from './ErrorPage';
 
-function Join({ authCallback }) {
+function Join() {
     const [codeInfo, setCodeInfo] = useState(null);
     const [googleToken, setGoogleToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
@@ -76,7 +76,6 @@ function Join({ authCallback }) {
                     setError(res.data);
                     return;
                 }
-                authCallback(res.data.user);
                 navigate('/');
             })
             .catch(console.error);

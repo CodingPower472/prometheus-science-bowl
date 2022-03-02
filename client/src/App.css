@@ -28,3 +28,37 @@ div[data-testid=ball-triangle-svg] {
   margin-left: 40px;
   margin-bottom: 20px;
 }
+
+#navbar {
+  width: 100%;
+}
+
+#brand-logo {
+  margin-left: 20px;
+  display: inline;
+}
+
+#brand-name {
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin-left: 5px;
+}
+
+#welcome-name {
+  font-size: 20px;
+  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  margin-left: 5px;
+}
+
+.tos-link {
+  margin-right: 10px;
+}

@@ -5,6 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { auth, listTeams, getTournamentInfo, advanceRound, startTournament, createTeam } from '../api';
 import ErrorPage from './ErrorPage';
 import { Toast, Modal, Button } from 'react-bootstrap';
+import { application } from 'express';
 
 const loaderCSS = `
 display: block;
@@ -16,7 +17,7 @@ function getJoinLink(joinCode) {
     return `http://localhost:3000/join/${joinCode}`;
 }
 
-function AdminPage({ user }) {
+function AdminPage(props) {
     const [teams, setTeams] = useState(null);
     const [toastInfo, setToastInfo] = useState(null);
     const [tournamentInfo, setTournamentInfo] = useState(null);
@@ -24,19 +25,12 @@ function AdminPage({ user }) {
     const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
     const [teamCreateCompleted, setTeamCreateCompleted] = useState(null);
     const teamNameRef = useRef();
-    function refreshTeamList() {
+    useEffect(() => {
         listTeams()
             .then(res => {
-                let ourTeams = res.data.teams;
-                if (ourTeams) {
-                    ourTeams.sort((a, b) => new Date(a.createdAt) < new Date(b.createdAt));
-                }
-                setTeams(ourTeams);
+                setTeams(res.data.teams);
             })
             .catch(console.error);
-    }
-    useEffect(() => {
-        refreshTeamList();
         getTournamentInfo()
             .then(res => {
                 res.data.started = (res.data.currentRound !== null);
@@ -53,12 +47,11 @@ function AdminPage({ user }) {
         });
     }
     const teamElems = teams ? teams.map((team, i) => {
-        console.log(team);
         return (<tr key={i}>
             <th scope="row">{i+1}</th>
             <td>{team.name}</td>
             <td>{team.members.length}</td>
-            <td>{team.Room ? team.Room.roomName : 'N/A'}</td>
+            <td>{team.roomId || 'N/A'}</td>
             <td><button className="get-join-link btn btn-primary" onClick={() => copyLink(i)}>Copy Link</button></td>
         </tr>)
     }) : null;
@@ -70,49 +63,24 @@ function AdminPage({ user }) {
             </Toast>
         )
     }
-    function advance() {
+    async function advance() {
         if (tournamentInfo.started) {
-            advanceRound()
-                .then(res => {
-                    if (res.data.success) {
-                        setTournamentInfo({
-                            currentRound: tournamentInfo.currentRound + 1,
-                            started: true
-                        });
-                        refreshTeamList();
-                        console.log('Advanced successfully');
-                    } else {
-                        console.error('Error advancing round');
-                    }
-                })
-                .catch(console.error);
+            await advanceRound();
+            tournamentInfo.roundNum++;
         } else {
-            startTournament()
-                .then(res => {
-                    if (res.data.success) {
-                        setTournamentInfo({
-                            currentRound: 1,
-                            started: true
-                        });
-                        refreshTeamList();
-                        console.log('Started successfully');
-                    } else {
-                        console.error('Error starting tournament');
-                    }
-                })
-                .catch(console.error);
+            await startTournament();
+            tournamentInfo.roundNum = 1;
+            tournamentInfo.started = true;
         }
         setTournamentInfo(tournamentInfo);
         setAdvanceModal(null);
     }
-    function createTeamTrigger() {
+    function createTeam() {
         let teamName = teamNameRef.current.value;
         teamName = teamName.trim();
         createTeam(teamName)
             .then(team => {
-                console.log(`Join code: ${team.data.joinCode}`);
-                setShowCreateTeamModal(false);
-                refreshTeamList();
+                console.log(`Join code: ${team.joinCode}`);
             })
             .catch(console.error);
     }
@@ -129,7 +97,7 @@ function AdminPage({ user }) {
                     <h1>Tournament</h1>
                 </div>
                 <h2>Round: {tournamentInfo.currentRound || 'Not started'}</h2>
-                <Button variant="info" onClick={displayAdvanceModal}>{tournamentInfo.started ? "Advance Round" : "Start Tournament"}</Button>
+                <Button variant="dark" onClick={displayAdvanceModal}>{tournamentInfo.started ? "Advance Round" : "Start Tournament"}</Button>
             </div>
         )
     }
@@ -163,7 +131,7 @@ function AdminPage({ user }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={ () => setShowCreateTeamModal(false) }>Close</Button>
-                    <Button variant="primary" onClick={createTeamTrigger}>Create</Button>
+                    <Button variant="primary" onClick={createTeam}>Create</Button>
                 </Modal.Footer>
             </Modal>
             {tournamentDisplay}
@@ -193,7 +161,7 @@ function AdminPage({ user }) {
     )
 }
 
-function Admin({ authCallback }) {
+function Admin() {
 
     const [authResult, setAuthResult] = useState(null);
     const navigate = useNavigate();
@@ -201,9 +169,7 @@ function Admin({ authCallback }) {
     useEffect(() => {
         auth()
             .then(data => {
-                authCallback(data.data.user);
                 setAuthResult(data.data);
-                console.log(data.data);
             })
             .catch(console.error);
     }, []);

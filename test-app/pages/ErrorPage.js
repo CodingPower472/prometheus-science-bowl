@@ -7,9 +7,7 @@ function ErrorPage(props) {
     return (
         <div className="ErrorPage text-center">
             <h1 className="error">{errorMessage}</h1>
-            {!props.noGoHome && (
-                <Link className="err-back-link" to="/"><button className="btn btn-success">Go back home</button></Link>
-            )}
+            <Link className="err-back-link" to="/"><button className="btn btn-success">Go back home</button></Link>
         </div>
     )
 }

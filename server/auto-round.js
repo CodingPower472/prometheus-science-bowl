@@ -57,6 +57,10 @@ async function updateTeamRoomAssignments(roundNum) {
     let sheet = await getSheetInfo(teamRoomsSheet);
     let teamNames = sheet[0];
     let col = sheet[roundNum];
+    if (!col) {
+        console.warn('Warning: cannot auto-assign rooms.');
+        return;
+    }
     let promises = [];
     for (let i = 1; i < col.length; i++) {
         if (col[i].length === 0) continue;
@@ -147,5 +151,6 @@ async function advanceRound() {
 
 module.exports = {
     startTournament,
-    advanceRound
+    advanceRound,
+    updateRoomAssignments
 };

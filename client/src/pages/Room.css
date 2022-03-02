@@ -1,0 +1,50 @@
+.panel {
+    border-style: solid;
+    position: absolute !important;
+    border-image: linear-gradient(78deg, #000C7A, #0471D6) 1;
+    height: 400px;
+    width: 200px;
+    top: 200px;
+    padding: 10px;
+    
+}
+
+.panel-left {
+    left: 10px;
+    padding-right: 10px;
+}
+
+.panel-right {
+    right: 10px;
+    padding-left: 10px;
+}
+
+.players-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.player-name.away {
+    opacity: 0.6;
+}
+
+.buzzer {
+    background-position: center center;
+    width: 350px;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 20px;
+    padding-top: 350px;
+    box-shadow: 0px 0px 20px rgb(50, 50, 50);
+    transition: box-shadow 0.05s;
+    border-radius: 1000px;
+}
+
+.buzzer-active {
+    background-image: url('https://buzzin.live/buzzer.jpg');
+}
+
+.buzzer-inactive {
+    background-image: url('https://buzzin.live/buzzed.jpg');
+}

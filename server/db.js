@@ -8,12 +8,16 @@ const db = new Sequelize(process.env.DB_URL);
 
 const { Team, User, SessionToken, TournamentInfo, Room } = require('./models');
 
-try {
-    db.authenticate().then(() => {
-        console.log('Authenticated successfully');
-    });
-} catch (err) {
-    console.error('Unable to connect to database', err);
+
+function start(onAuth) {
+    try {
+        db.authenticate().then(() => {
+            onAuth();
+            console.log('Authenticated successfully');
+        });
+    } catch (err) {
+        console.error('Unable to connect to database', err);
+    }
 }
 
 async function addMod(fullName) {
@@ -121,6 +125,10 @@ async function findRoomWithName(name) {
     });
 }
 
+async function findRoomWithId(id) {
+    return await Room.findByPk(id);
+}
+
 async function addToken(user, token) {
     let sessionToken = await SessionToken.create({
         token
@@ -129,6 +137,7 @@ async function addToken(user, token) {
 }
 
 async function createTeam(teamName, joinCode) {
+    // TODO: fix issue with primary keys here
     await Team.create({
         name: teamName,
         joinCode,
@@ -162,6 +171,7 @@ async function clearTeamRoomAssignments() {
 }
 
 async function assignTeamRoom(team, roomId) {
+    console.log(`Assigning team ${team.name} to room ${roomId}`);
     let changeTeamProm = team.update({
         roomId
     });
@@ -207,7 +217,15 @@ function getRole(user) {
     throw new Error('User has no role.');
 }
 
+async function listTeams() {
+    return await Team.findAll({
+        where: {},
+        include: ['members', Room]
+    });
+}
+
 module.exports = {
+    start,
     addMod,
     addAdmin,
     addTeamMember,
@@ -216,6 +234,7 @@ module.exports = {
     findTeamWithJoinCode,
     findTeamWithName,
     findRoomWithName,
+    findRoomWithId,
     findModWithEmail,
     addToken,
     createTeam,
@@ -225,5 +244,6 @@ module.exports = {
     assignTeamRoom,
     clearModRoomAssignments,
     assignModRoom,
-    getRole
+    getRole,
+    listTeams
 };

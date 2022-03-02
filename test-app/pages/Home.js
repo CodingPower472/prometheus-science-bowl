@@ -1,11 +1,10 @@
 
 import './Home.css'
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, signIn } from '../api';
 import ClipLoader from 'react-spinners/ClipLoader';
 import GoogleLogin from 'react-google-login';
-import ErrorPage from './ErrorPage';
 
 let override = `
 display: block;
@@ -13,7 +12,7 @@ margin: 0 auto;
 margin-top: 30px;
 `;
 
-function Home({ authCallback }) {
+function Home() {
     const [authResult, setAuthResult] = useState(null);
     const navigate = useNavigate();
 
@@ -22,9 +21,6 @@ function Home({ authCallback }) {
         auth()
             .then(res => {
                 setAuthResult(res.data);
-                if (res.data.isAuthed) {
-                    authCallback(res.data.user);
-                }
             })
             .catch(console.error);
     }, []);
@@ -37,9 +33,8 @@ function Home({ authCallback }) {
                 console.log(res);
                 if (res.data.success) {
                     console.log('set auth result');
-                    authCallback(res.data.user);
+                    setAuthResult(res.data);
                 }
-                setAuthResult(res.data);
             })
             .catch(console.error);
     }
@@ -58,7 +53,7 @@ function Home({ authCallback }) {
         if (authResult.isAuthed) {
             console.log(authResult);
             let user = authResult.user;
-            if (user.isPlayer || user.isMod) {
+            if (user.isPlayer) {
                 if (user.roomId) {
                     main = (
                         <div className="main">
@@ -77,11 +72,7 @@ function Home({ authCallback }) {
                     )
                 }
             } else if (user.isAdmin) {
-                console.log('Navigating to admin')
-                //navigate('/admin');
-                return <Navigate to="/admin"></Navigate>
-            } else {
-                console.error('User is not an admin, player, or mod!');
+                navigate('/admin');
             }
         } else {
             main = (
@@ -94,9 +85,6 @@ function Home({ authCallback }) {
                         onFailure={loginFail}
                         cookiePolicy={'single_host_origin'}
                     />
-                    {!authResult.success && (
-                        <ErrorPage noGoHome error="Sorry, a user with this account does not exist.  If you are trying to create a new account, please use a join link given by an administrator or team captain." />
-                    )}
                 </div>
             )
         }
