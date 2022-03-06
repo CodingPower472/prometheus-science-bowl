@@ -68,4 +68,4 @@ class CountdownTimer {
 
 }
 
-module.exports = CountdownTimer;
+export default CountdownTimer;

@@ -2,8 +2,8 @@
 import axios from 'axios';
 import io from 'socket.io-client';
 
-const BASE_URL = 'http://localhost:8080/api';
-const WEBSOCKET = 'ws://localhost:8080';
+const BASE_URL = 'http://prometheus.buzz:8080/api';
+const WEBSOCKET = 'ws://prometheus.buzz:8080';
 
 axios.defaults.withCredentials = true;
 
