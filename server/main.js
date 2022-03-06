@@ -14,6 +14,7 @@ const { application } = require('express');
 const { use } = require('express/lib/application');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const http = require('http');
+const chalk = require('chalk');
 const sharedsession = require('express-socket.io-session');
 
 const { Server } = require('socket.io');
@@ -84,7 +85,9 @@ io.on('connection', async socket => {
         });
         return;
     }
+    socket.emit('authorized');
     socket.on('join', async data => {
+        console.log('Request to join.')
         // TODO: check if player should actually be there
         let roomId = data.room;
         socket.join(roomId);
@@ -94,12 +97,32 @@ io.on('connection', async socket => {
         if (data.room in currentGames) {
             currentGames[data.room].setJoined(user.googleId, true);
             game = currentGames[data.room];
+            nextRoom.game = game.state();
+        } else {
+            nextRoom.game = null;
         }
-        nextRoom.game = game.state();
+        function roomUpdate() {
+            if (game) {
+                io.to(roomId).emit('update', game.state());
+            } else {
+                console.error(chalk.red('Attempted to update game state when game does not exist'));
+            }
+        }
+        function send(a, b) {
+            if (game) {
+                if (b) {
+                    io.to(roomId).emit(a, b);
+                } else {
+                    io.to(roomId).emit(a);
+                }
+            }
+        }
         console.log('Successfully joined');
+        let found = game.findGoogleID(user.googleId);
         socket.emit('joined', {
             room: nextRoom,
-            user: userInfo(user)
+            user: userInfo(user),
+            teamIndex: found ? found[1] : null
         });
         socket.on('disconnect', () => {
             console.log('USER DISCONNECT');
@@ -111,15 +134,79 @@ io.on('connection', async socket => {
             socket.on('start', async () => {
                 if (game) {
                     game.start();
-                    io.to(roomId).emit('update', game.state());
+                    roomUpdate();
                 }
             });
         }
         if (user.isPlayer) {
             socket.on('buzz', async () => {
                 if (!game.buzzActive) {
+                    console.log('Successful buzz');
                     game.buzz(user.googleId);
+                    send('timercancel');
+                    roomUpdate();
                 }
+            });
+        } else if (user.isMod || user.isAdmin) {
+            socket.on('ignorebuzz', async () => {
+                game.clearBuzzer();
+                roomUpdate();
+            });
+            socket.on('correctanswer', async () => {
+                if (game.onBonus) {
+                    send('timercancel');
+                }
+                game.correctLive();
+                roomUpdate();
+            });
+            socket.on('incorrectanswer', async () => {
+                if (game.onBonus) {
+                    send('timercancel');
+                } else {
+                    send('timerreset');
+                }
+                game.incorrectLive();
+                roomUpdate();
+            });
+            socket.on('neganswer', async () => {
+                game.negLive();
+                roomUpdate();
+            });
+
+            socket.on('next-question', async () => {
+                game.nextQuestion();
+                send('timercancel');
+                roomUpdate();
+            });
+            socket.on('set-question-num', async num => {
+                game.setQuestionNum(num);
+                send('timercancel');
+                roomUpdate();
+            });
+            socket.on('set-on-bonus', isBonus => {
+                game.setOnBonus(isBonus);
+                send('timercancel');
+                roomUpdate();
+            });
+            socket.on('set-locked', ({ teamInd, locked }) => {
+                game.setLocked(teamInd, locked);
+                roomUpdate();
+            });
+
+            socket.on('req_starttimer', () => {
+                let time = game.startTimer(wasBonus => {
+                    roomUpdate();
+                });
+                send('timerstart', time);
+            });
+
+            socket.on('req_canceltimer', () => {
+                game.cancelTimer();
+                send('timercancel');
+            });
+
+            socket.on('req_canceltimer', () => {
+                game.cancelTimer();
             });
         }
     });
@@ -450,6 +537,8 @@ async function saveGames() {
 
 async function createGames() {
     let teams = await db.listTeams();
+    teams.sort((a, b) => a.name.localeCompare(b.name));
+    console.log(teams.map(team => team.name));
     currentGames = {};
     for (let team of teams) {
         team = await team.get({ plain: true })
@@ -463,7 +552,14 @@ async function createGames() {
             }
             game.setTeamB(team);
         } else {
-            currentGames[roomId] = new Game(team, null);
+            currentGames[roomId] = new Game(team, null, (a, b) => {
+                console.log(`sending message: ${a}`)
+                if (b) {
+                    io.to(roomId).emit(a, b);
+                } else {
+                    io.to(roomId).emit(a);
+                }
+            });
         }
     }
 }

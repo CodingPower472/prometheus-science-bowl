@@ -58,7 +58,7 @@ function App() {
                 </Button>
               </Nav>
             )}
-            <Link to="/tos" className="ms-auto tos-link">Terms of Service</Link>
+            {/*<Link to="/tos" className="ms-auto tos-link">Terms of Service</Link>*/}
         </Navbar>
           <Routes>
             <Route path="/join/:joinCode" element={ <Join authCallback={setAuthState} /> } />

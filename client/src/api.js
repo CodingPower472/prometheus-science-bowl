@@ -68,6 +68,11 @@ function signOut() {
 }
 
 class SocketManager {
+
+    check() {
+        if (!this.socket) throw new Error('No socket.');
+    }
+
     constructor() {
         this.url = WEBSOCKET;
     }
@@ -75,41 +80,106 @@ class SocketManager {
         this.socket = io(this.url);
     }
     setOnConnect(cb) {
-        if (!this.socket) throw new Error('No socket.');
-        this.socket.on('connect', cb);
+        this.check();
+        this.socket.on('authorized', cb);
     }
     setOnConnectError(cb) {
-        if (!this.socket) throw new Error('No socket.');
+        this.check();
         this.socket.on('connect_error', cb);
     }
     setOnJoinError(cb) {
-        if (!this.socket) throw new Error('No socket.');
+        this.check();
         this.socket.on('joinerr', cb);
     }
     setOnDisconnect(cb) {
-        if (!this.socket) throw new Error('No socket.');
+        this.check();
         this.socket.on('disconnect', cb);
     }
     setOnUpdate(cb) {
-        if (!this.socket) throw new Error('No socket.');
+        this.check();
         this.socket.on('update', cb);
     }
     setOnRoomJoined(cb) {
-        if (!this.socket) throw new Error('No socket.');
+        this.check();
         this.socket.on('joined', cb);
+    }
+    setOnTimerStart(cb) {
+        this.check();
+        this.socket.on('timerstart', cb);
+    }
+    setOnTimerCancel(cb) {
+        this.check();
+        this.socket.on('timercancel', cb);
+    }
+    setOnTimerReset(cb) {
+        this.check();
+        this.socket.on('timerreset', cb);
     }
 
     sendEvent(message) {
+        this.check();
         this.socket.emit('event', message);
     }
     joinRoom(data) {
+        console.log('Attempting to join room');
+        this.check();
         this.socket.emit('join', data);
     }
     startGame() {
+        this.check();
         this.socket.emit('start');
     }
     buzz() {
+        this.check();
         this.socket.emit('buzz');
+    }
+
+    ignoreBuzz() {
+        this.check();
+        this.socket.emit('ignorebuzz');
+    }
+    correctAnswer() {
+        this.check();
+        this.socket.emit('correctanswer');
+    }
+    incorrectAnswer() {
+        this.check();
+        this.socket.emit('incorrectanswer');
+    }
+    negAnswer() {
+        this.check();
+        this.socket.emit('neganswer');
+    }
+
+    nextQuestion() {
+        this.check();
+        this.socket.emit('next-question');
+    }
+
+    setQuestionNum(num) {
+        this.check();
+        this.socket.emit('set-question-num', num);
+    }
+
+    setOnBonus(isBonus) {
+        this.check();
+        this.socket.emit('set-on-bonus', isBonus);
+    }
+
+    setLocked(teamInd, locked) {
+        this.check();
+        this.socket.emit('set-locked', {
+            teamInd,
+            locked
+        });
+    }
+
+    startTimer() {
+        this.socket.emit('req_starttimer');
+    }
+
+    cancelTimer() {
+        this.socket.emit('req_canceltimer');
     }
 
 }

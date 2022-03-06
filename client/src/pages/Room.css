@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
 .panel {
     border-style: solid;
     position: absolute !important;
@@ -17,6 +20,7 @@
 .panel-right {
     right: 10px;
     padding-left: 10px;
+    border-image: linear-gradient(78deg, #0471D6, #000C7A) 1;
 }
 
 .players-list {
@@ -31,20 +35,96 @@
 
 .buzzer {
     background-position: center center;
-    width: 350px;
+    width: 90%;
     margin: auto;
     margin-top: auto;
     margin-top: 20px;
-    padding-top: 350px;
+    padding-top: 90%;
     box-shadow: 0px 0px 20px rgb(50, 50, 50);
     transition: box-shadow 0.05s;
     border-radius: 1000px;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .buzzer-active {
-    background-image: url('https://buzzin.live/buzzer.jpg');
+    /*background-image: url('https://buzzin.live/buzzer.jpg');*/
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAA1BMVEUAhUJ5XHFoAAAAR0lEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBgxUwAAU+n3sIAAAAASUVORK5CYII=');
 }
 
 .buzzer-inactive {
-    background-image: url('https://buzzin.live/buzzed.jpg');
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEWICAiOXnXYAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII=');
+}
+
+.buzzer-name {
+    color: lightgreen;
+}
+
+.score-header {
+    color: lightcoral;
+}
+
+.mod-buzz-content {
+    border-color: greenyellow;
+    border-width: 3px;
+    border-style: solid;
+    padding: 10px;
+}
+
+.correctness-buttons button {
+    margin-right: 5px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: red;
+    margin-left: 5px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.question-num-input {
+    width: 80px;
+}
+
+.QuestionInfo {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.QuestionInfo .nav-link.active {
+    background-color: #0d6efd;
+}
+
+.TimerMan {
+    margin-top: 20px;
+}
+
+.timer-text {
+    font-family: 'Orbitron';
+    font-size: 80px;
+    color: #008e00;
+    padding-top: 0;
+}
+
+.PlayerUI .room-name {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.ModUI .BuzzerName {
+    margin-top: 20px;
+}
+
+.BuzzComponent {
+    background-color: white;
+    border-radius: 30px;
+    height: 100%;
+}
+
+.BuzzComponent button {
+    width: 90%;
+    height: 90%;
 }
