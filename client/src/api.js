@@ -53,6 +53,10 @@ function startTournament() {
     return axios.post(url('/start-tournament'));
 }
 
+function reloadRound() {
+    return axios.post(url('/reload-round'));
+}
+
 function advanceRound() {
     return axios.post(url('/advance-round'));
 }
@@ -184,4 +188,4 @@ class SocketManager {
 
 }
 
-export { checkJoinCode, getUserInfo, join, auth, signIn, listTeams, getTournamentInfo, startTournament, advanceRound, createTeam, signOut, SocketManager };
+export { checkJoinCode, getUserInfo, join, auth, signIn, listTeams, getTournamentInfo, startTournament, reloadRound, advanceRound, createTeam, signOut, SocketManager };

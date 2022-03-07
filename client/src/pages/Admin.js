@@ -2,7 +2,7 @@ import './admin.css';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { auth, listTeams, getTournamentInfo, advanceRound, startTournament, createTeam } from '../api';
+import { auth, listTeams, getTournamentInfo, advanceRound, startTournament, createTeam, reloadRound } from '../api';
 import ErrorPage from './ErrorPage';
 import { Toast, Modal, Button } from 'react-bootstrap';
 
@@ -70,6 +70,14 @@ function AdminPage({ user }) {
             </Toast>
         )
     }
+    function refreshRoundBtn() {
+        reloadRound()
+            .then(res => {
+                refreshTeamList();
+                console.log('Reloaded round successfully.');
+            })
+            .catch(console.error);
+    }
     function advance() {
         if (tournamentInfo.started) {
             advanceRound()
@@ -121,6 +129,12 @@ function AdminPage({ user }) {
             action: tournamentInfo.started ? 'Advance Round' : 'Start Tournament'
         });
     }
+    function refreshRoundModal() {
+        setAdvanceModal({
+            action: 'Refresh Round',
+            refreshRequest: true
+        });
+    }
     let tournamentDisplay = null;
     if (tournamentInfo) {
         tournamentDisplay = (
@@ -130,6 +144,7 @@ function AdminPage({ user }) {
                 </div>
                 <h2>Round: {tournamentInfo.currentRound || 'Not started'}</h2>
                 <Button variant="info" onClick={displayAdvanceModal}>{tournamentInfo.started ? "Advance Round" : "Start Tournament"}</Button>
+                {tournamentInfo.started && <Button variant="warning" onClick={refreshRoundModal}>Refresh Round</Button>}
             </div>
         )
     }
@@ -145,7 +160,7 @@ function AdminPage({ user }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={ () => setAdvanceModal(null) }>Close</Button>
-                    <Button variant="primary" onClick={advance}>Confirm</Button>
+                    <Button variant="primary" onClick={advanceModal.refreshRequest ? refreshRoundBtn : advance}>Confirm</Button>
                 </Modal.Footer>
             </Modal>
         )
