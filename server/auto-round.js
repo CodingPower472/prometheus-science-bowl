@@ -35,6 +35,7 @@ async function getSheetInfo(sheetName) {
         ['https://www.googleapis.com/auth/spreadsheets'/*,
     'https://www.googleapis.com/auth/drive'*/]
     );
+    console.log(`Sheet name: ${sheetName}`);
     let sheet = await new Promise((resolve, reject) => {
         sheets.spreadsheets.values.get({
             auth: jwtClient,
@@ -134,6 +135,12 @@ async function startTournament() {
     });
     await updateRoomAssignments(1);
     return true;
+}
+
+async function reloadRound() {
+    let currTournament = await db.getTournamentInfo();
+    await updateRoomAssignments(currTournament.currentRound);
+    return currTournament.currentRound;
 }
 
 async function advanceRound() {
