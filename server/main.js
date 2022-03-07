@@ -566,8 +566,32 @@ async function createGames() {
     }
 }
 
-app.post('/api/advance-round', async (req, res) => {
+app.post('/api/reload-round', async (req, res) => {
+    console.log('Request to reload round');
+    let user = await authUser(req);
+    if (!user) {
+        res.send(INVALID_TOKEN);
+        return;
+    }
+    if (!user.isAdmin) {
+        res.send(NO_PERMS);
+        return;
+    }
     await saveGames();
+    try {
+        let round = await autoRound.reloadRound();
+        res.send({
+            success: true,
+            currentRound: round
+        });
+        await createGames();
+    } catch (err) {
+        res.send(INTERNAL);
+        console.error(err);
+    }
+});
+
+app.post('/api/advance-round', async (req, res) => {
     console.log('Request to advance round');
     let user = await authUser(req);
     if (!user) {
@@ -578,6 +602,7 @@ app.post('/api/advance-round', async (req, res) => {
         res.send(NO_PERMS);
         return;
     }
+    await saveGames();
     try {
         let worked = await autoRound.advanceRound();
         if (worked === null) {
