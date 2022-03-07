@@ -31,16 +31,18 @@ const io = new Server(server, {
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(bodyParser.json());
 let session = sessions({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
-    resave: false,
+    resave: true,
+    proxy: true,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'none'
     }
 })
