@@ -1,11 +1,44 @@
 
+const chalk = require('chalk');
+
+const INITIAL_SIZE = 24;
+
 class Scoreboard {
 
     constructor() {
         this.questions = [];
         this.whoBuzzed = [];
+        this.offsets = [0, 0];
         this.currentSize = 0;
-        this.extendToSize(1);
+        this.extendToSize(INITIAL_SIZE);
+    }
+
+    rawScore(teamInd) {
+        if (this.checktoob(teamInd)) return;
+        let res = 0;
+        for (let i = 0; i < 2; i++) {
+            let oppInd = (i === 0 ? 1 : 0);
+            let q = this.questions[i][teamInd];
+            let opp = this.questions[i][oppInd];
+            if (opp.length > 0 && opp[0] === -1) {
+                res += 4;
+            }
+            if (q.length > 0 && q[0] > 0) {
+                res += 4;
+            }
+            if (q.length > 1) {
+                res += q[1] * 10;
+            }
+        }
+        return res;
+    }
+
+    totalScores() {
+        let res = this.offsets;
+        for (let i = 0; i < 2; i++) {
+            res[i] += this.rawScore(i);
+        }
+        return res;
     }
 
     state() {
@@ -22,9 +55,11 @@ class Scoreboard {
     }
 
     tossUpCorrect(questionNum, playerId, teamInd) {
+        if (this.checktoob(teamInd)) return;
+        if (this.checkqoob(questionNum)) return;
         console.log('toss up correct');
         this.extendToSize(questionNum + 1); // question num should be zero-indexed
-        this.questions[questionNum][teamInd] = [1];
+        this.questions[questionNum][teamInd] = [1, 0];
 
         if (playerId) {
             // Individual statistics
@@ -33,6 +68,8 @@ class Scoreboard {
     }
 
     tossUpIncorrect(questionNum, playerId, teamInd) {
+        if (this.checktoob(teamInd)) return;
+        if (this.checkqoob(questionNum)) return;
         console.log('toss up incorrect');
         this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [0];
@@ -43,6 +80,8 @@ class Scoreboard {
     }
 
     tossUpNeg(questionNum, playerId, teamInd) {
+        if (this.checktoob(teamInd)) return;
+        if (this.checkqoob(questionNum)) return;
         console.log('toss up neg');
         this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [-1];
@@ -53,6 +92,8 @@ class Scoreboard {
     }
 
     bonusCorrect(questionNum, teamInd) {
+        if (this.checktoob(teamInd)) return;
+        if (this.checkqoob(questionNum)) return;
         console.log('bonus correct');
         this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [1, 1];
@@ -60,12 +101,15 @@ class Scoreboard {
     }
 
     bonusIncorrect(questionNum, teamInd) {
+        if (this.checktoob(teamInd)) return;
+        if (this.checkqoob(questionNum)) return;
         console.log('bonus incorrect');
         this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [1, 0];
     }
 
     whoGotTU(questionNum) {
+        if (this.checkqoob(questionNum)) return;
         if (questionNum < 0 || questionNum >= this.currentSize) return null;
         let q = this.questions[questionNum];
         console.log(q);
@@ -75,6 +119,27 @@ class Scoreboard {
             }
         }
         return null;
+    }
+
+    setOffset(teamInd, val) {
+        if (this.checktoob(teamInd)) return;
+        this.offsets[teamInd] = val;
+    }
+
+    checktoob(teamInd) {
+        let fail = teamInd < 0 || teamInd > 1;
+        if (fail) {
+            console.log(chalk.red('Error: team index out of bounds'));
+        }
+        return fail;
+    }
+
+    checkqoob(questionNum) {
+        let fail = questionNum < 0 || questionNum >= this.currentSize;
+        if (fail) {
+            console.log(chalk.red('Error: question num out of bounds'));
+        }
+        return fail;
     }
 
 }

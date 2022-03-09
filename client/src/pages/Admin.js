@@ -134,6 +134,7 @@ function AdminPage({ user }) {
             action: 'Refresh Round',
             refreshRequest: true
         });
+        setAdvanceModal(null);
     }
     let tournamentDisplay = null;
     if (tournamentInfo) {

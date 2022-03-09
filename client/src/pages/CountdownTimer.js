@@ -3,6 +3,7 @@ class CountdownTimer {
 
     constructor(oldTimer) {
         if (oldTimer) {
+            console.log('Good init');
             this.totalTime = oldTimer.totalTime;
             this.remainingTime = oldTimer.remainingTime;
             this.timer = oldTimer.timer;
@@ -10,6 +11,7 @@ class CountdownTimer {
             this.completeCallback = oldTimer.completeCallback;
             this.isActive = oldTimer.isActive;
         } else {
+            console.log('Initialization');
             this.totalTime = null;
             this.remainingTime = null;
             this.timer = null;
@@ -32,9 +34,9 @@ class CountdownTimer {
     }
 
     start() {
+        console.log(`Total time: ${this.totalTime}`);
         if (this.totalTime === null) return;
         this.remainingTime = this.totalTime;
-        //this.secondCallback(this.totalTime);
         this.timer = setInterval(() => {
             this.remainingTime -= 1;
             if (this.secondCallback) {
@@ -48,11 +50,13 @@ class CountdownTimer {
             }
         }, 1000);
         this.isActive = true;
+        this.secondCallback(this.totalTime);
     }
 
     reset() {
+        console.log('RESET THING');
         this.cancel();
-        this.startTimer();
+        this.start();
     }
 
     cancel() {

@@ -42,7 +42,7 @@ let session = sessions({
     proxy: true,
     cookie: {
         httpOnly: true,
-        secure: true,
+        secure: process.env.SECURE === 'on',
         sameSite: 'none'
     }
 })
@@ -56,7 +56,7 @@ db.start(async () => {
     if (info.currentRound !== null) {
         await saveGames();
         await autoRound.updateRoomAssignments(info.currentRound);
-        await createGames();
+        await createGames(info.currentRound);
     }
 });
 
@@ -199,16 +199,14 @@ io.on('connection', async socket => {
                 let time = game.startTimer(wasBonus => {
                     roomUpdate();
                 });
+                roomUpdate();
                 send('timerstart', time);
             });
 
             socket.on('req_canceltimer', () => {
                 game.cancelTimer();
+                roomUpdate();
                 send('timercancel');
-            });
-
-            socket.on('req_canceltimer', () => {
-                game.cancelTimer();
             });
         }
     });
@@ -526,7 +524,7 @@ app.post('/api/start-tournament', async (req, res) => {
                 errorMessage: 'Can\'t start the tournament because it\'s already started!'
             });
         }
-        await createGames();
+        await createGames(worked);
     } catch (err) {
         console.error(`Error starting the tournament: ${err}`);
         res.send(INTERNAL);
@@ -537,7 +535,7 @@ async function saveGames() {
     // TODO: save all games from this current round to database
 }
 
-async function createGames() {
+async function createGames(roundNum) {
     let teams = await db.listTeams();
     teams.sort((a, b) => a.name.localeCompare(b.name));
     console.log(teams.map(team => team.name));
@@ -561,7 +559,7 @@ async function createGames() {
                 } else {
                     io.to(roomId).emit(a);
                 }
-            });
+            }, roundNum);
         }
     }
 }
@@ -584,7 +582,7 @@ app.post('/api/reload-round', async (req, res) => {
             success: true,
             currentRound: round
         });
-        await createGames();
+        await createGames(round);
     } catch (err) {
         res.send(INTERNAL);
         console.error(err);
@@ -617,7 +615,7 @@ app.post('/api/advance-round', async (req, res) => {
             success: true,
             currentRound: worked
         });
-        await createGames();
+        await createGames(worked);
     } catch (err) {
         res.send(INTERNAL);
         console.error(err);

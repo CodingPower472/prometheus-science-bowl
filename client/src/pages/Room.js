@@ -2,15 +2,18 @@
 import './Room.css';
 
 
-import React, { useEffect, useState }  from 'react';
+import React, { useEffect, useState, useRef }  from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { SocketManager } from '../api';
-import { Button } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import { Rnd } from 'react-rnd';
 import ToggleSwitch from './ToggleSwitch';
 import CountdownTimer from './CountdownTimer';
+import { Table } from 'react-bootstrap';
+import Pdf from 'react-pdf-js';
 
 let socket = new SocketManager();
+let timer = new CountdownTimer();
 
 const noop = ( () => {} );
 
@@ -62,7 +65,6 @@ function TeamsDisplay({ teams, isMod, isBonus }) {
 }
 
 function BuzzComponent({ displayActive, movable }) {
-    console.log('Display active', displayActive);
 
     const [isDragging, setIsDragging] = useState(false);
 
@@ -90,12 +92,7 @@ function BuzzComponent({ displayActive, movable }) {
         return (
             <div className="BuzzComponentHolder">
                 <Rnd
-                default={/*{
-                    x: 82,
-                    y: -112,
-                    width: 300,
-                    height: 500
-                }*/{
+                default={{
                     x: 82,
                     y: -112,
                     width: 400,
@@ -133,7 +130,6 @@ function BuzzerName({ buzzer, user }) {
 }
 
 function QuestionInfo({ questionNum, isBonus, isMod }) {
-    console.log('rendering question info');
     questionNum += 1; // zero-indexed on server
     function setQuestionNum(e) {
         let next = e.target.value;
@@ -142,10 +138,16 @@ function QuestionInfo({ questionNum, isBonus, isMod }) {
         }
     }
     return (
+        <Rnd
+        default={{
+            x: 224,
+            y: 90
+        }}
+        onDragStop={(e) => console.log('Question info', e)}>
         <div className="text-center QuestionInfo">
             <h3>Question {isMod ? <input type="number" value={questionNum} onChange={setQuestionNum} className="question-num-input"/> : <span>{questionNum}</span>}</h3>
             <ul className="nav nav-tabs justify-content-center nav-justified tu-bonus-tabs">
-                <li className="nav-item">
+                <li className="nav-item tu-bonus-select">
                     <a className={`nav-link ${isBonus ? "" : "active"}`} href="#" onClick={isMod ? () => socket.setOnBonus(false) : noop}>Toss-Up</a>
                 </li>
                 <li className="nav-item">
@@ -153,6 +155,7 @@ function QuestionInfo({ questionNum, isBonus, isMod }) {
                 </li>
             </ul>
         </div>
+        </Rnd>
     );
 }
 
@@ -177,8 +180,8 @@ function ModBuzzManager({ buzzActive, isBonus, answeringTeam }) {
     return (
         <Rnd
             default={{
-                x: 82,
-                y: -112,
+                x: 830,
+                y: 356
             }}
             bounds="window"
             minWidth={110}
@@ -194,28 +197,265 @@ function shouldBuzzShowActive(gameState, teamIndex) {
     return !gameState.buzzActive && !gameState.teams[teamIndex].lockedOut && !gameState.onBonus;
 }
 
-function TimerMan({ timer, isBonus, isMod, timeUp }) {
+function TimerMan({ isBonus, isMod, timeUp }) {
     let shouldTime = (isBonus ? 22 : 7);
     let [time, setTime] = useState(timer.active() ? timer.remainingTime : shouldTime);
+    let [reload, setReload] = useState(0);
     if (!timer.active() && time !== shouldTime) {
         setTime(shouldTime);
     }
     timer.setSecondCallback(duration => {
         setTime(duration);
+        setReload(reload + 1); // just forces a component reload to get rid of the start timer button asap
     });
+    let ourTime = time;
+    if (timeUp) {
+        ourTime = 0;
+    }
     return (
+        <Rnd
+        default={{
+            x: 800,
+            y: 40
+        }}>
         <div className="TimerMan">
             <h1 className={`timer-text ${timeUp ? 'time-up' : ''}`}>
-                {(time !== null) ? `00:${time.toString().padStart(2, '0')}` : null}
+                {(time !== null) ? `00:${ourTime.toString().padStart(2, '0')}` : null}
             </h1>
-            {(isMod && !timer.active()) && (
-                <Button variant="primary" className="startTimerBtn" onClick={() => socket.startTimer()}>Start Timer</Button>
+            {(isMod && !timer.active() && !timeUp) && (
+                <Button size="lg" variant="primary" className="startTimerBtn" onClick={() => socket.startTimer()}>Done Reading</Button>
             )}
-            {(isMod && timer.active() && time === 0) && (
+            {(isMod && timeUp) && (
                 <Button variant="success" className="nextQuestionBtn" onClick={() => socket.nextQuestion()}>Next Question</Button>
             )}
         </div>
+        </Rnd>
     );
+}
+
+function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
+
+    const [show, setShow] = useState(false);
+
+    let running = [0, 0];
+
+    function toggleTableVal(qn, teamInd, i) {
+        console.log('Toggle');
+        console.log(i);
+        if (teamInd === 1) {
+            i = 3 - i;
+        }
+        if (i === 0) {
+            // Penalty
+            let oppInd = (teamInd === 0) ? 1 : 0;
+            socket.setNeg(qn, oppInd);
+        } else if (i === 1) {
+            
+        }
+    }
+
+    function genTeamRow(currQN, arr, ind, reverse) {
+        let opp_ind = (ind === 0 ? 1 : 0);
+        let vals = arr[ind];
+        let res = [];
+        let sub = 0;
+        let pen = (arr[opp_ind].length > 0 && arr[opp_ind][0] === -1);
+        let penVal = pen ? 4 : 0;
+        let penStr = pen ? '4' : '-';
+        if (vals.length === 0) {
+            sub = penVal;
+            res = [penStr, '-', '-', sub];
+        } else if (vals.length === 1) {
+            vals[0] = Math.max(vals[0], 0); // if it's an interrupt, just mark it as 0, not -4
+            sub = penVal + vals[0] * 4;
+            res = [penStr, vals[0] * 4, '-', sub];
+        } else if (vals.length === 2) {
+            sub = penVal + vals[0] * 4 + vals[1] * 10;
+            res = [penStr, vals[0] * 4, vals[1] * 10, sub];
+        } else {
+            console.error('Warning: scoreboard doesn\'t have the right number of elements');
+        }
+        if (reverse) {
+            res = res.reverse();
+        }
+        let elems = res.map((s, i) => {
+            let inner = s;
+            let clickable = isMod && ( (ind === 0 && i !== 3) || (ind === 1 && i !== 0) );
+            if (clickable) {
+                inner = <a className="toggle-scoreboard" >{s}</a>
+            }
+            return <td className={clickable ? 'toggle-scoreboard' : ''} onClick={clickable ? () => toggleTableVal(currQN, ind, i) : noop} key={`${currQN}-${ind}-${i}`}>{inner}</td>
+        });
+        return [elems, sub];
+    }
+
+    let currQN = 0;
+
+    function genSR(arr) {
+        let [team1, t1s] = genTeamRow(currQN, arr, 0, false);
+        let [team2, t2s] = genTeamRow(currQN, arr, 1, true);
+        running[0] += t1s;
+        running[1] += t2s;
+        let res = (
+            <tr key={`${currQN}-top`} className="scoreboard-row">
+                <td className={currQN === questionNum ? "bg-primary" : ""} key={`${currQN}-qn`}>{currQN+1}</td>
+                {team1}
+                <td></td>
+                {team2}
+            </tr>
+        );
+        currQN++;
+        return res;
+    }
+
+    let numOnFirstPage = Math.ceil(scoreboard.length / 2);
+    let firstHalf = scoreboard.slice(0, numOnFirstPage);
+    let secondHalf = scoreboard.slice(numOnFirstPage, scoreboard.length);
+
+    firstHalf = firstHalf.map(genSR);
+    secondHalf = secondHalf.map(genSR);
+
+    let table = (
+        <Table striped bordered hover className="table-left">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[0]}</th>
+                    <th></th>
+                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[1]}</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Pen.</th>
+                    <th>TU</th>
+                    <th>B</th>
+                    <th>Sub</th>
+                    <th></th>
+                    <th>Sub</th>
+                    <th>B</th>
+                    <th>TU</th>
+                    <th>Pen.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {firstHalf}
+            </tbody>
+        </Table>
+    );
+    let table2 = (
+        <Table striped bordered hover className="table-right">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[0]}</th>
+                    <th></th>
+                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[1]}</th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Pen.</th>
+                    <th>TU</th>
+                    <th>B</th>
+                    <th>Sub</th>
+                    <th></th>
+                    <th>Sub</th>
+                    <th>B</th>
+                    <th>TU</th>
+                    <th>Pen.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {secondHalf}
+            </tbody>
+        </Table>
+    );
+
+    let content = (
+        <div className={`ScoreboardInner ${show ? 'border-scoreboard' : ''}`}>
+            <Dropdown>
+                <Dropdown.Toggle style={{width: '100%'}} className="showHidePanel" onClick={() => setShow(!show)}>Show Scoreboard</Dropdown.Toggle>
+            </Dropdown>
+            {show && (
+                <div className="tables-holder">
+                    {table}
+                    {table2}
+                </div>
+            )}
+        </div>
+    );
+
+    return (
+        
+        <div className="ScoreboardComponent">
+            {content}
+        </div>
+    );
+
+}
+
+function ScrollableDiv({ className, handleScroll, scrollTop, children }) {
+    const ref = useRef(null);
+
+    function onScroll() {
+        handleScroll(ref.scrollTop);
+    }
+
+    if (ref.current) {
+        ref.current.scrollTop = scrollTop;
+    }
+
+    return (
+        <div ref={ref} onScroll={onScroll} className={className}>
+            {children}
+        </div>
+    );
+}
+
+function PacketComponent({ url, roundNum, hasBuzz }) {
+    const [page, setPage] = useState(1);
+    let [scroll, setScroll] = useState(0);
+    const [manualShow, setManualShow] = useState(false);
+
+    if (!hasBuzz && manualShow) {
+        setManualShow(false);
+    }
+
+    let showPacket = (manualShow || !hasBuzz);
+    
+    return (
+        <div className="PacketComponent">
+            <div className="packet-controls-holder">
+                <p>Round {roundNum}</p>
+                <div className="packet-controls">
+                    <a href="#" onClick={() => {
+                        if (page > 1) {
+                            setScroll(0);
+                            setPage(page - 1);
+                        }
+                    }}>
+                        <span className="bi-chevron-left"></span>
+                    </a>
+                    <a href="#" onClick={() => {
+                        setScroll(0);
+                        setPage(page + 1);
+                    }}>
+                        <span className="bi-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+            <ScrollableDiv className={`pdf-holder ${showPacket ? 'pdf-holder-active' : 'pdf-holder-inactive'}`} handleScroll={setScroll} scrollTop={scroll}>
+                <div className={showPacket ? '' : 'invisible'}>
+                    <Pdf file={url} page={page} scale={1.1} withCredentials />
+                </div>
+                {!showPacket && (
+                    <div className="text-center">
+                        <h3>Buzz!</h3>
+                        <Button variant="primary" onClick={() => setManualShow(true)}>Show Packet</Button>
+                    </div>
+                )}
+            </ScrollableDiv>
+        </div>
+    )
 }
 
 function ModUI({ gameState, room, user, timer }) {
@@ -247,8 +487,10 @@ function ModUI({ gameState, room, user, timer }) {
             <ModBuzzManager buzzActive={gameState.buzzActive} isBonus={gameState.onBonus} answeringTeam={gameState.teams[gameState.answeringTeam]} />
             <TeamsDisplay teams={gameState.teams} isMod isBonus={gameState.onBonus} />
             <QuestionInfo questionNum={gameState.questionNum} isBonus={gameState.onBonus} isMod />
-            <BuzzerName buzzer={gameState.buzzActive} user={user} />
+            {/*<BuzzerName buzzer={gameState.buzzActive} user={user} />*/}
             <TimerMan timer={timer} isBonus={gameState.onBonus} timeUp={gameState.timeUp} isMod />
+            <PacketComponent url={'/round5.pdf'} roundNum={gameState.roundNum} hasBuzz={gameState.buzzActive !== null} />
+            <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} isMod />
         </div>
     );
 }
@@ -274,12 +516,13 @@ function PlayerUI({ gameState, room, user, teamIndex, timer }) {
             </div>
         );
     }
-    console.log(`Active: ${gameState.buzzActive}`);
+    let movable = (window.innerWidth > 760); // should match computers
     return (
         <div className="PlayerUI">
+            <h1 className="room-name">Room {room.roomName}</h1>
             <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
             <TimerMan timer={timer} isBonus={gameState.onBonus} />
-            <BuzzComponent displayActive={shouldBuzzShowActive(gameState, teamIndex)} movable />
+            <BuzzComponent displayActive={shouldBuzzShowActive(gameState, teamIndex)} movable={movable} />
             <BuzzerName buzzer={gameState.buzzActive} user={user} />
         </div>
     );
@@ -290,7 +533,6 @@ function Room({ authCallback }) {
     let params = useParams();
     let [joinResponse, setJoinResponse] = useState(null);
     let [gameState, setGameState] = useState(null);
-    let [timer, setTimer] = useState(new CountdownTimer());
 
     useEffect(() => {
         socket.connect();
@@ -307,8 +549,6 @@ function Room({ authCallback }) {
             });
         });
         socket.setOnUpdate(state => {
-            console.log('update!a');
-            console.log(state);
             setGameState(state);
         });
         socket.setOnConnectError(console.error);
@@ -325,23 +565,18 @@ function Room({ authCallback }) {
 
         socket.setOnTimerStart(duration => {
             console.log('timer start');
-            let nextTimer = new CountdownTimer(timer);
-            nextTimer.setTimer(duration);
-            nextTimer.start();
-            setTimer(nextTimer);
+            timer.setTimer(duration);
+            timer.start();
         });
 
         socket.setOnTimerCancel(() => {
             console.log('timer cancel');
-            let nextTimer = new CountdownTimer(timer);
-            nextTimer.cancel();
-            setTimer(nextTimer);
+            timer.cancel();
         });
 
         socket.setOnTimerReset(() => {
-            let nextTimer = new CountdownTimer(timer);
-            nextTimer.reset();
-            setTimer(nextTimer);
+            console.log('request to reset timer');
+            timer.reset();
         });
 
     }, []);
@@ -358,9 +593,8 @@ function Room({ authCallback }) {
         let user = joinResponse.user;
         let teamIndex = joinResponse.teamIndex;
         main = (
-            <div className="main text-center">
-                <h1 className="room-name">Room {room.roomName}</h1>
-                { (user.isMod || user.isAdmin) ? <ModUI timer={timer} gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> : <PlayerUI timer={timer} gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> }
+            <div className="room-main text-center">
+                { (user.isMod || user.isAdmin) ? <ModUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> : <PlayerUI timer={timer} gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> }
             </div>
         )
     } else {

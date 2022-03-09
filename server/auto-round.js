@@ -158,6 +158,7 @@ async function advanceRound() {
 
 module.exports = {
     startTournament,
+    reloadRound,
     advanceRound,
     updateRoomAssignments
 };

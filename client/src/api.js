@@ -155,6 +155,18 @@ class SocketManager {
         this.socket.emit('neganswer');
     }
 
+    setCorrect(questionNum, teamInd, isBonus) {
+
+    }
+
+    setIncorrect(questionNum, teamInd, isBonus) {
+
+    }
+
+    setNeg(questionNum, teamInd) {
+        
+    }
+
     nextQuestion() {
         this.check();
         this.socket.emit('next-question');
