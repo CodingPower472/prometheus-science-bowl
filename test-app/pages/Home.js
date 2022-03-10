@@ -27,10 +27,8 @@ function Home() {
 
     function loginSuccess(data) {
         let gtoken = data.tokenId;
-        console.log(gtoken);
         signIn(gtoken)
             .then(res => {
-                console.log(res);
                 if (res.data.success) {
                     console.log('set auth result');
                     setAuthResult(res.data);
@@ -43,7 +41,6 @@ function Home() {
         console.error(err);
     }
 
-    console.log(authResult);
     let main = null;
     if (authResult === null) {
         main = (
@@ -51,7 +48,6 @@ function Home() {
         );
     } else {
         if (authResult.isAuthed) {
-            console.log(authResult);
             let user = authResult.user;
             if (user.isPlayer) {
                 if (user.roomId) {

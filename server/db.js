@@ -239,7 +239,6 @@ async function createGameRecord(roundNum, roomId, teams) {
 
 async function saveToGameRecord(gameRecordId, teams, scoreboard) {
     let promises = [];
-    console.log(scoreboard);
     for (let i = 0; i < scoreboard.currentSize; i++) {
         let question = scoreboard.questions[i];
         let whoBuzzed = scoreboard.whoBuzzed[i];

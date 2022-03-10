@@ -40,7 +40,6 @@ function AdminPage({ user }) {
         getTournamentInfo()
             .then(res => {
                 res.data.started = (res.data.currentRound !== null);
-                console.log(res.data);
                 setTournamentInfo(res.data);
             })
             .catch(console.error);
@@ -53,7 +52,6 @@ function AdminPage({ user }) {
         });
     }
     const teamElems = teams ? teams.map((team, i) => {
-        console.log(team);
         return (<tr key={i}>
             <th scope="row">{i+1}</th>
             <td>{team.name}</td>
@@ -75,6 +73,7 @@ function AdminPage({ user }) {
             .then(res => {
                 refreshTeamList();
                 console.log('Reloaded round successfully.');
+                setAdvanceModal(null);
             })
             .catch(console.error);
     }
@@ -134,7 +133,6 @@ function AdminPage({ user }) {
             action: 'Refresh Round',
             refreshRequest: true
         });
-        setAdvanceModal(null);
     }
     let tournamentDisplay = null;
     if (tournamentInfo) {
@@ -219,7 +217,6 @@ function Admin({ authCallback }) {
             .then(data => {
                 authCallback(data.data.user);
                 setAuthResult(data.data);
-                console.log(data.data);
             })
             .catch(console.error);
     }, []);

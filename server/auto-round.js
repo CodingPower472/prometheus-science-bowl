@@ -58,7 +58,6 @@ async function updateTeamRoomAssignments(roundNum) {
     let sheet = await getSheetInfo(teamRoomsSheet);
     let teamNames = sheet[0];
     let col = sheet[roundNum];
-    console.log(roundNum);
     if (!col) {
         console.warn('Warning: cannot auto-assign rooms.');
         return;

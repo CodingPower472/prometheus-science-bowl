@@ -34,7 +34,6 @@ function AdminPage(props) {
         getTournamentInfo()
             .then(res => {
                 res.data.started = (res.data.currentRound !== null);
-                console.log(res.data);
                 setTournamentInfo(res.data);
             })
             .catch(console.error);

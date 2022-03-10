@@ -31,10 +31,8 @@ function Home({ authCallback }) {
 
     function loginSuccess(data) {
         let gtoken = data.tokenId;
-        console.log(gtoken);
         signIn(gtoken)
             .then(res => {
-                console.log(res);
                 if (res.data.success) {
                     console.log('set auth result');
                     authCallback(res.data.user);
@@ -48,7 +46,6 @@ function Home({ authCallback }) {
         console.error(err);
     }
 
-    console.log(authResult);
     let main = null;
     if (authResult === null) {
         main = (
@@ -56,7 +53,6 @@ function Home({ authCallback }) {
         );
     } else {
         if (authResult.isAuthed) {
-            console.log(authResult);
             let user = authResult.user;
             if (user.isPlayer || user.isMod) {
                 if (user.roomId) {

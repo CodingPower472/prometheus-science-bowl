@@ -251,8 +251,6 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
 
     const [show, setShow] = useState(false);
 
-    console.log(scoreboard);
-
     let running = [0, 0];
 
     function toggleTableVal(qn, teamInd, i) {
@@ -278,7 +276,6 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
                 socket.setNoBuzz(qn, teamInd);
             }
         } else if (i === 2) {
-            console.log(scoreboard[teamInd]);
             if (scores[teamInd].length > 1 && scores[teamInd][1] !== 1) {
                 socket.setCorrect(qn, teamInd, true);
             } else {
@@ -569,8 +566,6 @@ function Room({ authCallback }) {
     let [joinResponse, setJoinResponse] = useState(null);
     let [gameState, setGameState] = useState(null);
 
-    console.log(gameState);
-
     useEffect(() => {
         socket.connect();
         socket.setOnRoomJoined(data => {
@@ -586,12 +581,11 @@ function Room({ authCallback }) {
             });
         });
         socket.setOnUpdate(s => {
-            console.log(s);
             setGameState(s);
         });
         socket.setOnConnectError(console.error);
         socket.setOnJoinError(err => {
-            console.log(err);
+            console.error(err);
             if (err.errorCode === 'unauthed') {
                 console.log('Unauthenticated - returning to home page.');
                 setJoinResponse({

@@ -18,7 +18,6 @@ app.use(jsonParser);
 app.use(cors({ origin: true }))
 
 app.post('/api', cors({ origin: true }), async (req, res) => {
-    console.log(req.body);
     const token = req.body.token;
     console.log(`Received ${token}`);
     const ticket = await client.verifyIdToken({
@@ -28,7 +27,6 @@ app.post('/api', cors({ origin: true }), async (req, res) => {
 
     const { name, email, picture, sub } = ticket.getPayload();
 
-    console.log(sub);
     res.send({
         yo: 'lets go',
         name,

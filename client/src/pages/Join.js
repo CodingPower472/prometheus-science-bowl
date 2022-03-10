@@ -81,8 +81,6 @@ function Join({ authCallback }) {
             })
             .catch(console.error);
     }
-    console.log('google token');
-    console.log(googleToken);
     let userDisplay = null;
     if (userInfo) {
         userDisplay = (

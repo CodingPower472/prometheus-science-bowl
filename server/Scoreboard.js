@@ -97,7 +97,6 @@ class Scoreboard {
         console.log('bonus correct');
         this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [1, 1];
-        console.log(this.questions[questionNum][teamInd])
     }
 
     bonusIncorrect(questionNum, teamInd) {
@@ -119,7 +118,6 @@ class Scoreboard {
         if (this.checkqoob(questionNum)) return;
         if (questionNum < 0 || questionNum >= this.currentSize) return null;
         let q = this.questions[questionNum];
-        console.log(q);
         for (let i = 0; i < 2; i++) {
             if (q[i].length > 0 && q[i][0] === 1) {
                 return i;

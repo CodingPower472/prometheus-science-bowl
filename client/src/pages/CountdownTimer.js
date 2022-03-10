@@ -54,7 +54,6 @@ class CountdownTimer {
     }
 
     reset() {
-        console.log('RESET THING');
         this.cancel();
         this.start();
     }

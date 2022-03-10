@@ -68,7 +68,6 @@ let currentGames = {};
 
 io.on('connection', async socket => {
     let user = await authSocket(socket);
-    console.log(user);
     if (!user) {
         console.log('Unauthed user tried to join websocket');
         socket.emit('joinerr', {
@@ -454,7 +453,6 @@ app.post('/api/signout', async (req, res) => {
 async function authUser(req) {
     try {
         let token = req.signedCookies.authtoken;
-        console.log(req.signedCookies);
         if (!token) return null;
         let user = await db.findUserWithAuthToken(token);
         return user;
@@ -616,7 +614,6 @@ async function createGames(roundNum) {
     try {
         let teams = await db.listTeams();
         teams.sort((a, b) => a.name.localeCompare(b.name));
-        console.log(teams.map(team => team.name));
         currentGames = {};
         for (let team of teams) {
             team = await team.get({ plain: true })
