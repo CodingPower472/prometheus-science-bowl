@@ -47,9 +47,12 @@ let session = sessions({
     }
 })
 app.use(session);
-io.use(sharedsession(session, {
+/*io.use(sharedsession(session, {
     autoSave: false // NOTE: if i need to change variables from socketio later, change this to true
-}));
+}));*/
+io.use((socket, next) => {
+	session(socket.request, {}, next);
+});
 
 db.start(async () => {
     let info = await db.getTournamentInfo();
@@ -61,17 +64,9 @@ db.start(async () => {
 });
 
 async function authSocket(socket) {
-    let session = socket.handshake.session;
-    if (!session.token) {
-        let sessions = socket.handshake.sessionStore.sessions;
-        if (Object.values(sessions).length > 1) {
-            console.warn('Warning: more than one value in session store.');
-        }
-        sessions = Object.values(sessions);
-        session = sessions[sessions.length - 1];
-        if (!session) return null;
-        session = JSON.parse(session);
-    }
+    let session = socket.request.session;
+    console.log(session);
+    if (!session.token) return;
     return await db.findUserWithAuthToken(session.token);
 }
 
