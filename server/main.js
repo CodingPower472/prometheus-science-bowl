@@ -111,7 +111,7 @@ io.on('connection', async socket => {
         }
         console.log('Successfully joined');
         if (!game) {
-            console.warning(chalk.yellow('Game not found.'));
+            console.warn(chalk.yellow('Game not found.'));
             return;
         }
         let found = game.findGoogleID(user.googleId);

@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       gameRecordId: {
-        type: Sequelize.INTEGER,,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'GameRecords',

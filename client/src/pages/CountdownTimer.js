@@ -64,6 +64,7 @@ class CountdownTimer {
             clearInterval(this.timer);
         }
         this.isActive = false;
+        this.secondCallback(this.totalTime);
     }
 
     active() {

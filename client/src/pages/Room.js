@@ -93,8 +93,8 @@ function BuzzComponent({ displayActive, movable }) {
             <div className="BuzzComponentHolder">
                 <Rnd
                 default={{
-                    x: 82,
-                    y: -112,
+                    x: 150,
+                    y: 50,
                     width: 400,
                     height: 400
                 }}
@@ -109,7 +109,11 @@ function BuzzComponent({ displayActive, movable }) {
             </div>
         )
     } else {
-        return content;
+        return (
+            <div className="BuzzComponentImmobile">
+                {content}
+            </div>
+        );
     }
 }
 
@@ -212,18 +216,28 @@ function TimerMan({ isBonus, isMod, timeUp }) {
     if (timeUp) {
         ourTime = 0;
     }
+    let defaultPosition = {
+        x: 800,
+        y: 40
+    };
+    if (!isMod) {
+        defaultPosition = {
+            x: 700,
+            y: 200
+        };
+    }
     return (
         <Rnd
-        default={{
-            x: 800,
-            y: 40
-        }}>
+        default={defaultPosition}>
         <div className="TimerMan">
             <h1 className={`timer-text ${timeUp ? 'time-up' : ''}`}>
                 {(time !== null) ? `00:${ourTime.toString().padStart(2, '0')}` : null}
             </h1>
             {(isMod && !timer.active() && !timeUp) && (
                 <Button size="lg" variant="primary" className="startTimerBtn" onClick={() => socket.startTimer()}>Done Reading</Button>
+            )}
+            {(isMod && timer.active() && !timeUp) && (
+                <Button variant="danger" className="stopTimerBtn" onClick={() => socket.cancelTimer()}>Stop Timer</Button>
             )}
             {(isMod && timeUp) && (
                 <Button variant="success" className="nextQuestionBtn" onClick={() => socket.nextQuestion()}>Next Question</Button>

@@ -122,6 +122,9 @@
 .BuzzComponent {
     background-color: white;
     border-radius: 30px;
+}
+
+.BuzzComponentHolder .BuzzComponent {
     height: 100%;
 }
 
