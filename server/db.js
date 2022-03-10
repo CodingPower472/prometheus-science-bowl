@@ -23,6 +23,8 @@ function start(onAuth) {
 async function addMod(fullName) {
     return await User.create({
         fullName,
+        email: payload.email,
+        googleId: payload.sub,
         teamId: null,
         teamPosition: null,
         roomId: null,
