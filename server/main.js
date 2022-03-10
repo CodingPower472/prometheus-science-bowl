@@ -22,18 +22,18 @@ const { Server } = require('socket.io');
 const app = express();
 const server = http.Server(app);
 const io = new Server(server, {
-    cors: {
+    /*cors: {
         origin: `${process.env.CLIENT_URL}`,
         methods: ['GET', 'POST'],
         credentials: true
-    }
+    }*/
 });
 
-app.use(cors({
+/*app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+}));*/
 app.use(bodyParser.json());
 let session = sessions({
     secret: process.env.SESSION_SECRET,
