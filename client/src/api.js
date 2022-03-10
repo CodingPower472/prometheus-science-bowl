@@ -81,7 +81,9 @@ class SocketManager {
         this.url = WEBSOCKET;
     }
     connect() {
-        this.socket = io(this.url);
+        this.socket = io(this.url, {
+            withCredentials: true
+        });
     }
     setOnConnect(cb) {
         this.check();
