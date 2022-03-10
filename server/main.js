@@ -7,7 +7,7 @@ const { Game } = require('./Game');
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-const sessions = require('express-session');
+//const sessions = require('express-session');
 const bodyParser = require('body-parser');
 const { OAuth2Client } = require('google-auth-library');
 const { application } = require('express');
@@ -15,44 +15,38 @@ const { use } = require('express/lib/application');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const http = require('http');
 const chalk = require('chalk');
-const sharedsession = require('express-socket.io-session');
+//const sharedsession = require('express-socket.io-session');
+const cookieParser = require('cookie-parser');
+const cookie = require('cookie');
 
 const { Server } = require('socket.io');
 
 const app = express();
 const server = http.Server(app);
 const io = new Server(server, {
-    /*cors: {
+    cors: {
         origin: `${process.env.CLIENT_URL}`,
         methods: ['GET', 'POST'],
         credentials: true
-    }*/
+    }
 });
 
-/*app.use(cors({
+app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
-}));*/
+}));
+app.set('trust proxy', 1);
 app.use(bodyParser.json());
-let session = sessions({
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
-    resave: true,
-    proxy: true,
-    cookie: {
-        httpOnly: true,
-        secure: process.env.SECURE === 'on',
-        sameSite: 'none'
-    }
-})
-app.use(session);
+const cparser = cookieParser(process.env.SESSION_SECRET);
+app.use(cparser);
+
 /*io.use(sharedsession(session, {
     autoSave: false // NOTE: if i need to change variables from socketio later, change this to true
-}));*/
+}));
 io.use((socket, next) => {
 	session(socket.request, {}, next);
-});
+});*/
 
 db.start(async () => {
     let info = await db.getTournamentInfo();
@@ -64,16 +58,17 @@ db.start(async () => {
 });
 
 async function authSocket(socket) {
-    let session = socket.request.session;
-    console.log(session);
-    if (!session.token) return;
-    return await db.findUserWithAuthToken(session.token);
+    let ourCookie = cookie.parse(socket.handshake.headers.cookie);
+    let token = cookieParser.signedCookie(ourCookie.authtoken, process.env.SESSION_SECRET);
+    if (!token) return null;
+    return await db.findUserWithAuthToken(token);
 }
 
 let currentGames = {};
 
 io.on('connection', async socket => {
     let user = await authSocket(socket);
+    console.log(user);
     if (!user) {
         console.log('Unauthed user tried to join websocket');
         socket.emit('joinerr', {
@@ -115,6 +110,10 @@ io.on('connection', async socket => {
             }
         }
         console.log('Successfully joined');
+        if (!game) {
+            console.warning(chalk.yellow('Game not found.'));
+            return;
+        }
         let found = game.findGoogleID(user.googleId);
         socket.emit('joined', {
             room: nextRoom,
@@ -310,11 +309,17 @@ app.post('/api/user-info', async (req, res) => {
     }
 });
 
-async function assignToken(req, user) {
+async function assignToken(req, res, user) {
     try {
         let token = gen.genSessionToken();
-        req.session.token = token;
-        req.session.created = Date.now();
+        /*req.session.token = token;
+        req.session.created = Date.now();*/
+        res.cookie('authtoken', token, {
+            expires: new Date(2147483647 * 1000), // maximum expiry date
+            httpOnly: true,
+            secure: (process.env.SECURE === 'on'),
+            signed: true
+        });
         await db.addToken(user, token);
         return token;
     } catch (err) {
@@ -374,7 +379,7 @@ app.post('/api/join', async (req, res) => {
             }
         }
         if (success) {
-            let token = await assignToken(req, user);
+            let token = await assignToken(req, res, user);
             toSend.token = token;
             res.send(toSend);
         }
@@ -414,7 +419,7 @@ app.post('/api/signin', async (req, res) => {
         let googleId = payload.sub;
         let user = await db.findUserWithGID(googleId);
         if (user) {
-            let token = await assignToken(req, user);
+            let token = await assignToken(req, res, user);
             res.send({
                 success: true,
                 isAuthed: true,
@@ -436,14 +441,10 @@ app.post('/api/signin', async (req, res) => {
 
 app.post('/api/signout', async (req, res) => {
     try {
-        req.session.destroy(err => {
-            if (err) {
-                res.send(INTERNAL);
-            } else {
-                res.send({
-                    success: true
-                });
-            }
+        console.log('Signing out');
+        res.clearCookie('authtoken');
+        res.send({
+            success: true
         });
     } catch (err) {
         console.error(chalk.red(`Error signing out: ${err}`));
@@ -452,7 +453,8 @@ app.post('/api/signout', async (req, res) => {
 
 async function authUser(req) {
     try {
-        let token = req.session.token || (req.body && req.body.authToken);
+        let token = req.signedCookies.authtoken;
+        console.log(req.signedCookies);
         if (!token) return null;
         let user = await db.findUserWithAuthToken(token);
         return user;
