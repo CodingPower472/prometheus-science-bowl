@@ -175,6 +175,27 @@ io.on('connection', async socket => {
                 roomUpdate();
             });
 
+            socket.on('set-correct', ({questionNum, teamInd, isBonus}) => {
+                console.log(`Correct ${teamInd}`);
+                game.correctAnswer(questionNum, null, teamInd, isBonus);
+                roomUpdate();
+            });
+            socket.on('set-incorrect', ({questionNum, teamInd, isBonus}) => {
+                console.log(`Incorrect ${teamInd}`)
+                game.incorrectAnswer(questionNum, null, teamInd, isBonus);
+                roomUpdate();
+            });
+            socket.on('set-neg', ({questionNum, teamInd}) => {
+                console.log(`Negging ${teamInd}`);
+                game.negAnswer(questionNum, null, teamInd);
+                roomUpdate();
+            });
+            socket.on('set-no-buzz', ({questionNum, teamInd}) => {
+                console.log(`No buzz ${teamInd}`);
+                game.noAnswer(questionNum, teamInd);
+                roomUpdate();
+            });
+
             socket.on('next-question', async () => {
                 game.nextQuestion();
                 send('timercancel');
@@ -234,41 +255,45 @@ const NO_PERMS = {
 };
 
 app.post('/api/check-code', async (req, res) => {
-    console.log('check code');
-    let code = req.body.code;
-    if (code === MOD_JOIN_CODE) {
-        res.send({
-            success: true,
-            role: 'mod'
-        });
-    } else if (code === ADMIN_JOIN_CODE) {
-        res.send({
-            success: true,
-            role: 'admin'
-        });
-    } else {
-        // Search for join code's team and send the team name back
-        let team = await db.findTeamWithJoinCode(code);
-        if (team) {
+    try {
+        console.log('check code');
+        let code = req.body.code;
+        if (code === MOD_JOIN_CODE) {
             res.send({
                 success: true,
-                role: 'player',
-                teamName: team.name
+                role: 'mod'
+            });
+        } else if (code === ADMIN_JOIN_CODE) {
+            res.send({
+                success: true,
+                role: 'admin'
             });
         } else {
-            res.send({
-                success: false,
-                role: null,
-                errorCode: 'errInvalidCode',
-                errorMessage: 'Code could not be found.'
-            });
+            // Search for join code's team and send the team name back
+            let team = await db.findTeamWithJoinCode(code);
+            if (team) {
+                res.send({
+                    success: true,
+                    role: 'player',
+                    teamName: team.name
+                });
+            } else {
+                res.send({
+                    success: false,
+                    role: null,
+                    errorCode: 'errInvalidCode',
+                    errorMessage: 'Code could not be found.'
+                });
+            }
         }
+    } catch (err) {
+        console.error(chalk.red(`Error checking code: ${err}`));
     }
 });
 
 app.post('/api/user-info', async (req, res) => {
-    let token = req.body.googleToken;
     try {
+        let token = req.body.googleToken;
         const ticket = await client.verifyIdToken({
             idToken: token,
             audience: process.env.CLIENT_ID
@@ -291,185 +316,219 @@ app.post('/api/user-info', async (req, res) => {
 });
 
 async function assignToken(req, user) {
-    let token = gen.genSessionToken();
-    req.session.token = token;
-    req.session.created = Date.now();
-    await db.addToken(user, token);
-    return token;
+    try {
+        let token = gen.genSessionToken();
+        req.session.token = token;
+        req.session.created = Date.now();
+        await db.addToken(user, token);
+        return token;
+    } catch (err) {
+        console.error(chalk.red(`Error assigning token: ${err}`));
+        return null;
+    }
 }
 
 app.post('/api/join', async (req, res) => {
-    let code = req.body.code;
-    let fullName = req.body.fullName;
-    let googleAuthToken = req.body.googleToken;
-    const ticket = await client.verifyIdToken({
-        idToken: googleAuthToken,
-        audience: process.env.CLIENT_ID
-    });
-    const payload = ticket.getPayload();
-    let previous = await db.findUserWithGID(payload.sub);
-    if (previous !== null) {
-        res.send({
-            success: false,
-            errorCode: 'errAlreadyExists',
-            errorMessage: 'Sorry, a user has already been created with this Google account.'
+    try {
+        let code = req.body.code;
+        let fullName = req.body.fullName;
+        let googleAuthToken = req.body.googleToken;
+        const ticket = await client.verifyIdToken({
+            idToken: googleAuthToken,
+            audience: process.env.CLIENT_ID
         });
-        return;
-    }
-    let toSend = {
-        success: true,
-        fullName,
-        email: payload.email,
-        picture: payload.picture,
-        googleId: payload.sub
-    };
-    let success = true;
-    let user = null;
-    if (code === MOD_JOIN_CODE) {
-        user = await db.addMod(fullName, payload);
-        toSend.role = 'mod';
-    } else if (code === ADMIN_JOIN_CODE) {
-        user = await db.addAdmin(fullName, payload);
-        toSend.role = 'admin';
-    } else {
-        // Search for join code's team
-        let team = await db.findTeamWithJoinCode(code);
-        if (team) {
-            user = await db.addTeamMember(team, fullName, payload);
-            toSend.role = 'player';
-        } else {
-            // If nothing found
+        const payload = ticket.getPayload();
+        let previous = await db.findUserWithGID(payload.sub);
+        if (previous !== null) {
             res.send({
                 success: false,
-                errorCode: 'errInvalidCode',
-                errorMessage: 'This join code was not recognized.'
+                errorCode: 'errAlreadyExists',
+                errorMessage: 'Sorry, a user has already been created with this Google account.'
             });
-            success = false;
+            return;
         }
-    }
-    if (success) {
-        let token = await assignToken(req, user);
-        toSend.token = token;
-        res.send(toSend);
+        let toSend = {
+            success: true,
+            fullName,
+            email: payload.email,
+            picture: payload.picture,
+            googleId: payload.sub
+        };
+        let success = true;
+        let user = null;
+        if (code === MOD_JOIN_CODE) {
+            user = await db.addMod(fullName, payload);
+            toSend.role = 'mod';
+        } else if (code === ADMIN_JOIN_CODE) {
+            user = await db.addAdmin(fullName, payload);
+            toSend.role = 'admin';
+        } else {
+            // Search for join code's team
+            let team = await db.findTeamWithJoinCode(code);
+            if (team) {
+                user = await db.addTeamMember(team, fullName, payload);
+                toSend.role = 'player';
+            } else {
+                // If nothing found
+                res.send({
+                    success: false,
+                    errorCode: 'errInvalidCode',
+                    errorMessage: 'This join code was not recognized.'
+                });
+                success = false;
+            }
+        }
+        if (success) {
+            let token = await assignToken(req, user);
+            toSend.token = token;
+            res.send(toSend);
+        }
+    } catch (err) {
+        console.error(chalk.red(`Error joining: ${err}`));
     }
 });
 
 function userInfo(user) {
-    let role = db.getRole(user);
-    return {
-        fullName: user.fullName,
-        email: user.email,
-        teamPosition: user.teamPosition,
-        roomId: user.roomId,
-        isPlayer: user.isPlayer,
-        isMod: user.isMod,
-        isAdmin: user.isAdmin,
-        team: user.Team,
-        role
-    };
+    try {
+        let role = db.getRole(user);
+        return {
+            fullName: user.fullName,
+            email: user.email,
+            teamPosition: user.teamPosition,
+            roomId: user.roomId,
+            isPlayer: user.isPlayer,
+            isMod: user.isMod,
+            isAdmin: user.isAdmin,
+            team: user.Team,
+            role
+        };
+    } catch (err) {
+        console.error(chalk.red(`Error getting user info: ${err}`));
+        return null;
+    }
 }
 
 app.post('/api/signin', async (req, res) => {
-    let googleAuthToken = req.body.googleToken;
-    const ticket = await client.verifyIdToken({
-        idToken: googleAuthToken,
-        audience: process.env.CLIENT_ID
-    });
-    const payload = ticket.getPayload();
-    let googleId = payload.sub;
-    let user = await db.findUserWithGID(googleId);
-    if (user) {
-        let token = await assignToken(req, user);
-        res.send({
-            success: true,
-            isAuthed: true,
-            token,
-            user: userInfo(user)
+    try {
+        let googleAuthToken = req.body.googleToken;
+        const ticket = await client.verifyIdToken({
+            idToken: googleAuthToken,
+            audience: process.env.CLIENT_ID
         });
-    } else {
-        res.send({
-            success: false,
-            isAuthed: false,
-            errorCode: 'errUserNotFound',
-            errorMessage: 'Existing user with this Google account could not be found'
-        });
+        const payload = ticket.getPayload();
+        let googleId = payload.sub;
+        let user = await db.findUserWithGID(googleId);
+        if (user) {
+            let token = await assignToken(req, user);
+            res.send({
+                success: true,
+                isAuthed: true,
+                token,
+                user: userInfo(user)
+            });
+        } else {
+            res.send({
+                success: false,
+                isAuthed: false,
+                errorCode: 'errUserNotFound',
+                errorMessage: 'Existing user with this Google account could not be found'
+            });
+        }
+    } catch (err) {
+        console.error(chalk.red(`Error signing in: ${err}`));
     }
 });
 
 app.post('/api/signout', async (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            res.send(INTERNAL);
-        } else {
-            res.send({
-                success: true
-            });
-        }
-    });
+    try {
+        req.session.destroy(err => {
+            if (err) {
+                res.send(INTERNAL);
+            } else {
+                res.send({
+                    success: true
+                });
+            }
+        });
+    } catch (err) {
+        console.error(chalk.red(`Error signing out: ${err}`));
+    }
 });
 
 async function authUser(req) {
-    let token = req.session.token || (req.body && req.body.authToken);
-    if (!token) return null;
-    let user = await db.findUserWithAuthToken(token);
-    return user;
+    try {
+        let token = req.session.token || (req.body && req.body.authToken);
+        if (!token) return null;
+        let user = await db.findUserWithAuthToken(token);
+        return user;
+    } catch (err) {
+        console.error(`Error authenticating user: ${err}`);
+    }
 }
 
 app.get('/api/auth', async (req, res) => {
-    let user = await authUser(req);
-    if (user) {
-        let role = db.getRole(user);
-        res.send({
-            success: true,
-            isAuthed: true,
-            user: userInfo(user)
-        });
-    } else {
-        res.send({
-            success: true,
-            isAuthed: false,
-            user: null
-        });
+    try {
+        let user = await authUser(req);
+        if (user) {
+            let role = db.getRole(user);
+            res.send({
+                success: true,
+                isAuthed: true,
+                user: userInfo(user)
+            });
+        } else {
+            res.send({
+                success: true,
+                isAuthed: false,
+                user: null
+            });
+        }
+    } catch (err) {
+        console.error(chalk.red(`Error authenticating: ${err}`));
     }
 });
 
 app.get('/api/get-room', async (req, res) => {
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    // If you're an admin, you don't have room assignments
-    if (user.isAdmin) {
+    try {
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        // If you're an admin, you don't have room assignments
+        if (user.isAdmin) {
+            res.send({
+                success: false,
+                errorCode: 'errIsAdmin',
+                errorMessage: 'Admins don\'t have room assignments.'
+            });
+            return;
+        }
+        let roomId = user.roomId;
+        let hasRoom = (roomId !== null);
         res.send({
-            success: false,
-            errorCode: 'errIsAdmin',
-            errorMessage: 'Admins don\'t have room assignments.'
+            success: true,
+            hasRoom,
+            roomId
         });
-        return;
+    } catch (err) {
+        console.error(chalk.red(`Error getting room: ${err}`));
     }
-    let roomId = user.roomId;
-    let hasRoom = (roomId !== null);
-    res.send({
-        success: true,
-        hasRoom,
-        roomId
-    });
 });
 
 app.post('/api/create-team', async (req, res) => {
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    if (!user.isAdmin) {
-        res.send(NO_PERMS);
-        return;
-    }
-    let teamName = req.body.teamName;
-    let joinCode = gen.genJoinCode();
     try {
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+            return;
+        }
+        let teamName = req.body.teamName;
+        let joinCode = gen.genJoinCode();
         await db.createTeam(teamName, joinCode);
         res.send({
             success: true,
@@ -483,15 +542,15 @@ app.post('/api/create-team', async (req, res) => {
 });
 
 app.get('/api/tournament-info', async (req, res) => {
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    if (!user.isAdmin) {
-        res.send(NO_PERMS);
-    }
     try {
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+        }
         let tournamentInfo = await db.getTournamentInfo();
         res.send(tournamentInfo);
     } catch (err) {
@@ -501,16 +560,16 @@ app.get('/api/tournament-info', async (req, res) => {
 });
 
 app.post('/api/start-tournament', async (req, res) => {
-    console.log('Request to start the tournament');
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    if (!user.isAdmin) {
-        res.send(NO_PERMS);
-    }
     try {
+        console.log('Request to start the tournament');
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+        }
         let worked = await autoRound.startTournament();
         if (worked) {
             res.send({
@@ -531,52 +590,77 @@ app.post('/api/start-tournament', async (req, res) => {
     }
 });
 
+async function gameSave(roomId) {
+    try {
+        let game = currentGames[roomId];
+        let roundNum = game.roundNum;
+        game.updateScores();
+        let teams = game.teams;
+        let gameRecord = await db.createGameRecord(roundNum, roomId, teams);
+        return await db.saveToGameRecord(gameRecord.id, teams, game.scoreboard);
+    } catch (err) {
+        console.error(`Database saving games error: ${chalk.red(err)}`);
+    }
+}
+
 async function saveGames() {
     // TODO: save all games from this current round to database
+    let promises = [];
+    for (let roomId in currentGames) {
+        let game = gameSave(roomId);
+        if (game) {
+            promises.push(game);
+        }
+    }
+    return promises;
 }
 
 async function createGames(roundNum) {
-    let teams = await db.listTeams();
-    teams.sort((a, b) => a.name.localeCompare(b.name));
-    console.log(teams.map(team => team.name));
-    currentGames = {};
-    for (let team of teams) {
-        team = await team.get({ plain: true })
-        let roomId = team.roomId;
-        if (roomId === null) continue;
-        if (roomId in currentGames) {
-            let game = currentGames[roomId];
-            if (game.teamB() !== null) {
-                console.warn('More than two teams assigned to the same room.');
-                continue;
-            }
-            game.setTeamB(team);
-        } else {
-            currentGames[roomId] = new Game(team, null, (a, b) => {
-                console.log(`sending message: ${a}`)
-                if (b) {
-                    io.to(roomId).emit(a, b);
-                } else {
-                    io.to(roomId).emit(a);
+    try {
+        let teams = await db.listTeams();
+        teams.sort((a, b) => a.name.localeCompare(b.name));
+        console.log(teams.map(team => team.name));
+        currentGames = {};
+        for (let team of teams) {
+            team = await team.get({ plain: true })
+            let roomId = team.roomId;
+            if (roomId === null) continue;
+            if (roomId in currentGames) {
+                let game = currentGames[roomId];
+                if (game.teamB() !== null) {
+                    console.warn('More than two teams assigned to the same room.');
+                    continue;
                 }
-            }, roundNum);
+                game.setTeamB(team);
+            } else {
+                currentGames[roomId] = new Game(team, null, (a, b) => {
+                    console.log(`sending message: ${a}`)
+                    if (b) {
+                        io.to(roomId).emit(a, b);
+                    } else {
+                        io.to(roomId).emit(a);
+                    }
+                }, roundNum);
+            }
         }
+    } catch (err) {
+        console.error(chalk.red(`Error creating games: ${err}`));
     }
 }
 
 app.post('/api/reload-round', async (req, res) => {
-    console.log('Request to reload round');
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    if (!user.isAdmin) {
-        res.send(NO_PERMS);
-        return;
-    }
-    await saveGames();
     try {
+        console.log('Request to reload round');
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+            return;
+        }
+        await saveGames();
         let round = await autoRound.reloadRound();
         res.send({
             success: true,
@@ -590,18 +674,18 @@ app.post('/api/reload-round', async (req, res) => {
 });
 
 app.post('/api/advance-round', async (req, res) => {
-    console.log('Request to advance round');
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    if (!user.isAdmin) {
-        res.send(NO_PERMS);
-        return;
-    }
-    await saveGames();
     try {
+        console.log('Request to advance round');
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+            return;
+        }
+        await saveGames();
         let worked = await autoRound.advanceRound();
         if (worked === null) {
             res.send({
@@ -623,16 +707,16 @@ app.post('/api/advance-round', async (req, res) => {
 });
 
 app.get('/api/list-teams', async (req, res) => {
-    let user = await authUser(req);
-    if (!user) {
-        res.send(INVALID_TOKEN);
-        return;
-    }
-    if (!user.isAdmin) {
-        res.send(NO_PERMS);
-        return;
-    }
     try {
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+            return;
+        }
         let teams = await db.listTeams();
         teams.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
         teams = teams.map(team => {

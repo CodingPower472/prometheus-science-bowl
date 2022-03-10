@@ -199,8 +199,8 @@ function shouldBuzzShowActive(gameState, teamIndex) {
 
 function TimerMan({ isBonus, isMod, timeUp }) {
     let shouldTime = (isBonus ? 22 : 7);
-    let [time, setTime] = useState(timer.active() ? timer.remainingTime : shouldTime);
-    let [reload, setReload] = useState(0);
+    const [time, setTime] = useState(timer.active() ? timer.remainingTime : shouldTime);
+    const [reload, setReload] = useState(0);
     if (!timer.active() && time !== shouldTime) {
         setTime(shouldTime);
     }
@@ -237,20 +237,41 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
 
     const [show, setShow] = useState(false);
 
+    console.log(scoreboard);
+
     let running = [0, 0];
 
     function toggleTableVal(qn, teamInd, i) {
-        console.log('Toggle');
-        console.log(i);
         if (teamInd === 1) {
             i = 3 - i;
         }
+        let scores = scoreboard[qn];
         if (i === 0) {
             // Penalty
             let oppInd = (teamInd === 0) ? 1 : 0;
-            socket.setNeg(qn, oppInd);
+            if (scores[oppInd].length > 0 && scores[oppInd][0] === -1) {
+                // Was a neg previously, let's set it to just incorrect
+                socket.setIncorrect(qn, oppInd, false);
+            } else {
+                socket.setNeg(qn, oppInd);
+            }
         } else if (i === 1) {
-            
+            if (scores[teamInd].length > 0 && scores[teamInd][0] !== 1) {
+                socket.setCorrect(qn, teamInd, false);
+            } else if (scores[teamInd].length === 0) {
+                socket.setIncorrect(qn, teamInd, false);
+            } else {
+                socket.setNoBuzz(qn, teamInd);
+            }
+        } else if (i === 2) {
+            console.log(scoreboard[teamInd]);
+            if (scores[teamInd].length > 1 && scores[teamInd][1] !== 1) {
+                socket.setCorrect(qn, teamInd, true);
+            } else {
+                socket.setIncorrect(qn, teamInd, true);
+            }
+        } else {
+            console.error('Not sure which value is supposed to be toggled.');
         }
     }
 
@@ -266,9 +287,9 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
             sub = penVal;
             res = [penStr, '-', '-', sub];
         } else if (vals.length === 1) {
-            vals[0] = Math.max(vals[0], 0); // if it's an interrupt, just mark it as 0, not -4
-            sub = penVal + vals[0] * 4;
-            res = [penStr, vals[0] * 4, '-', sub];
+            let val = Math.max(vals[0], 0);
+            sub = penVal + val * 4;
+            res = [penStr, val * 4, '-', sub];
         } else if (vals.length === 2) {
             sub = penVal + vals[0] * 4 + vals[1] * 10;
             res = [penStr, vals[0] * 4, vals[1] * 10, sub];
@@ -373,7 +394,7 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
     let content = (
         <div className={`ScoreboardInner ${show ? 'border-scoreboard' : ''}`}>
             <Dropdown>
-                <Dropdown.Toggle style={{width: '100%'}} className="showHidePanel" onClick={() => setShow(!show)}>Show Scoreboard</Dropdown.Toggle>
+                <Dropdown.Toggle style={{width: '100%'}} className="showHidePanel" onClick={() => setShow(!show)}>Scoreboard</Dropdown.Toggle>
             </Dropdown>
             {show && (
                 <div className="tables-holder">
@@ -397,9 +418,9 @@ function ScrollableDiv({ className, handleScroll, scrollTop, children }) {
     const ref = useRef(null);
 
     function onScroll() {
-        handleScroll(ref.scrollTop);
+        console.log('scroll');
+        handleScroll(ref.current.scrollTop);
     }
-
     if (ref.current) {
         ref.current.scrollTop = scrollTop;
     }
@@ -413,7 +434,7 @@ function ScrollableDiv({ className, handleScroll, scrollTop, children }) {
 
 function PacketComponent({ url, roundNum, hasBuzz }) {
     const [page, setPage] = useState(1);
-    let [scroll, setScroll] = useState(0);
+    const [scroll, setScroll] = useState(0);
     const [manualShow, setManualShow] = useState(false);
 
     if (!hasBuzz && manualShow) {
@@ -427,7 +448,7 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
             <div className="packet-controls-holder">
                 <p>Round {roundNum}</p>
                 <div className="packet-controls">
-                    <a href="#" onClick={() => {
+                    <a className="hoverclick" onClick={() => {
                         if (page > 1) {
                             setScroll(0);
                             setPage(page - 1);
@@ -435,7 +456,7 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
                     }}>
                         <span className="bi-chevron-left"></span>
                     </a>
-                    <a href="#" onClick={() => {
+                    <a className="hoverclick" onClick={() => {
                         setScroll(0);
                         setPage(page + 1);
                     }}>
@@ -445,7 +466,7 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
             </div>
             <ScrollableDiv className={`pdf-holder ${showPacket ? 'pdf-holder-active' : 'pdf-holder-inactive'}`} handleScroll={setScroll} scrollTop={scroll}>
                 <div className={showPacket ? '' : 'invisible'}>
-                    <Pdf file={url} page={page} scale={1.1} withCredentials />
+                    <Pdf file={url} page={page} scale={1.2} withCredentials />
                 </div>
                 {!showPacket && (
                     <div className="text-center">
@@ -534,6 +555,8 @@ function Room({ authCallback }) {
     let [joinResponse, setJoinResponse] = useState(null);
     let [gameState, setGameState] = useState(null);
 
+    console.log(gameState);
+
     useEffect(() => {
         socket.connect();
         socket.setOnRoomJoined(data => {
@@ -548,8 +571,9 @@ function Room({ authCallback }) {
                 room: params.roomId
             });
         });
-        socket.setOnUpdate(state => {
-            setGameState(state);
+        socket.setOnUpdate(s => {
+            console.log(s);
+            setGameState(s);
         });
         socket.setOnConnectError(console.error);
         socket.setOnJoinError(err => {

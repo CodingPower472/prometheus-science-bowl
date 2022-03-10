@@ -6,7 +6,7 @@ console.log(process.env.DB_URL);
 
 const db = new Sequelize(process.env.DB_URL);
 
-const { Team, User, SessionToken, TournamentInfo, Room } = require('./models');
+const { Team, User, SessionToken, TournamentInfo, Room, GameRecord, ScoreboardHalfRow } = require('./models');
 
 
 function start(onAuth) {
@@ -224,6 +224,60 @@ async function listTeams() {
     });
 }
 
+async function createGameRecord(roundNum, roomId, teams) {
+    return await GameRecord.create({
+        roundNum,
+        roomId,
+        teamAId: teams[0].id,
+        teamBId: teams[1].id,
+        scoreA: teams[0].score,
+        scoreB: teams[1].score
+    });
+}
+
+async function saveToGameRecord(gameRecordId, teams, scoreboard) {
+    let promises = [];
+    console.log(scoreboard);
+    for (let i = 0; i < scoreboard.currentSize; i++) {
+        let question = scoreboard.questions[i];
+        let whoBuzzed = scoreboard.whoBuzzed[i];
+        for (let teamInd = 0; teamInd < 2; teamInd++) {
+            let frag = question[teamInd];
+            let score = 0;
+            if (frag.length > 0) {
+                if (frag[0] === -1) {
+                    score = -4;
+                } else if (frag[0] === 1) {
+                    if (frag.length > 1 && frag[1] === 1) {
+                        score = 14;
+                    } else {
+                        score = 4;
+                    }
+                }
+            }
+            let buzzer = whoBuzzed[teamInd];
+            let teamId = teams[teamInd].id;
+            let isTeamA = (teamInd === 0);
+            /*promises.push(ScoreboardHalfRow.create({
+                gameRecordId,
+                score,
+                whoBuzzedGID: buzzer,
+                teamId,
+                isTeamA
+            }));*/
+            await ScoreboardHalfRow.create({
+                gameRecordId,
+                score,
+                whoBuzzedGID: buzzer,
+                teamId,
+                isTeamA,
+                isEmpty: (frag.length === 0)
+            });
+        }
+    }
+    return Promise.all(promises);
+}
+
 module.exports = {
     start,
     addMod,
@@ -245,5 +299,7 @@ module.exports = {
     clearModRoomAssignments,
     assignModRoom,
     getRole,
-    listTeams
+    listTeams,
+    createGameRecord,
+    saveToGameRecord
 };

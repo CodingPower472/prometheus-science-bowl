@@ -17,7 +17,19 @@ module.exports = (sequelize, DataTypes) => {
       });
       Team.belongsTo(models.Room, {
         foreignKey: 'roomId'
-      })
+      });
+      Team.hasMany(models.GameRecord, {
+        foreignKey: 'teamAId',
+        as: 'gameAs'
+      });
+      Team.hasMany(models.GameRecord, {
+        foreignKey: 'teamBId',
+        as: 'gameBs'
+      });
+      Team.hasMany(models.ScoreboardHalfRow, {
+        foreignKey: 'teamId',
+        as: 'scoreboardHalfRows'
+      });
     }
   }
   Team.init({

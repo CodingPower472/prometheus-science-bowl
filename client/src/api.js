@@ -156,15 +156,33 @@ class SocketManager {
     }
 
     setCorrect(questionNum, teamInd, isBonus) {
-
+        this.socket.emit('set-correct', {
+            questionNum,
+            teamInd,
+            isBonus
+        });
     }
 
     setIncorrect(questionNum, teamInd, isBonus) {
-
+        this.socket.emit('set-incorrect', {
+            questionNum,
+            teamInd,
+            isBonus
+        });
     }
 
     setNeg(questionNum, teamInd) {
-        
+        this.socket.emit('set-neg', {
+            questionNum,
+            teamInd
+        });
+    }
+
+    setNoBuzz(questionNum, teamInd) {
+        this.socket.emit('set-no-buzz', {
+            questionNum,
+            teamInd
+        });
     }
 
     nextQuestion() {

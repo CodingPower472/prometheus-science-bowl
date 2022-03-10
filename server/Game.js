@@ -142,6 +142,11 @@ class Game {
         this.updateScores();
     }
 
+    noAnswer(questionNum, teamInd) {
+        this.scoreboard.noAnswer(questionNum, teamInd);
+        this.updateScores();
+    }
+
     allLocked() {
         return this.teams[0].lockedOut && this.teams[1].lockedOut;
     }

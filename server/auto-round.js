@@ -58,6 +58,7 @@ async function updateTeamRoomAssignments(roundNum) {
     let sheet = await getSheetInfo(teamRoomsSheet);
     let teamNames = sheet[0];
     let col = sheet[roundNum];
+    console.log(roundNum);
     if (!col) {
         console.warn('Warning: cannot auto-assign rooms.');
         return;
@@ -98,6 +99,7 @@ async function updateModRoomAssignments(roundNum) {
         promises.push(new Promise(async (resolve, reject) => {
             try {
                 let modEmail = modEmails[i];
+                if (!modEmail) return;
                 let mod = await db.findModWithEmail(modEmail);
                 if (!mod) {
                     console.error(`Warning: moderator with email ${modEmail} not found. Skipping.`);
@@ -120,9 +122,13 @@ async function updateModRoomAssignments(roundNum) {
 }
 
 async function updateRoomAssignments(roundNum) {
-    let teams = updateTeamRoomAssignments(roundNum);
-    let mods = updateModRoomAssignments(roundNum);
-    return await Promise.all([teams, mods]);
+    try {
+        let teams = updateTeamRoomAssignments(roundNum);
+        let mods = updateModRoomAssignments(roundNum);
+        return await Promise.all([teams, mods]);
+    } catch (err) {
+        console.error(`Error updating room assignments: ${err}`);
+    }
 }
 
 async function startTournament() {

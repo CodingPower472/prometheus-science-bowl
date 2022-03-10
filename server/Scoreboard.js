@@ -16,14 +16,14 @@ class Scoreboard {
     rawScore(teamInd) {
         if (this.checktoob(teamInd)) return;
         let res = 0;
-        for (let i = 0; i < 2; i++) {
-            let oppInd = (i === 0 ? 1 : 0);
+        for (let i = 0; i < this.currentSize; i++) {
+            let oppInd = (teamInd === 0 ? 1 : 0);
             let q = this.questions[i][teamInd];
             let opp = this.questions[i][oppInd];
             if (opp.length > 0 && opp[0] === -1) {
                 res += 4;
             }
-            if (q.length > 0 && q[0] > 0) {
+            if (q.length > 0 && q[0] === 1) {
                 res += 4;
             }
             if (q.length > 1) {
@@ -34,7 +34,7 @@ class Scoreboard {
     }
 
     totalScores() {
-        let res = this.offsets;
+        let res = [this.offsets[0], this.offsets[1]];
         for (let i = 0; i < 2; i++) {
             res[i] += this.rawScore(i);
         }
@@ -106,6 +106,13 @@ class Scoreboard {
         console.log('bonus incorrect');
         this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [1, 0];
+    }
+
+    noAnswer(questionNum, teamInd) {
+        if (this.checktoob(teamInd)) return;
+        if (this.checkqoob(questionNum)) return;
+        this.extendToSize(questionNum + 1);
+        this.questions[questionNum][teamInd] = [];
     }
 
     whoGotTU(questionNum) {

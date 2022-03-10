@@ -291,3 +291,17 @@ th {
 .toggle-scoreboard:hover {
     cursor: pointer;
 }
+
+.toggle-scoreboard a {
+    user-select: none;
+}
+
+.startTimerBtn {
+    height: 100px;
+    width: 250px;
+    font-size: 28px;
+}
+
+.hoverclick:hover {
+    cursor: pointer;
+}
