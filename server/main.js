@@ -18,6 +18,7 @@ const chalk = require('chalk');
 //const sharedsession = require('express-socket.io-session');
 const cookieParser = require('cookie-parser');
 const cookie = require('cookie');
+const path = require('path');
 
 const { Server } = require('socket.io');
 
@@ -45,23 +46,32 @@ app.use(cparser);
     autoSave: false // NOTE: if i need to change variables from socketio later, change this to true
 }));
 io.use((socket, next) => {
-	session(socket.request, {}, next);
+    session(socket.request, {}, next);
 });*/
 
-db.start(async () => {
-    let info = await db.getTournamentInfo();
-    if (info.currentRound !== null) {
-        await saveGames();
-        await autoRound.updateRoomAssignments(info.currentRound);
-        await createGames(info.currentRound);
-    }
-});
+try {
+    db.start(async () => {
+        let info = await db.getTournamentInfo();
+        if (info.currentRound !== null) {
+            await saveGames();
+            await autoRound.updateRoomAssignments(info.currentRound);
+            await createGames(info.currentRound);
+        }
+    });
+} catch (err) {
+    console.error(chalk.red(err));
+}
 
 async function authSocket(socket) {
-    let ourCookie = cookie.parse(socket.handshake.headers.cookie);
-    let token = cookieParser.signedCookie(ourCookie.authtoken, process.env.SESSION_SECRET);
-    if (!token) return null;
-    return await db.findUserWithAuthToken(token);
+    try {
+        let ourCookie = cookie.parse(socket.handshake.headers.cookie);
+        let token = cookieParser.signedCookie(ourCookie.authtoken, process.env.SESSION_SECRET);
+        if (!token) return null;
+        return await db.findUserWithAuthToken(token);
+    } catch (err) {
+        console.error(chalk.red(err));
+        return null;
+    }
 }
 
 let currentGames = {};
@@ -78,150 +88,245 @@ io.on('connection', async socket => {
     }
     socket.emit('authorized');
     socket.on('join', async data => {
-        console.log('Request to join.')
-        // TODO: check if player should actually be there
-        let roomId = data.room;
-        socket.join(roomId);
-        let room = await db.findRoomWithId(data.room);
-        let nextRoom = await room.get({ plain: true });
-        let game = null;
-        if (data.room in currentGames) {
-            currentGames[data.room].setJoined(user.googleId, true);
-            game = currentGames[data.room];
-            nextRoom.game = game.state();
-        } else {
-            nextRoom.game = null;
-        }
-        function roomUpdate() {
-            if (game) {
-                io.to(roomId).emit('update', game.state());
+        try {
+            console.log('Request to join.')
+            // TODO: check if player should actually be there
+            let roomId = data.room;
+            socket.join(roomId);
+            let room = await db.findRoomWithId(data.room);
+            if (!room) return;
+            let nextRoom = await room.get({ plain: true });
+            let game = null;
+            if (data.room in currentGames) {
+                currentGames[data.room].setJoined(user.googleId, true);
+                game = currentGames[data.room];
+                nextRoom.game = game.state();
             } else {
-                console.error(chalk.red('Attempted to update game state when game does not exist'));
+                nextRoom.game = null;
             }
-        }
-        function send(a, b) {
-            if (game) {
-                if (b) {
-                    io.to(roomId).emit(a, b);
-                } else {
-                    io.to(roomId).emit(a);
+            function roomUpdate() {
+                try {
+                    if (game) {
+                        io.to(roomId).emit('update', game.state());
+                    } else {
+                        console.error(chalk.red('Attempted to update game state when game does not exist'));
+                    }
+                } catch (err) {
+                    console.error(chalk.red(err));
                 }
             }
-        }
-        console.log('Successfully joined');
-        if (!game) {
-            console.warn(chalk.yellow('Game not found.'));
-            return;
-        }
-        let found = game.findGoogleID(user.googleId);
-        socket.emit('joined', {
-            room: nextRoom,
-            user: userInfo(user),
-            teamIndex: found ? found[1] : null
-        });
-        socket.on('disconnect', () => {
-            console.log('USER DISCONNECT');
-            if (game) {
-                game.setJoined(user.googleId, false);
+            function send(a, b) {
+                try {
+                    if (game) {
+                        if (b) {
+                            io.to(roomId).emit(a, b);
+                        } else {
+                            io.to(roomId).emit(a);
+                        }
+                    }
+                } catch (err) {
+                    console.error(chalk.red(err));
+                }
             }
-        });
-        if (user.isAdmin || user.isMod) {
-            socket.on('start', async () => {
-                if (game) {
-                    game.start();
-                    roomUpdate();
-                }
-            });
-        }
-        if (user.isPlayer) {
-            socket.on('buzz', async () => {
-                if (!game.buzzActive) {
-                    console.log('Successful buzz');
-                    game.buzz(user.googleId);
-                    send('timercancel');
-                    roomUpdate();
-                }
-            });
-        } else if (user.isMod || user.isAdmin) {
-            socket.on('ignorebuzz', async () => {
-                game.clearBuzzer();
-                roomUpdate();
-            });
-            socket.on('correctanswer', async () => {
-                if (game.onBonus) {
-                    send('timercancel');
-                }
-                game.correctLive();
-                roomUpdate();
-            });
-            socket.on('incorrectanswer', async () => {
-                if (game.onBonus) {
-                    send('timercancel');
-                } else {
-                    send('timerreset');
-                }
-                game.incorrectLive();
-                roomUpdate();
-            });
-            socket.on('neganswer', async () => {
-                game.negLive();
-                roomUpdate();
-            });
-
-            socket.on('set-correct', ({questionNum, teamInd, isBonus}) => {
-                console.log(`Correct ${teamInd}`);
-                game.correctAnswer(questionNum, null, teamInd, isBonus);
-                roomUpdate();
-            });
-            socket.on('set-incorrect', ({questionNum, teamInd, isBonus}) => {
-                console.log(`Incorrect ${teamInd}`)
-                game.incorrectAnswer(questionNum, null, teamInd, isBonus);
-                roomUpdate();
-            });
-            socket.on('set-neg', ({questionNum, teamInd}) => {
-                console.log(`Negging ${teamInd}`);
-                game.negAnswer(questionNum, null, teamInd);
-                roomUpdate();
-            });
-            socket.on('set-no-buzz', ({questionNum, teamInd}) => {
-                console.log(`No buzz ${teamInd}`);
-                game.noAnswer(questionNum, teamInd);
-                roomUpdate();
-            });
-
-            socket.on('next-question', async () => {
-                game.nextQuestion();
-                send('timercancel');
-                roomUpdate();
-            });
-            socket.on('set-question-num', async num => {
-                game.setQuestionNum(num);
-                send('timercancel');
-                roomUpdate();
-            });
-            socket.on('set-on-bonus', isBonus => {
-                game.setOnBonus(isBonus);
-                send('timercancel');
-                roomUpdate();
-            });
-            socket.on('set-locked', ({ teamInd, locked }) => {
-                game.setLocked(teamInd, locked);
-                roomUpdate();
-            });
-
-            socket.on('req_starttimer', () => {
-                let time = game.startTimer(wasBonus => {
-                    roomUpdate();
+            console.log('Successfully joined');
+            if (!game) {
+                console.warn(chalk.yellow('Game not found.'));
+                return;
+            }
+            try {
+                let found = game.findGoogleID(user.googleId);
+                socket.emit('joined', {
+                    room: nextRoom,
+                    user: userInfo(user),
+                    teamIndex: found ? found[1] : null
                 });
-                roomUpdate();
-                send('timerstart', time);
+            } catch (err) {
+                console.error(chalk.red(err));
+            }
+            
+            socket.on('disconnect', () => {
+                try {
+                    console.log('USER DISCONNECT');
+                    if (game) {
+                        game.setJoined(user.googleId, false);
+                    }
+                } catch (err) {
+                    console.error(chalk.red(err));
+                }
             });
-
-            socket.on('req_canceltimer', () => {
-                game.cancelTimer();
-                roomUpdate();
-                send('timercancel');
-            });
+            if (user.isPlayer) {
+                socket.on('buzz', async () => {
+                    try {
+                        if (!game.buzzActive) {
+                            console.log('Successful buzz');
+                            game.buzz(user.googleId);
+                            send('timercancel');
+                            roomUpdate();
+                        }
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+            } else if (user.isMod || user.isAdmin) {
+                socket.on('start', async () => {
+                    try {
+                        if (game) {
+                            game.start();
+                            roomUpdate();
+                        }
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('end', async () => {
+                    try {
+                        game.end();
+                        roomUpdate();
+                        gameSave(roomId);
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                
+                socket.on('ignorebuzz', async () => {
+                    try {
+                        game.clearBuzzer();
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('correctanswer', async () => {
+                    try {
+                        if (game.onBonus) {
+                            send('timercancel');
+                        }
+                        game.correctLive();
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('incorrectanswer', async () => {
+                    try {
+                        if (game.onBonus) {
+                            send('timercancel');
+                        } else {
+                            send('timerreset');
+                        }
+                        game.incorrectLive();
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('neganswer', async () => {
+                    try {
+                        game.negLive();
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                
+                socket.on('set-correct', ({questionNum, teamInd, isBonus}) => {
+                    try {
+                        console.log(`Correct ${teamInd}`);
+                        game.correctAnswer(questionNum, null, teamInd, isBonus);
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('set-incorrect', ({questionNum, teamInd, isBonus}) => {
+                    try {
+                        console.log(`Incorrect ${teamInd}`)
+                        game.incorrectAnswer(questionNum, null, teamInd, isBonus);
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('set-neg', ({questionNum, teamInd}) => {
+                    try {
+                        console.log(`Negging ${teamInd}`);
+                        game.negAnswer(questionNum, null, teamInd);
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('set-no-buzz', ({questionNum, teamInd}) => {
+                    try {
+                        console.log(`No buzz ${teamInd}`);
+                        game.noAnswer(questionNum, teamInd);
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                
+                socket.on('next-question', async () => {
+                    try {
+                        game.nextQuestion();
+                        send('timercancel');
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('set-question-num', async num => {
+                    try {
+                        game.setQuestionNum(num);
+                        send('timercancel');
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('set-on-bonus', isBonus => {
+                    try {
+                        game.setOnBonus(isBonus);
+                        send('timercancel');
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('set-locked', ({ teamInd, locked }) => {
+                    try {
+                        game.setLocked(teamInd, locked);
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                
+                socket.on('req_starttimer', () => {
+                    try {
+                        let time = game.startTimer(wasBonus => {
+                            roomUpdate();
+                        });
+                        roomUpdate();
+                        send('timerstart', time);
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                
+                socket.on('req_canceltimer', () => {
+                    try {
+                        game.cancelTimer();
+                        roomUpdate();
+                        send('timercancel');
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                
+            }
+        } catch (err) {
+            console.error(chalk.red(err));
         }
     });
 });
@@ -602,6 +707,7 @@ async function saveGames() {
     // TODO: save all games from this current round to database
     let promises = [];
     for (let roomId in currentGames) {
+        if (!currentGames[roomId].active()) continue;
         let game = gameSave(roomId);
         if (game) {
             promises.push(game);
@@ -700,6 +806,32 @@ app.post('/api/advance-round', async (req, res) => {
     }
 });
 
+app.post('/api/set-round', async (req, res) => {
+    try {
+        console.log('Request to advance round');
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+            return;
+        }
+        await saveGames();
+        let roundNum = req.body.roundNum;
+        await autoRound.setRound(roundNum);
+        res.send({
+            success: true,
+            currentRound: roundNum
+        });
+        await createGames(roundNum);
+    } catch (err) {
+        res.send(INTERNAL);
+        console.error(err);
+    }
+});
+
 app.get('/api/list-teams', async (req, res) => {
     try {
         let user = await authUser(req);
@@ -724,6 +856,55 @@ app.get('/api/list-teams', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.send(INTERNAL);
+    }
+});
+
+app.get('/api/active-games', async (req, res) => {
+    try {
+        let user = await authUser(req);
+        if (!user) {
+            res.send(INVALID_TOKEN);
+            return;
+        }
+        if (!user.isAdmin) {
+            res.send(NO_PERMS);
+            return;
+        }
+        let active = [];
+        for (let roomId in currentGames) {
+            let game = currentGames[roomId];
+            let roomName = (await db.findRoomWithId(roomId)).roomName;
+            if (game.active()) {
+                active.push({
+                    ...game,
+                    roomName
+                });
+            }
+        }
+        res.json({
+            success: true,
+            activeGames: active
+        });
+    } catch (err) {
+        console.error(chalk.red(`Error listing active teams: ${err}`));
+    }
+});
+
+app.get('/api/packets/:roundNum', async (req, res) => {
+    try {
+        let user = await authUser(req);
+        if (!user) {
+            res.status(403);
+            return;
+        }
+        if (!user.isAdmin && !user.isMod) {
+            res.status(403);
+            return;
+        }
+        let roundNum = parseInt(req.params.roundNum);
+        res.sendFile(path.join(__dirname, 'rounds', `round${roundNum}.pdf`));
+    } catch (err) {
+        console.error(chalk.red(`Error getting packet: ${err}`));
     }
 });
 

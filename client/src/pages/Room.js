@@ -9,7 +9,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 import { Rnd } from 'react-rnd';
 import ToggleSwitch from './ToggleSwitch';
 import CountdownTimer from './CountdownTimer';
-import { Table } from 'react-bootstrap';
+import { Table, Modal } from 'react-bootstrap';
 import Pdf from 'react-pdf-js';
 
 let socket = new SocketManager();
@@ -477,7 +477,7 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
             </div>
             <ScrollableDiv className={`pdf-holder ${showPacket ? 'pdf-holder-active' : 'pdf-holder-inactive'}`} handleScroll={setScroll} scrollTop={scroll}>
                 <div className={showPacket ? '' : 'invisible'}>
-                    <Pdf file={url} page={page} scale={1.2} withCredentials />
+                    <Pdf file={url} page={page} scale={1} withCredentials />
                 </div>
                 {!showPacket && (
                     <div className="text-center">
@@ -488,6 +488,27 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
             </ScrollableDiv>
         </div>
     )
+}
+
+function EndGameComponent() {
+    const [showEndGameModal, setShowEndGameModal] = useState(false);
+    return (
+        <div className="EndGameComponent">
+            <Modal show={showEndGameModal} onHide={ () => setShowEndGameModal(false) }>
+                <Modal.Header closeButton>
+                    <Modal.Title>End Game</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you'd like to end this game and finalize the results?  This cannot be undone.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={ () => setShowEndGameModal(false) }>Close</Button>
+                    <Button variant="primary" onClick={() => socket.endGame()}>Confirm</Button>
+                </Modal.Footer>
+            </Modal>
+            <Button variant="danger" className="end-game-button" onClick={() => setShowEndGameModal(true)}>End Game</Button>
+        </div>
+    );
 }
 
 function ModUI({ gameState, room, user, timer }) {
@@ -513,6 +534,13 @@ function ModUI({ gameState, room, user, timer }) {
                 <Button variant="success" onClick={() => socket.startGame()}>Start Game</Button>
             </div>
         );
+    } else if (gameState.finished) {
+        return (
+            <div className="PlayerUI">
+                <h1 className="text-center">Your game has ended</h1>
+                <p className="text-center">If you believe this to be in error, please contact an administrator.</p>
+            </div>
+        )
     }
     return (
         <div className="ModUI">
@@ -521,8 +549,9 @@ function ModUI({ gameState, room, user, timer }) {
             <QuestionInfo questionNum={gameState.questionNum} isBonus={gameState.onBonus} isMod />
             {/*<BuzzerName buzzer={gameState.buzzActive} user={user} />*/}
             <TimerMan timer={timer} isBonus={gameState.onBonus} timeUp={gameState.timeUp} isMod />
-            <PacketComponent url={'/round5.pdf'} roundNum={gameState.roundNum} hasBuzz={gameState.buzzActive !== null} />
+            <PacketComponent url={`${process.env.REACT_APP_API_BASE}/packets/${gameState.roundNum}`} roundNum={gameState.roundNum} hasBuzz={gameState.buzzActive !== null} />
             <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} isMod />
+            <EndGameComponent />
         </div>
     );
 }
@@ -547,6 +576,13 @@ function PlayerUI({ gameState, room, user, teamIndex, timer }) {
                 <h3 className="text-center">Please stand by.</h3>
             </div>
         );
+    } else if (gameState.finished) {
+        return (
+            <div className="PlayerUI">
+                <h1 className="text-center">Your game has ended</h1>
+                <p className="text-center">If you believe this to be in error, please contact an administrator.</p>
+            </div>
+        )
     }
     let movable = (window.innerWidth > 760); // should match computers
     return (

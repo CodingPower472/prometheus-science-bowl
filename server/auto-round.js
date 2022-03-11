@@ -161,9 +161,18 @@ async function advanceRound() {
     return currRound;
 }
 
+async function setRound(roundNum) {
+    await db.updateTournamentInfo({
+        currentRound: roundNum
+    });
+    await updateRoomAssignments(roundNum);
+    return roundNum;
+}
+
 module.exports = {
     startTournament,
     reloadRound,
     advanceRound,
+    setRound,
     updateRoomAssignments
 };

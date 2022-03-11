@@ -19,8 +19,8 @@ class Game {
     constructor(teamA, teamB, sendMessage, roundNum) {
         this.teams = [teamA, teamB];
         this.preprocessTeams();
-        this.opened = true; // TODO: change this line and following to false and -1 in production
-        this.questionNum = 0;
+        this.opened = false;
+        this.questionNum = -1;
         this.finished = false;
         this.buzzActive = null;
         this.onBonus = false;
@@ -29,6 +29,10 @@ class Game {
         this.timeUp = false;
         this.sendMessage = sendMessage;
         this.roundNum = roundNum;
+    }
+
+    active() {
+        return this.opened && !this.finished;
     }
     
     teamA() {
@@ -94,8 +98,13 @@ class Game {
         this.opened = true;
         this.questionNum = 1;
     }
+
+    end() {
+        this.finished = true;
+    }
     
     buzz(googleId) {
+        if (!this.active()) return;
         if (this.buzzActive || this.onBonus) return;
         let user = this.findGoogleID(googleId);
         if (!user) return;
@@ -108,6 +117,7 @@ class Game {
     }
 
     clearBuzzer() {
+        if (!this.active()) return;
         if (!this.buzzActive) return;
         this.findGoogleID(this.buzzActive.googleId)[0].buzzing = false;
         this.buzzActive = null;
@@ -115,11 +125,13 @@ class Game {
     }
 
     ignoreBuzz() {
+        if (!this.active()) return;
         teams[this.findGoogleID(this.buzzActive.googleId)[1]].lockedOut = false;
         this.clearBuzzer();
     }
 
     correctAnswer(questionNum, playerId, teamInd, isBonus) {
+        if (!this.active()) return;
         if (isBonus) {
             this.scoreboard.bonusCorrect(questionNum, teamInd);
         } else {
@@ -129,6 +141,7 @@ class Game {
     }
 
     incorrectAnswer(questionNum, playerId, teamInd, isBonus) {
+        if (!this.active()) return;
         if (isBonus) {
             this.scoreboard.bonusIncorrect(questionNum, teamInd);
         } else {
@@ -138,30 +151,36 @@ class Game {
     }
 
     negAnswer(questionNum, playerId, teamInd) {
+        if (!this.active()) return;
         this.scoreboard.tossUpNeg(questionNum, playerId, teamInd);
         this.updateScores();
     }
 
     noAnswer(questionNum, teamInd) {
+        if (!this.active()) return;
         this.scoreboard.noAnswer(questionNum, teamInd);
         this.updateScores();
     }
 
     allLocked() {
+        if (!this.active()) return;
         return this.teams[0].lockedOut && this.teams[1].lockedOut;
     }
 
     unlockAll() {
+        if (!this.active()) return;
         if (this.teams[0]) this.teams[0].lockedOut = false;
         if (this.teams[1]) this.teams[1].lockedOut = false;
     }
 
     lockAll() {
+        if (!this.active()) return;
         if (this.teams[0]) this.teams[0].lockedOut = true;
         if (this.teams[1]) this.teams[1].lockedOut = true;
     }
 
     correctLive() {
+        if (!this.active()) return;
         this.correctAnswer(this.questionNum, this.buzzActive ? this.buzzActive.googleId : null, this.answeringTeam, this.onBonus);
         this.cancelTimer();
         if (this.onBonus) {
@@ -178,6 +197,7 @@ class Game {
     }
 
     incorrectLive() {
+        if (!this.active()) return;
         this.incorrectAnswer(this.questionNum, this.buzzActive ? this.buzzActive.googleId : null, this.answeringTeam, this.onBonus);
         if (this.onBonus) {
             this.questionNum++;
@@ -196,6 +216,7 @@ class Game {
     }
 
     negLive() {
+        if (!this.active()) return;
         this.cancelTimer();
         if (!this.buzzActive) {
             console.error(chalk.red('Trying to mark neg when no buzz active.'));
@@ -212,15 +233,18 @@ class Game {
     }
 
     tossUpTimeUp() {
+        if (!this.active()) return;
         this.lockAll();
         this.timeUp = true;
     }
 
     bonusTimeUp() {
+        if (!this.active()) return;
         this.timeUp = true;
     }
 
     nextQuestion() {
+        if (!this.active()) return;
         this.setQuestionNum(this.questionNum + 1);
         if (this.onBonus) {
             this.setOnBonus(false);
@@ -229,12 +253,14 @@ class Game {
     }
 
     setQuestionNum(num) {
+        if (!this.active()) return;
         this.questionNum = num;
         this.unlockAll();
         this.cancelTimer();
     }
 
     setOnBonus(isBonus) {
+        if (!this.active()) return;
         this.onBonus = isBonus;
         this.unlockAll();
         if (this.onBonus) {
@@ -244,10 +270,12 @@ class Game {
     }
 
     setLocked(teamInd, locked) {
+        if (!this.active()) return;
         this.teams[teamInd].lockedOut = locked;
     }
 
     startTimer(onTimeUp) {
+        if (!this.active()) return;
         if (onTimeUp) {
             this.onTimeUp = onTimeUp;
         }
@@ -269,6 +297,7 @@ class Game {
     }
 
     resetTimer() {
+        if (!this.active()) return;
         clearTimeout(this.questionTimer);
         this.timeUp = false;
         let time = this.onBonus ? 22 : 7;
@@ -287,6 +316,7 @@ class Game {
     }
 
     cancelTimer() {
+        if (!this.active()) return;
         this.timeUp = false;
         clearTimeout(this.questionTimer);
         this.sendMessage('timercancel');

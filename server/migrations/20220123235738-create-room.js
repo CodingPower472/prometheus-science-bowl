@@ -11,6 +11,9 @@ module.exports = {
       roomName: {
         type: Sequelize.STRING
       },
+      meetingLink: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

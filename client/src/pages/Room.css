@@ -308,3 +308,9 @@ th {
 .hoverclick:hover {
     cursor: pointer;
 }
+
+.end-game-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}

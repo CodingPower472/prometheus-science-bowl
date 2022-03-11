@@ -61,6 +61,12 @@ function advanceRound() {
     return axios.post(url('/advance-round'));
 }
 
+function setRound(n) {
+    return axios.post(url('/set-round'), {
+        roundNum: n
+    });
+}
+
 function createTeam(teamName) {
     return axios.post(url('/create-team'), {
         teamName
@@ -69,6 +75,10 @@ function createTeam(teamName) {
 
 function signOut() {
     return axios.post(url('/signout'));
+}
+
+function getActiveGames() {
+    return axios.get(url('/active-games'));
 }
 
 class SocketManager {
@@ -135,6 +145,12 @@ class SocketManager {
         this.check();
         this.socket.emit('start');
     }
+    endGame() {
+        this.check();
+        this.socket.emit('end');
+    }
+
+
     buzz() {
         this.check();
         this.socket.emit('buzz');
@@ -194,6 +210,7 @@ class SocketManager {
 
     setQuestionNum(num) {
         this.check();
+        if (num < 1) return;
         this.socket.emit('set-question-num', num);
     }
 
@@ -220,4 +237,4 @@ class SocketManager {
 
 }
 
-export { checkJoinCode, getUserInfo, join, auth, signIn, listTeams, getTournamentInfo, startTournament, reloadRound, advanceRound, createTeam, signOut, SocketManager };
+export { checkJoinCode, getUserInfo, join, auth, signIn, listTeams, getTournamentInfo, startTournament, reloadRound, setRound, advanceRound, createTeam, signOut, getActiveGames, SocketManager };

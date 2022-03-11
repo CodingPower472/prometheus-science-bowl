@@ -2,7 +2,7 @@ import './admin.css';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { auth, listTeams, getTournamentInfo, advanceRound, startTournament, createTeam, reloadRound } from '../api';
+import { auth, listTeams, getTournamentInfo, advanceRound, startTournament, createTeam, reloadRound, setRound, getActiveGames } from '../api';
 import ErrorPage from './ErrorPage';
 import { Toast, Modal, Button } from 'react-bootstrap';
 
@@ -20,10 +20,12 @@ function AdminPage({ user }) {
     const [teams, setTeams] = useState(null);
     const [toastInfo, setToastInfo] = useState(null);
     const [tournamentInfo, setTournamentInfo] = useState(null);
+    const [activeGames, setActiveGames] = useState(null);
     const [advanceModal, setAdvanceModal] = useState(null);
     const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
     const [teamCreateCompleted, setTeamCreateCompleted] = useState(null);
-    const teamNameRef = useRef();
+    const teamNameRef = useRef(null);
+    const nextRoundNumInput = useRef(null);
     function refreshTeamList() {
         listTeams()
             .then(res => {
@@ -32,6 +34,11 @@ function AdminPage({ user }) {
                     ourTeams.sort((a, b) => new Date(a.createdAt) < new Date(b.createdAt));
                 }
                 setTeams(ourTeams);
+            })
+            .catch(console.error);
+        getActiveGames()
+            .then(res => {
+                setActiveGames(res.data.activeGames);
             })
             .catch(console.error);
     }
@@ -51,6 +58,24 @@ function AdminPage({ user }) {
             text: `Join link for ${teams[i].name} copied to clipboard!`
         });
     }
+    const activeGameElems = activeGames ? activeGames.map((game, i) => {
+        return (
+            <tr key={i}>
+                <td>
+                    {game.teams[0].name}
+                </td>
+                <td>
+                    {game.teams[1].name}
+                </td>
+                <td>
+                    {game.teams[0].score}-{game.teams[1].score}
+                </td>
+                <td>
+                    {game.roomName}
+                </td>
+            </tr>
+        );
+    }) : null;
     const teamElems = teams ? teams.map((team, i) => {
         return (<tr key={i}>
             <th scope="row">{i+1}</th>
@@ -77,13 +102,26 @@ function AdminPage({ user }) {
             })
             .catch(console.error);
     }
+    function setRoundBtn() {
+        let nextRound = parseInt(nextRoundNumInput.current.value);
+        setRound(nextRound)
+            .then(res => {
+                refreshTeamList();
+                setAdvanceModal(null);
+                setTournamentInfo({
+                    currentRound: res.data.currentRound,
+                    started: true
+                });
+            })
+            .catch(console.error);
+    }
     function advance() {
         if (tournamentInfo.started) {
             advanceRound()
                 .then(res => {
                     if (res.data.success) {
                         setTournamentInfo({
-                            currentRound: tournamentInfo.currentRound + 1,
+                            currentRound: res.data.currentRound,
                             started: true
                         });
                         refreshTeamList();
@@ -134,6 +172,12 @@ function AdminPage({ user }) {
             refreshRequest: true
         });
     }
+    function setRoundModal() {
+        setAdvanceModal({
+            action: 'Set Round',
+            setRoundRequest: true
+        });
+    }
     let tournamentDisplay = null;
     if (tournamentInfo) {
         tournamentDisplay = (
@@ -144,22 +188,35 @@ function AdminPage({ user }) {
                 <h2>Round: {tournamentInfo.currentRound || 'Not started'}</h2>
                 <Button variant="info" onClick={displayAdvanceModal}>{tournamentInfo.started ? "Advance Round" : "Start Tournament"}</Button>
                 {tournamentInfo.started && <Button variant="warning" onClick={refreshRoundModal}>Refresh Round</Button>}
+                <Button variant="success" onClick={setRoundModal}>Set Round</Button>
             </div>
         )
     }
     let advanceModalElement = null;
     if (advanceModal) {
+        let onc = advance;
+        if (advanceModal.refreshRequest) {
+            onc = refreshRoundBtn;
+        } else if (advanceModal.setRoundRequest) {
+            onc = setRoundBtn;
+        }
+        let advanceBody = (
+            <p>Are you sure you would like to perform this action?  This cannot be undone.</p>
+        );
+        if (advanceModal.setRoundRequest) {
+            advanceBody = <label>Round: <input type="number" ref={nextRoundNumInput}></input></label>;
+        }
         advanceModalElement = (
             <Modal show={advanceModal} onHide={ () => setAdvanceModal(false) }>
                 <Modal.Header closeButton>
                     <Modal.Title>{advanceModal.action}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Are you sure you would like to perform this action?  This cannot be undone.</p>
+                    {advanceBody}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={ () => setAdvanceModal(null) }>Close</Button>
-                    <Button variant="primary" onClick={advanceModal.refreshRequest ? refreshRoundBtn : advance}>Confirm</Button>
+                    <Button variant="primary" onClick={onc}>Confirm</Button>
                 </Modal.Footer>
             </Modal>
         )
@@ -181,6 +238,22 @@ function AdminPage({ user }) {
                 </Modal.Footer>
             </Modal>
             {tournamentDisplay}
+            <div className="pb-2 mt-4 mb-2 border-bottom">
+                <h1>Active Games</h1>
+            </div>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Team A</th>
+                        <th scope="col">Team B</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Room</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {activeGameElems}
+                </tbody>
+            </table>
             <div className="pb-2 mt-4 mb-2 border-bottom">
                 <h1>Teams</h1>
             </div>
