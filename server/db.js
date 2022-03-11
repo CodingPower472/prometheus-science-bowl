@@ -20,7 +20,7 @@ function start(onAuth) {
     }
 }
 
-async function addMod(fullName) {
+async function addMod(fullName, payload) {
     return await User.create({
         fullName,
         email: payload.email,

@@ -13,7 +13,7 @@ margin-top: 30px;
 `;
 
 function getJoinLink(joinCode) {
-    return `http://localhost:3000/join/${joinCode}`;
+    return `https://prometheus.buzz/join/${joinCode}`;
 }
 
 function AdminPage({ user }) {
@@ -60,7 +60,7 @@ function AdminPage({ user }) {
     }
     const activeGameElems = activeGames ? activeGames.map((game, i) => {
         return (
-            <tr key={i}>
+            <tr key={`game-${i}`}>
                 <td>
                     {game.teams[0].name}
                 </td>
