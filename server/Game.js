@@ -28,7 +28,7 @@ class Game {
         this.questionTimer = null;
         this.timeUp = false;
         this.timerRunning = false;
-        this.sendMessage = sendMessage;
+        //this.sendMessage = sendMessage;
         this.roundNum = roundNum;
     }
 
@@ -211,8 +211,9 @@ class Game {
             if (this.allLocked()) {
                 this.questionNum++;
                 this.unlockAll();
+                return true;
             } else {
-                this.startTimer();
+                return false;
             }
         }
         this.onBonus = false;
@@ -281,6 +282,7 @@ class Game {
 
     startTimer(onTimeUp) {
         if (!this.active()) return;
+        clearTimeout(this.questionTimer);
         if (onTimeUp) {
             this.onTimeUp = onTimeUp;
         }

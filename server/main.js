@@ -210,12 +210,15 @@ io.on('connection', async socket => {
                 });
                 socket.on('incorrectanswer', async () => {
                     try {
+                        let wereAllLocked = game.incorrectLive();
                         if (game.onBonus) {
                             send('timercancel');
-                        } else {
+                        } else if (!wereAllLocked) {
                             send('timerreset');
+                            game.startTimer(() => {
+                                roomUpdate();
+                            });
                         }
-                        game.incorrectLive();
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -307,6 +310,7 @@ io.on('connection', async socket => {
                     try {
                         if (game.timerRunning) return;
                         let time = game.startTimer(wasBonus => {
+                            console.log('timer done!');
                             roomUpdate();
                         });
                         roomUpdate();
@@ -746,7 +750,7 @@ async function createGames(roundNum) {
                 game.setTeamB(team);
             } else {
                 currentGames[roomId] = new Game(team, null, (a, b) => {
-                    console.log(`sending message: ${a}`)
+                    console.log(`sending message: ${a}`);
                     if (b) {
                         io.to(roomId).emit(a, b);
                     } else {
@@ -918,6 +922,16 @@ app.get('/api/packets/:roundNum', async (req, res) => {
     } catch (err) {
         console.error(chalk.red(`Error getting packet: ${err}`));
     }
+});
+
+process.on('uncaughtException', err => {
+    console.error(chalk.red(`Uncaught error: ${err}`));
+    console.trace(err);
+    saveGames()
+        .then(() => {
+            console.log('Emergency backup of games completed.');
+        })
+        .catch(console.error);
 });
 
 server.listen(8080);
