@@ -552,6 +552,9 @@ function ModUI({ gameState, room, user, timer }) {
             <PacketComponent url={`${process.env.REACT_APP_API_BASE}/packets/${gameState.roundNum}`} roundNum={gameState.roundNum} hasBuzz={gameState.buzzActive !== null} />
             <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} isMod />
             <EndGameComponent />
+            <a className="text-center bottom-left" href={room.meetingLink} target="_blank" rel="noreferrer">
+                <Button variant="warning">Go to Meeting</Button>
+            </a>
         </div>
     );
 }
@@ -588,6 +591,7 @@ function PlayerUI({ gameState, room, user, teamIndex, timer }) {
     return (
         <div className="PlayerUI">
             <h1 className="room-name">Room {room.roomName}</h1>
+            <a className="text-center" href={room.meetingLink}>{room.meetingLink}</a>
             <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
             <TimerMan timer={timer} isBonus={gameState.onBonus} />
             <BuzzComponent displayActive={shouldBuzzShowActive(gameState, teamIndex)} movable={movable} />

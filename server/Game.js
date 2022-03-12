@@ -96,7 +96,7 @@ class Game {
 
     start() {
         this.opened = true;
-        this.questionNum = 1;
+        this.questionNum = 0;
     }
 
     end() {

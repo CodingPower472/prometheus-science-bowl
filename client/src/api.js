@@ -210,7 +210,7 @@ class SocketManager {
 
     setQuestionNum(num) {
         this.check();
-        if (num < 1) return;
+        if (num < 0) return;
         this.socket.emit('set-question-num', num);
     }
 
