@@ -200,6 +200,7 @@ class Game {
 
     incorrectLive() {
         if (!this.active()) return;
+        let res = true;
         this.incorrectAnswer(this.questionNum, this.buzzActive ? this.buzzActive.googleId : null, this.answeringTeam, this.onBonus);
         if (this.onBonus) {
             this.questionNum++;
@@ -211,12 +212,12 @@ class Game {
             if (this.allLocked()) {
                 this.questionNum++;
                 this.unlockAll();
-                return true;
             } else {
-                return false;
+                res = false;
             }
         }
         this.onBonus = false;
+        return res;
     }
 
     negLive() {

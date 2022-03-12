@@ -214,7 +214,7 @@ io.on('connection', async socket => {
                         if (game.onBonus) {
                             send('timercancel');
                         } else if (!wereAllLocked) {
-                            send('timerreset');
+                            send('timerstart', game.onBonus ? 22 : 7);
                             game.startTimer(() => {
                                 roomUpdate();
                             });
@@ -908,16 +908,25 @@ app.get('/api/active-games', async (req, res) => {
 
 app.get('/api/packets/:roundNum', async (req, res) => {
     try {
+        let roundNum = parseInt(req.params.roundNum);
+        let tournamentInfo = await db.getTournamentInfo();
+        if (tournamentInfo.currentRound !== roundNum) {
+            res.status(403);
+            return;
+        }
         let user = await authUser(req);
         if (!user) {
             res.status(403);
             return;
         }
-        if (!user.isAdmin && !user.isMod) {
+        let allowed = user.isAdmin;
+        if (user.isMod) {
+            allowed = (user.roomId !== null);
+        }
+        if (!allowed) {
             res.status(403);
             return;
         }
-        let roundNum = parseInt(req.params.roundNum);
         res.sendFile(path.join(__dirname, 'rounds', `round${roundNum}.pdf`));
     } catch (err) {
         console.error(chalk.red(`Error getting packet: ${err}`));

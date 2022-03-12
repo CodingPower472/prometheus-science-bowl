@@ -361,12 +361,13 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
                     <th></th>
                     <th className="scoreboard-team-name" colSpan={4}>
                         {teamNames[0]}
-                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 0 })}></span>
+                        {isMod && <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 0 })}></span>}
                     </th>
                     <th></th>
                     <th className="scoreboard-team-name" colSpan={4}>
                         {teamNames[1]}
                         <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>
+                        {isMod && <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>}
                     </th>
                 </tr>
                 <tr>
@@ -390,17 +391,17 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
     let table2 = (
         <Table striped bordered hover className="table-right">
             <thead>
-                <tr>
+            <tr>
                     <th></th>
                     <th className="scoreboard-team-name" colSpan={4}>
                         {teamNames[0]}
-                        
-                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 0 })}></span>
+                        {isMod && <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 0 })}></span>}
                     </th>
                     <th></th>
                     <th className="scoreboard-team-name" colSpan={4}>
                         {teamNames[1]}
                         <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>
+                        {isMod && <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>}
                     </th>
                 </tr>
                 <tr>

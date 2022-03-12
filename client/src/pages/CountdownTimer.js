@@ -35,6 +35,7 @@ class CountdownTimer {
 
     start() {
         console.log(`Total time: ${this.totalTime}`);
+        clearInterval(this.timer);
         if (this.totalTime === null) return;
         this.remainingTime = this.totalTime;
         this.timer = setInterval(() => {
@@ -54,7 +55,6 @@ class CountdownTimer {
     }
 
     reset() {
-        this.cancel();
         this.start();
     }
 
