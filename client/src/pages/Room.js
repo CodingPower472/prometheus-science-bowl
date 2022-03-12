@@ -94,9 +94,9 @@ function BuzzComponent({ displayActive, movable }) {
                 <Rnd
                 default={{
                     x: 150,
-                    y: 50,
-                    width: 400,
-                    height: 400
+                    y: 150,
+                    width: 300,
+                    height: 300
                 }}
                 dragAxis="both"
                 bounds="window"
@@ -145,7 +145,7 @@ function QuestionInfo({ questionNum, isBonus, isMod }) {
         <Rnd
         default={{
             x: 224,
-            y: 90
+            y: 70
         }}
         onDragStop={(e) => console.log('Question info', e)}>
         <div className="text-center QuestionInfo">
@@ -208,10 +208,15 @@ function TimerMan({ isBonus, isMod, timeUp }) {
     if (!timer.active() && time !== shouldTime) {
         setTime(shouldTime);
     }
-    timer.setSecondCallback(duration => {
-        setTime(duration);
-        setReload(reload + 1); // just forces a component reload to get rid of the start timer button asap
-    });
+    useEffect(() => {
+        timer.setSecondCallback(duration => {
+            setTime(duration);
+            setReload(reload + 1); // just forces a component reload to get rid of the start timer button asap
+        });
+        return function() {
+            timer.secondCallback = null;
+        };
+    }, [reload]);
     let ourTime = time;
     if (timeUp) {
         ourTime = 0;
@@ -234,7 +239,7 @@ function TimerMan({ isBonus, isMod, timeUp }) {
                 {(time !== null) ? `00:${ourTime.toString().padStart(2, '0')}` : null}
             </h1>
             {(isMod && !timer.active() && !timeUp) && (
-                <Button size="lg" variant="primary" className="startTimerBtn" onClick={() => socket.startTimer()}>Done Reading</Button>
+                <Button size="lg" variant="primary" className="startTimerBtn" onClick={() => socket.startTimer()}>Start Timer</Button>
             )}
             {(isMod && timer.active() && !timeUp) && (
                 <Button variant="danger" className="stopTimerBtn" onClick={() => socket.cancelTimer()}>Stop Timer</Button>
@@ -250,6 +255,8 @@ function TimerMan({ isBonus, isMod, timeUp }) {
 function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
 
     const [show, setShow] = useState(false);
+    const [offsetModal, setOffsetModal] = useState(null);
+    const offsetAmountInput = useRef(null);
 
     let running = [0, 0];
 
@@ -352,9 +359,15 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
             <thead>
                 <tr>
                     <th></th>
-                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[0]}</th>
+                    <th className="scoreboard-team-name" colSpan={4}>
+                        {teamNames[0]}
+                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 0 })}></span>
+                    </th>
                     <th></th>
-                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[1]}</th>
+                    <th className="scoreboard-team-name" colSpan={4}>
+                        {teamNames[1]}
+                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>
+                    </th>
                 </tr>
                 <tr>
                     <th>#</th>
@@ -402,11 +415,30 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
         </Table>
     );
 
+    function setOffsetAmount() {
+        let amount = parseInt(offsetAmountInput.current.value);
+        socket.setOffset(offsetModal.teamInd, amount);
+        setOffsetModal(null);
+    }
+
     let content = (
         <div className={`ScoreboardInner ${show ? 'border-scoreboard' : ''}`}>
             <Dropdown>
                 <Dropdown.Toggle style={{width: '100%'}} className="showHidePanel" onClick={() => setShow(!show)}>Scoreboard</Dropdown.Toggle>
             </Dropdown>
+            <Modal show={offsetModal !== null} onHide={ () => setOffsetModal(null) }>
+                <Modal.Header closeButton>
+                    <Modal.Title>Set Score Offset for {offsetModal ? teamNames[offsetModal.teamInd] : ''}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <label>Offset: <input ref={offsetAmountInput} type="number" autoFocus /></label>
+                    <p>This is used to offset the score of this team by an arbitrary amount (e.g. catching up to a previous score).</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={ () => setOffsetModal(null) }>Close</Button>
+                    <Button variant="primary" onClick={setOffsetAmount}>Confirm</Button>
+                </Modal.Footer>
+            </Modal>
             {show && (
                 <div className="tables-holder">
                     {table}
@@ -447,6 +479,17 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
     const [page, setPage] = useState(1);
     const [scroll, setScroll] = useState(0);
     const [manualShow, setManualShow] = useState(false);
+
+    useEffect(() => {
+        if (hasBuzz) {
+            let timeout = setTimeout(() => {
+                setManualShow(true);
+            }, 2000); // auto-show after 2s
+            return function() {
+                clearTimeout(timeout);
+            };
+        }
+    }, [hasBuzz]);
 
     if (!hasBuzz && manualShow) {
         setManualShow(false);
@@ -511,12 +554,36 @@ function EndGameComponent() {
     );
 }
 
-function ModUI({ gameState, room, user, timer }) {
+function ModUI({ gameState, room, user }) {
     // Panel list:
     // Teams: shows which players are on which teams and if they're online, as well as the overall score
     // Packet: shows the current packet and done reading button, buttons for selecting "correct" and "incorrect" after buzzes
     // Manual scorekeeping: shows entire scoring table and allows for manual changes
     // Manual timekeeping: allows for manual timekeeping
+
+    useEffect(() => {
+        function keyDown(e) {
+            if (!gameState) return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (timer.active() && !gameState.timeUp) {
+                    socket.cancelTimer();
+                } else if (!timer.active() && !gameState.timeUp) {
+                    socket.startTimer();
+                }
+            }
+            if (e.code === 'KeyN') {
+                if (!timer.active() && gameState.timeUp) {
+                    socket.nextQuestion();
+                }
+            }
+        }
+        document.addEventListener('keydown', keyDown);
+
+        return function cleanup() {
+            document.removeEventListener('keydown', keyDown);
+        }
+    }, [gameState]);
 
     if (!gameState) {
         console.log('No game at all');
@@ -542,13 +609,14 @@ function ModUI({ gameState, room, user, timer }) {
             </div>
         )
     }
+    
     return (
         <div className="ModUI">
             <ModBuzzManager buzzActive={gameState.buzzActive} isBonus={gameState.onBonus} answeringTeam={gameState.teams[gameState.answeringTeam]} />
             <TeamsDisplay teams={gameState.teams} isMod isBonus={gameState.onBonus} />
             <QuestionInfo questionNum={gameState.questionNum} isBonus={gameState.onBonus} isMod />
             {/*<BuzzerName buzzer={gameState.buzzActive} user={user} />*/}
-            <TimerMan timer={timer} isBonus={gameState.onBonus} timeUp={gameState.timeUp} isMod />
+            <TimerMan isBonus={gameState.onBonus} timeUp={gameState.timeUp} isMod />
             <PacketComponent url={`${process.env.REACT_APP_API_BASE}/packets/${gameState.roundNum}`} roundNum={gameState.roundNum} hasBuzz={gameState.buzzActive !== null} />
             <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} isMod />
             <EndGameComponent />
@@ -559,10 +627,24 @@ function ModUI({ gameState, room, user, timer }) {
     );
 }
 
-function PlayerUI({ gameState, room, user, teamIndex, timer }) {
+function PlayerUI({ gameState, room, user, teamIndex }) {
     // Panel list:
     // Teams: same
     // Buzz: buzz in
+
+    useEffect(() => {
+        function keyDown(e) {
+            if (e.code === 'Space') {
+                socket.buzz();
+            }
+        }
+        document.addEventListener('keydown', keyDown);
+
+        return function cleanup() {
+            document.removeEventListener('keydown', keyDown);
+        }
+    }, [gameState]);
+
     if (!gameState) {
         console.log('No game at all');
         return (
@@ -590,10 +672,10 @@ function PlayerUI({ gameState, room, user, teamIndex, timer }) {
     let movable = (window.innerWidth > 760); // should match computers
     return (
         <div className="PlayerUI">
-            <h1 className="room-name">Room {room.roomName}</h1>
-            <a className="text-center" href={room.meetingLink}>{room.meetingLink}</a>
+            <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} />
+            <a className="text-center player-meeting-link" href={room.meetingLink}>{room.meetingLink}</a>
             <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
-            <TimerMan timer={timer} isBonus={gameState.onBonus} />
+            <TimerMan isBonus={gameState.onBonus} />
             <BuzzComponent displayActive={shouldBuzzShowActive(gameState, teamIndex)} movable={movable} />
             <BuzzerName buzzer={gameState.buzzActive} user={user} />
         </div>
@@ -666,7 +748,7 @@ function Room({ authCallback }) {
         let teamIndex = joinResponse.teamIndex;
         main = (
             <div className="room-main text-center">
-                { (user.isMod || user.isAdmin) ? <ModUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> : <PlayerUI timer={timer} gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> }
+                { (user.isMod || user.isAdmin) ? <ModUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> : <PlayerUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> }
             </div>
         )
     } else {

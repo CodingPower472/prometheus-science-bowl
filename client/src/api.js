@@ -203,6 +203,13 @@ class SocketManager {
         });
     }
 
+    setOffset(teamInd, amount) {
+        this.socket.emit('set-offset', {
+            teamInd,
+            amount
+        });
+    }
+
     nextQuestion() {
         this.check();
         this.socket.emit('next-question');

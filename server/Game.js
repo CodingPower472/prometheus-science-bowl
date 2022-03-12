@@ -27,6 +27,7 @@ class Game {
         this.scoreboard = new Scoreboard();
         this.questionTimer = null;
         this.timeUp = false;
+        this.timerRunning = false;
         this.sendMessage = sendMessage;
         this.roundNum = roundNum;
     }
@@ -69,6 +70,7 @@ class Game {
             onBonus: this.onBonus,
             scoreboard: this.scoreboard.state(),
             timeUp: this.timeUp,
+            timerRunning: this.timerRunning,
             roundNum: this.roundNum
         };
     }
@@ -126,7 +128,7 @@ class Game {
 
     ignoreBuzz() {
         if (!this.active()) return;
-        teams[this.findGoogleID(this.buzzActive.googleId)[1]].lockedOut = false;
+        this.teams[this.findGoogleID(this.buzzActive.googleId)[1]].lockedOut = false;
         this.clearBuzzer();
     }
 
@@ -236,11 +238,13 @@ class Game {
         if (!this.active()) return;
         this.lockAll();
         this.timeUp = true;
+        this.timerRunning = false;
     }
 
     bonusTimeUp() {
         if (!this.active()) return;
         this.timeUp = true;
+        this.timerRunning = false;
     }
 
     nextQuestion() {
@@ -280,6 +284,7 @@ class Game {
             this.onTimeUp = onTimeUp;
         }
         this.timeUp = false;
+        this.timerRunning = true;
         let time = this.onBonus ? 22 : 7;
         this.questionTimer = setTimeout(() => {
             if (this.onBonus) {
@@ -291,8 +296,7 @@ class Game {
                 onTimeUp(this.onBonus);
             }
         }, time*1000);
-        console.log('Going to send start timer');
-        this.sendMessage('timerstart');
+        //this.sendMessage('timerstart', time);
         return time;
     }
 
@@ -300,6 +304,7 @@ class Game {
         if (!this.active()) return;
         clearTimeout(this.questionTimer);
         this.timeUp = false;
+        this.timerRunning = true;
         let time = this.onBonus ? 22 : 7;
         this.questionTimer = setTimeout(() => {
             if (this.onBonus) {
@@ -311,15 +316,21 @@ class Game {
                 this.onTimeUp(this.onBonus);
             }
         }, time*1000);
-        this.sendMessage('timerreset');
+        //this.sendMessage('timerreset');
 
     }
 
     cancelTimer() {
         if (!this.active()) return;
         this.timeUp = false;
+        this.timerRunning = false;
         clearTimeout(this.questionTimer);
-        this.sendMessage('timercancel');
+        //this.sendMessage('timercancel');
+    }
+
+    setOffset(teamInd, amount) {
+        this.scoreboard.setOffset(teamInd, amount);
+        this.updateScores();
     }
 
 }

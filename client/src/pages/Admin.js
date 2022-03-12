@@ -207,7 +207,7 @@ function AdminPage({ user }) {
             advanceBody = <label>Round: <input type="number" ref={nextRoundNumInput}></input></label>;
         }
         advanceModalElement = (
-            <Modal show={advanceModal} onHide={ () => setAdvanceModal(false) }>
+            <Modal show={advanceModal} onHide={ () => setAdvanceModal(null) }>
                 <Modal.Header closeButton>
                     <Modal.Title>{advanceModal.action}</Modal.Title>
                 </Modal.Header>

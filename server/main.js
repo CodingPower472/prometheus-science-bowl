@@ -64,6 +64,7 @@ try {
 
 async function authSocket(socket) {
     try {
+        if (!socket.handshake.headers.cookie) return null;
         let ourCookie = cookie.parse(socket.handshake.headers.cookie);
         let token = cookieParser.signedCookie(ourCookie.authtoken, process.env.SESSION_SECRET);
         if (!token) return null;
@@ -190,7 +191,7 @@ io.on('connection', async socket => {
                 
                 socket.on('ignorebuzz', async () => {
                     try {
-                        game.clearBuzzer();
+                        game.ignoreBuzz();
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -304,6 +305,7 @@ io.on('connection', async socket => {
                 
                 socket.on('req_starttimer', () => {
                     try {
+                        if (game.timerRunning) return;
                         let time = game.startTimer(wasBonus => {
                             roomUpdate();
                         });
@@ -316,9 +318,19 @@ io.on('connection', async socket => {
                 
                 socket.on('req_canceltimer', () => {
                     try {
+                        if (!game.timerRunning) return;
                         game.cancelTimer();
                         roomUpdate();
                         send('timercancel');
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+
+                socket.on('set-offset', ({teamInd, amount}) => {
+                    try {
+                        game.setOffset(teamInd, amount);
+                        roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
