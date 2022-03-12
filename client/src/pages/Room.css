@@ -6,7 +6,7 @@
     position: absolute !important;
     border-image: linear-gradient(78deg, #000C7A, #0471D6) 1;
     height: 400px;
-    width: 200px;
+    width: 12%;
     top: 200px;
     padding: 10px;
     
@@ -164,7 +164,7 @@ th {
 .ScoreboardInner {
     background-color: #222;
     padding: 5px;
-    width: 50%;
+    width: 70%;
     margin-left: auto;
     margin-right: auto;
     position: absolute;
@@ -223,9 +223,9 @@ th {
 }
 
 .PacketComponent {
-    float: left;
-    margin-left: 10%;
-    margin-top: 225px;
+    position: absolute;
+    left: 18%;
+    bottom: 10px;
     width: 612px;
 }
 

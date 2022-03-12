@@ -211,8 +211,9 @@ class Game {
             if (this.allLocked()) {
                 this.questionNum++;
                 this.unlockAll();
+            } else {
+                this.startTimer();
             }
-            this.startTimer();
         }
         this.onBonus = false;
     }

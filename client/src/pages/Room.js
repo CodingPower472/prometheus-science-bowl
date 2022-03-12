@@ -392,9 +392,16 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
             <thead>
                 <tr>
                     <th></th>
-                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[0]}</th>
+                    <th className="scoreboard-team-name" colSpan={4}>
+                        {teamNames[0]}
+                        
+                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 0 })}></span>
+                    </th>
                     <th></th>
-                    <th className="scoreboard-team-name" colSpan={4}>{teamNames[1]}</th>
+                    <th className="scoreboard-team-name" colSpan={4}>
+                        {teamNames[1]}
+                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>
+                    </th>
                 </tr>
                 <tr>
                     <th>#</th>
@@ -475,8 +482,8 @@ function ScrollableDiv({ className, handleScroll, scrollTop, children }) {
     );
 }
 
-function PacketComponent({ url, roundNum, hasBuzz }) {
-    const [page, setPage] = useState(1);
+function PacketComponent({ url, roundNum, questionNum, hasBuzz }) {
+    const [offset, setOffset] = useState(0);
     const [scroll, setScroll] = useState(0);
     const [manualShow, setManualShow] = useState(false);
 
@@ -496,6 +503,7 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
     }
 
     let showPacket = (manualShow || !hasBuzz);
+    let page = Math.max(offset + questionNum + 1, 1);
     
     return (
         <div className="PacketComponent">
@@ -505,14 +513,14 @@ function PacketComponent({ url, roundNum, hasBuzz }) {
                     <a className="hoverclick" onClick={() => {
                         if (page > 1) {
                             setScroll(0);
-                            setPage(page - 1);
+                            setOffset(offset - 1);
                         }
                     }}>
                         <span className="bi-chevron-left"></span>
                     </a>
                     <a className="hoverclick" onClick={() => {
                         setScroll(0);
-                        setPage(page + 1);
+                        setOffset(offset + 1);
                     }}>
                         <span className="bi-chevron-right"></span>
                     </a>
@@ -603,7 +611,7 @@ function ModUI({ gameState, room, user }) {
         );
     } else if (gameState.finished) {
         return (
-            <div className="PlayerUI">
+            <div className="ModUI">
                 <h1 className="text-center">Your game has ended</h1>
                 <p className="text-center">If you believe this to be in error, please contact an administrator.</p>
             </div>
@@ -617,7 +625,7 @@ function ModUI({ gameState, room, user }) {
             <QuestionInfo questionNum={gameState.questionNum} isBonus={gameState.onBonus} isMod />
             {/*<BuzzerName buzzer={gameState.buzzActive} user={user} />*/}
             <TimerMan isBonus={gameState.onBonus} timeUp={gameState.timeUp} isMod />
-            <PacketComponent url={`${process.env.REACT_APP_API_BASE}/packets/${gameState.roundNum}`} roundNum={gameState.roundNum} hasBuzz={gameState.buzzActive !== null} />
+            <PacketComponent url={`${process.env.REACT_APP_API_BASE}/packets/${gameState.roundNum}`} roundNum={gameState.roundNum} questionNum={gameState.questionNum} hasBuzz={gameState.buzzActive !== null} />
             <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} isMod />
             <EndGameComponent />
             <a className="text-center bottom-left" href={room.meetingLink} target="_blank" rel="noreferrer">
@@ -672,12 +680,12 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
     let movable = (window.innerWidth > 760); // should match computers
     return (
         <div className="PlayerUI">
-            <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} />
             <a className="text-center player-meeting-link" href={room.meetingLink}>{room.meetingLink}</a>
             <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
             <TimerMan isBonus={gameState.onBonus} />
             <BuzzComponent displayActive={shouldBuzzShowActive(gameState, teamIndex)} movable={movable} />
             <BuzzerName buzzer={gameState.buzzActive} user={user} />
+            <ScoreboardComponent scoreboard={gameState.scoreboard} questionNum={gameState.questionNum} teamNames={[gameState.teams[0].name, gameState.teams[1].name]} />
         </div>
     );
 }
