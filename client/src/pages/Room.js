@@ -366,7 +366,6 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
                     <th></th>
                     <th className="scoreboard-team-name" colSpan={4}>
                         {teamNames[1]}
-                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>
                         {isMod && <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>}
                     </th>
                 </tr>
@@ -400,7 +399,6 @@ function ScoreboardComponent({ scoreboard, questionNum, teamNames, isMod }) {
                     <th></th>
                     <th className="scoreboard-team-name" colSpan={4}>
                         {teamNames[1]}
-                        <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>
                         {isMod && <span className="bi bi-info-circle show-offset-button" onClick={() => setOffsetModal({ teamInd: 1 })}></span>}
                     </th>
                 </tr>
