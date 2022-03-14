@@ -95,6 +95,11 @@ class SocketManager {
             withCredentials: true
         });
     }
+
+    removeAllListeners() {
+        this.socket.removeAllListeners();
+    }
+
     setOnConnect(cb) {
         this.check();
         this.socket.on('authorized', cb);

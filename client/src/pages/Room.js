@@ -3,7 +3,7 @@ import './Room.css';
 
 
 import React, { useEffect, useState, useRef }  from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { SocketManager } from '../api';
 import { Button, Dropdown } from 'react-bootstrap';
 import { Rnd } from 'react-rnd';
@@ -691,9 +691,10 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
 
 function Room({ authCallback }) {
 
-    let params = useParams();
-    let [joinResponse, setJoinResponse] = useState(null);
-    let [gameState, setGameState] = useState(null);
+    const params = useParams();
+    const [joinResponse, setJoinResponse] = useState(null);
+    const [gameState, setGameState] = useState(null);
+    const [roomWarnModal, setRoomWarnModal] = useState(false);
 
     useEffect(() => {
         socket.connect();
@@ -701,6 +702,7 @@ function Room({ authCallback }) {
             console.log('Successfully joined room!');
             setJoinResponse(data);
             setGameState(data.room.game);
+            setRoomWarnModal(data.roomWarning);
             authCallback(data.user);
         });
         socket.setOnConnect(() => {
@@ -717,6 +719,12 @@ function Room({ authCallback }) {
             console.error(err);
             if (err.errorCode === 'unauthed') {
                 console.log('Unauthenticated - returning to home page.');
+                setJoinResponse({
+                    success: false,
+                    redirect: true
+                });
+            } else if (err.errorCode === 'noassign') {
+                console.log('Wrong room assignment - redirecting to home page.'); // Could later redirect to correct room instead
                 setJoinResponse({
                     success: false,
                     redirect: true
@@ -740,6 +748,10 @@ function Room({ authCallback }) {
             timer.reset();
         });
 
+        return function() {
+            socket.removeAllListeners();
+        }
+
     }, []);
 
     let main = null;
@@ -755,7 +767,21 @@ function Room({ authCallback }) {
         let teamIndex = joinResponse.teamIndex;
         main = (
             <div className="room-main text-center">
-                { (user.isMod || user.isAdmin) ? <ModUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> : <PlayerUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> }
+                { (user.isMod || user.isAdmin) ? <ModUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> : <PlayerUI gameState={gameState} room={room} user={user} teamIndex={teamIndex} /> }     
+                <Modal show={roomWarnModal} onHide={ () => setRoomWarnModal(false) }>
+                <Modal.Header closeButton>
+                    <Modal.Title>Wrong Room</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>Are you sure you're supposed to be here? You are not currently assigned to this room.</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={ () => setRoomWarnModal(false) }>I'm sure I should be here.</Button>
+                    <Link to="/">
+                        <Button variant="warning">Take me home</Button>
+                    </Link>
+                </Modal.Footer>
+                </Modal>
             </div>
         )
     } else {

@@ -92,9 +92,28 @@ io.on('connection', async socket => {
         try {
             console.log('Request to join.')
             // TODO: check if player should actually be there
-            let roomId = data.room;
+            let roomId = parseInt(data.room);
+            let unassignedMessage = {
+                errorCode: 'noassign',
+                errorMessage: 'User is not assigned to this room.',
+                correctRoom: roomId
+            };
+            if (user.isPlayer && user.roomId !== roomId) {
+                socket.emit('joinerr', unassignedMessage);
+                return;
+            }
+            let roomWarning = false;
+            if (user.isMod && user.roomId !== roomId) {
+                if (process.env.TRUST_MODS === 'on') {
+                    console.warn('Moderator is joining an unassigned room.');
+                    roomWarning = true;
+                } else {
+                    console.warn('Moderator is being prevented from joining an unassigned room.');
+                    socket.emit('joinerr', unassignedMessage);
+                }
+            }
             socket.join(roomId);
-            let room = await db.findRoomWithId(data.room);
+            let room = await db.findRoomWithId(roomId);
             if (!room) return;
             let nextRoom = await room.get({ plain: true });
             let game = null;
@@ -139,7 +158,8 @@ io.on('connection', async socket => {
                 socket.emit('joined', {
                     room: nextRoom,
                     user: userInfo(user),
-                    teamIndex: found ? found[1] : null
+                    teamIndex: found ? found[1] : null,
+                    roomWarning: roomWarning // if TRUST_MODS is on, a warning message will be displayed to mods when they join a room they are not assigned to.  Otherwise, they will be prevented from joining.
                 });
             } catch (err) {
                 console.error(chalk.red(err));
@@ -437,7 +457,7 @@ async function assignToken(req, res, user) {
         res.cookie('authtoken', token, {
             expires: new Date(2147483647 * 1000), // maximum expiry date
             httpOnly: true,
-            secure: (process.env.SECURE === 'on'),
+            secure: (process.env.SECURE !== 'off'),
             signed: true
         });
         await db.addToken(user, token);
