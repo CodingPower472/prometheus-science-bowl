@@ -24,30 +24,27 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.Server(app);
-const io = new Server(server, {
-    cors: {
+let ioOptions = {};
+
+if (process.env.CORS === 'on') {
+    app.use(cors({
+        origin: process.env.CLIENT_URL,
+        credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    }));
+    ioOptions.cors = {
         origin: `${process.env.CLIENT_URL}`,
         methods: ['GET', 'POST'],
         credentials: true
-    }
-});
+    };
+}
 
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+const io = new Server(server, ioOptions);
+
 app.set('trust proxy', 1);
 app.use(bodyParser.json());
 const cparser = cookieParser(process.env.SESSION_SECRET);
 app.use(cparser);
-
-/*io.use(sharedsession(session, {
-    autoSave: false // NOTE: if i need to change variables from socketio later, change this to true
-}));
-io.use((socket, next) => {
-    session(socket.request, {}, next);
-});*/
 
 try {
     db.start(async () => {
@@ -161,6 +158,7 @@ io.on('connection', async socket => {
                     teamIndex: found ? found[1] : null,
                     roomWarning: roomWarning // if TRUST_MODS is on, a warning message will be displayed to mods when they join a room they are not assigned to.  Otherwise, they will be prevented from joining.
                 });
+                roomUpdate();
             } catch (err) {
                 console.error(chalk.red(err));
             }
@@ -170,6 +168,7 @@ io.on('connection', async socket => {
                     console.log('USER DISCONNECT');
                     if (game) {
                         game.setJoined(user.googleId, false);
+                        roomUpdate();
                     }
                 } catch (err) {
                     console.error(chalk.red(err));
@@ -184,6 +183,25 @@ io.on('connection', async socket => {
                             send('timercancel');
                             roomUpdate();
                         }
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                    }
+                });
+                socket.on('focus', async () => {
+                    console.log('focus');
+                    try {
+                        game.setPlayedFocused(user.googleId, true);
+                        roomUpdate();
+                    } catch (err) {
+                        console.error(chalk.red(err));
+                        console.trace(err);
+                    }
+                });
+                socket.on('blur', async () => {
+                    console.log('blur');
+                    try {
+                        game.setPlayedFocused(user.googleId, false);
+                        roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -880,7 +898,7 @@ app.get('/api/list-teams', async (req, res) => {
             return;
         }
         let teams = await db.listTeams();
-        teams.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+        teams.sort((a, b) => a.members.length - b.members.length);
         teams = teams.map(team => {
             team.members = team.members.map(userInfo);
             return team;
@@ -931,12 +949,12 @@ app.get('/api/packets/:roundNum', async (req, res) => {
         let roundNum = parseInt(req.params.roundNum);
         let tournamentInfo = await db.getTournamentInfo();
         if (tournamentInfo.currentRound !== roundNum) {
-            res.status(403);
+            res.status(403).end();
             return;
         }
         let user = await authUser(req);
         if (!user) {
-            res.status(403);
+            res.status(403).end();
             return;
         }
         let allowed = user.isAdmin;
@@ -944,7 +962,7 @@ app.get('/api/packets/:roundNum', async (req, res) => {
             allowed = (user.roomId !== null);
         }
         if (!allowed) {
-            res.status(403);
+            res.status(403).end();
             return;
         }
         res.sendFile(path.join(__dirname, 'rounds', `round${roundNum}.pdf`));

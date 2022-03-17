@@ -247,6 +247,14 @@ class SocketManager {
         this.socket.emit('req_canceltimer');
     }
 
+    focus() {
+        this.socket.emit('focus');
+    }
+
+    blur() {
+        this.socket.emit('blur');
+    }
+
 }
 
 export { checkJoinCode, getUserInfo, join, auth, signIn, listTeams, getTournamentInfo, startTournament, reloadRound, setRound, advanceRound, createTeam, signOut, getActiveGames, SocketManager };

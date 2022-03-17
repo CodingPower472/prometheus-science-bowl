@@ -11,6 +11,7 @@ class Game {
             team.lockedOut = false;
             for (let member of team.members) {
                 member.joined = false;
+                member.focused = false;
                 member.buzzing = false;
             }
         }
@@ -93,6 +94,7 @@ class Game {
         let user = this.findGoogleID(googleId);
         if (user) {
             user[0].joined = joined;
+            user[0].focused = joined;
         }
     }
 
@@ -335,6 +337,11 @@ class Game {
     setOffset(teamInd, amount) {
         this.scoreboard.setOffset(teamInd, amount);
         this.updateScores();
+    }
+
+    setPlayedFocused(googleId, focused) {
+        let user = this.findGoogleID(googleId)[0];
+        user.focused = focused;
     }
 
 }

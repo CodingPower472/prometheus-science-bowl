@@ -33,6 +33,10 @@
     opacity: 0.6;
 }
 
+.player-name.unfocused {
+    color: red;
+}
+
 .buzzer {
     background-position: center center;
     margin: auto;

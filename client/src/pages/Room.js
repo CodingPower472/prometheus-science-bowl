@@ -20,9 +20,14 @@ const noop = ( () => {} );
 function TeamsDisplay({ teams, isMod, isBonus }) {
     function mapPlayers(players) {
         return players.map((player, i) => {
+            console.log(player);
+            let cl = "player-name away";
+            if (player.joined) {
+                cl = (player.focused || !isMod) ? "player-name joined" : "player-name unfocused";
+            }
             return (
                 <li key={i}>
-                    <span className={player.joined ? "player-name joined" : "player-name away"}>{player.fullName}</span>
+                    <span className={cl}>{player.fullName}</span>
                     {player.buzzing && <span className="dot"></span>}
                 </li>
             );
@@ -650,7 +655,22 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
         return function cleanup() {
             document.removeEventListener('keydown', keyDown);
         }
-    }, [gameState]);
+    }, []);
+
+    useEffect(() => {
+        function onBlur(e) {
+            console.log('blur');
+            socket.blur();
+        }
+
+        function onFocus(e) {
+            console.log('focus');
+            socket.focus();
+        }
+
+        window.addEventListener('blur', onBlur);
+        window.addEventListener('focus', onFocus);
+    }, []);
 
     if (!gameState) {
         console.log('No game at all');
