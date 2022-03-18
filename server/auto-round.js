@@ -3,11 +3,13 @@ const db = require('./db');
 const { google } = require('googleapis');
 let sheets = google.sheets('v4');
 const privateKey = require('./secure/prometheus-2022-1-23');
+const chalk = require('chalk');
 require('dotenv').config();
 
 const MAX_TEAMS = 1000;
 
 const tournamentSpreadsheetId = process.env.TOURNAMENT_SPREADSHEET;
+const scoresSpreadsheetId = process.env.SCORES_SPREADSHEET;
 const teamRoomsSheet = process.env.TEAM_ROOMS_SHEET;
 const modRoomsSheet = process.env.MOD_ROOMS_SHEET;
 
@@ -52,6 +54,60 @@ async function getSheetInfo(sheetName) {
     return sheet.data.values;
 }
 
+async function saveScores(games, roundNum) {
+    console.log(chalk.green('Uploading scores to spreadsheet...'));
+    let jwtClient = new google.auth.JWT(
+        privateKey.client_email,
+        null,
+        privateKey.private_key,
+        ['https://www.googleapis.com/auth/spreadsheets']
+    );
+    let title = `Round ${roundNum} ${new Date().getTime()}`;
+    let values = [
+        ['Room ID', 'Team A', 'Team B', 'Score A', 'Score B']
+    ];
+    for (let roomId in games) {
+        let game = games[roomId];
+        if (game.teams[0] === null || game.teams[1] === null) continue;
+        let arr = [roomId, game.teams[0].name, game.teams[1].name, game.teams[0].score, game.teams[1].score];
+        values.push(arr);
+    }
+    await new Promise((resolve, reject) => {
+        const request = {
+            auth: jwtClient,
+            spreadsheetId: scoresSpreadsheetId,
+            resource: {
+                requests: [
+                    {
+                        addSheet: {
+                            properties: {
+                                title
+                            }
+                        }
+                    }
+                ]
+            }
+        };
+        sheets.spreadsheets.batchUpdate(request, (err, response) => {
+            if (err) return reject(err);
+            resolve(response);
+        });
+    });
+    let last = getA1Notation(values.length, values[0].length);
+    console.log(last);
+    const request = {
+        auth: jwtClient,
+        spreadsheetId: scoresSpreadsheetId,
+        range: `'${title}'!A1:${last}`,
+        valueInputOption: 'RAW',
+        insertDataOption: 'OVERWRITE',
+        resource: {
+            values
+        }
+    }
+    await sheets.spreadsheets.values.append(request);
+}
+
 async function updateTeamRoomAssignments(roundNum) {
     console.log(`Updating team room assignments, now in round ${roundNum}`);
     await db.clearTeamRoomAssignments();
@@ -59,7 +115,7 @@ async function updateTeamRoomAssignments(roundNum) {
     let teamNames = sheet[0];
     let col = sheet[roundNum];
     if (!col) {
-        console.warn('Warning: cannot auto-assign rooms.');
+        console.warn(chalk.yellow('Warning: cannot auto-assign rooms.'));
         return;
     }
     let promises = [];
@@ -70,12 +126,12 @@ async function updateTeamRoomAssignments(roundNum) {
                 let tn = teamNames[i];
                 let team = await db.findTeamWithName(tn, { include: 'members' });
                 if (!team) {
-                    console.error(`Warning: team with name ${tn} not found. Skipping.`);
+                    console.warn(chalk.yellow(`Warning: team with name ${tn} not found. Skipping.`));
                     return resolve();
                 }
                 let room = await db.findRoomWithName(col[i]);
                 if (!room) {
-                    console.error(`Warning: room with name ${col[i]} not found. Skipping.`);
+                    console.warn(chalk.yellow(`Warning: room with name ${col[i]} not found. Skipping.`));
                     return resolve();
                 }
                 await db.assignTeamRoom(team, room.id);
@@ -174,5 +230,6 @@ module.exports = {
     reloadRound,
     advanceRound,
     setRound,
-    updateRoomAssignments
+    updateRoomAssignments,
+    saveScores
 };

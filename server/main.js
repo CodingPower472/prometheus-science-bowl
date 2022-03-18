@@ -758,6 +758,11 @@ async function gameSave(roomId) {
 }
 
 async function saveGames() {
+    let arr = Object.keys(currentGames);
+    if (arr.length > 0) {
+        let roundNum = currentGames[arr[0]].roundNum;
+        await autoRound.saveScores(currentGames, roundNum)
+    }
     // TODO: save all games from this current round to database
     let promises = [];
     for (let roomId in currentGames) {
@@ -795,6 +800,13 @@ async function createGames(roundNum) {
                         io.to(roomId).emit(a);
                     }
                 }, roundNum);
+            }
+        }
+        for (let roomId in currentGames) {
+            let game = currentGames[roomId];
+            if (game.teams[0] === null || game.teams[1] === null) {
+                console.warn(`Warning: game on room ${roomId} is being deleted because it does not have two teams.`);
+                delete game[roomId];
             }
         }
     } catch (err) {
