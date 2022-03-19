@@ -910,7 +910,7 @@ app.get('/api/list-teams', async (req, res) => {
             return;
         }
         let teams = await db.listTeams();
-        teams.sort((a, b) => a.members.length - b.members.length);
+        teams.sort((a, b) => b.members.length - a.members.length);
         teams = teams.map(team => {
             team.members = team.members.map(userInfo);
             return team;
