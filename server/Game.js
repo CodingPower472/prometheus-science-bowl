@@ -18,10 +18,11 @@ class Game {
     }
 
     constructor(teamA, teamB, sendMessage, roundNum) {
+        console.log(chalk.green('GAME CONSTRUCTOR CALLED'));
         this.teams = [teamA, teamB];
         this.preprocessTeams();
         this.opened = false;
-        this.questionNum = -1;
+        this.questionNum = 0;
         this.finished = false;
         this.buzzActive = null;
         this.onBonus = false;
@@ -100,7 +101,6 @@ class Game {
 
     start() {
         this.opened = true;
-        this.questionNum = 0;
     }
 
     end() {

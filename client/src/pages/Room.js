@@ -20,7 +20,6 @@ const noop = ( () => {} );
 function TeamsDisplay({ teams, isMod, isBonus }) {
     function mapPlayers(players) {
         return players.map((player, i) => {
-            console.log(player);
             let cl = "player-name away";
             if (player.joined) {
                 cl = (player.focused || !isMod) ? "player-name joined" : "player-name unfocused";
@@ -659,12 +658,10 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
 
     useEffect(() => {
         function onBlur(e) {
-            console.log('blur');
             socket.blur();
         }
 
         function onFocus(e) {
-            console.log('focus');
             socket.focus();
         }
 
@@ -732,6 +729,7 @@ function Room({ authCallback }) {
             });
         });
         socket.setOnUpdate(s => {
+            console.log(s);
             setGameState(s);
         });
         socket.setOnConnectError(console.error);

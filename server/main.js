@@ -124,6 +124,10 @@ io.on('connection', async socket => {
             function roomUpdate() {
                 try {
                     if (game) {
+                        if (!game.state().opened) {
+                            console.log(chalk.red('Gave the response that the game isn\'t open.'));
+                            console.log(game);
+                        }
                         io.to(roomId).emit('update', game.state());
                     } else {
                         console.error(chalk.red('Attempted to update game state when game does not exist'));
@@ -165,7 +169,6 @@ io.on('connection', async socket => {
             
             socket.on('disconnect', () => {
                 try {
-                    console.log('USER DISCONNECT');
                     if (game) {
                         game.setJoined(user.googleId, false);
                         roomUpdate();
@@ -188,7 +191,6 @@ io.on('connection', async socket => {
                     }
                 });
                 socket.on('focus', async () => {
-                    console.log('focus');
                     try {
                         game.setPlayedFocused(user.googleId, true);
                         roomUpdate();
@@ -198,7 +200,6 @@ io.on('connection', async socket => {
                     }
                 });
                 socket.on('blur', async () => {
-                    console.log('blur');
                     try {
                         game.setPlayedFocused(user.googleId, false);
                         roomUpdate();
@@ -777,6 +778,7 @@ async function saveGames() {
 
 async function createGames(roundNum) {
     try {
+        console.log(chalk.green('Create games has been called.'));
         let teams = await db.listTeams();
         teams.sort((a, b) => a.name.localeCompare(b.name));
         currentGames = {};
@@ -952,7 +954,7 @@ app.get('/api/active-games', async (req, res) => {
             activeGames: active
         });
     } catch (err) {
-        console.error(chalk.red(`Error listing active teams: ${err}`));
+        console.error(chalk.red(`Error listing active games: ${err}`));
     }
 });
 
