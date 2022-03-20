@@ -180,9 +180,9 @@ io.on('connection', async socket => {
             if (user.isPlayer) {
                 socket.on('buzz', async () => {
                     try {
-                        if (!game.buzzActive) {
-                            console.log('Successful buzz');
-                            game.buzz(user.googleId);
+                        console.log('Successful buzz');
+                        let successful = game.buzz(user.googleId);
+                        if (successful) {
                             send('timercancel');
                             roomUpdate();
                         }
@@ -249,8 +249,9 @@ io.on('connection', async socket => {
                 });
                 socket.on('incorrectanswer', async () => {
                     try {
+                        let onBonus = game.onBonus;
                         let wereAllLocked = game.incorrectLive();
-                        if (game.onBonus) {
+                        if (onBonus) {
                             send('timercancel');
                         } else if (!wereAllLocked) {
                             send('timerstart', game.onBonus ? 22 : 7);

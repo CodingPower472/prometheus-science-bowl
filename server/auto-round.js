@@ -68,6 +68,7 @@ async function saveScores(games, roundNum) {
     ];
     for (let roomId in games) {
         let game = games[roomId];
+        if (!game) continue;
         if (game.teams[0] === null || game.teams[1] === null) continue;
         let arr = [roomId, game.teams[0].name, game.teams[1].name, game.teams[0].score, game.teams[1].score];
         values.push(arr);

@@ -70,7 +70,7 @@ function TeamsDisplay({ teams, isMod, isBonus }) {
 
 function BuzzComponent({ displayActive, movable }) {
 
-    const [isDragging, setIsDragging] = useState(false);
+    /*const [isDragging, setIsDragging] = useState(false);
 
     const eventControl = (event, info) => {
 
@@ -85,10 +85,10 @@ function BuzzComponent({ displayActive, movable }) {
         }, 100);
 
         }
-    }
+    }*/
     let content = (
         <div className="BuzzComponent">
-            <button className={`buzzer ${displayActive ? "buzzer-active" : "buzzer-inactive"}`} onClick={displayActive ? (() => (isDragging ? noop() : socket.buzz())) : noop}>
+            <button className={`buzzer ${displayActive ? "buzzer-active" : "buzzer-inactive"}`} onClick={displayActive ? (() => socket.buzz) : noop}>
             </button>
         </div>
     );
@@ -105,8 +105,6 @@ function BuzzComponent({ displayActive, movable }) {
                 dragAxis="both"
                 bounds="window"
                 lockAspectRatio
-                onDrag={eventControl}
-                onDragStop={eventControl}
                 >
                     {content}
             </Rnd>

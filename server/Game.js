@@ -108,16 +108,16 @@ class Game {
     }
     
     buzz(googleId) {
-        if (!this.active()) return;
-        if (this.buzzActive || this.onBonus) return;
+        if (!this.active()) return false;
+        if (this.buzzActive || this.onBonus) return false;
         let user = this.findGoogleID(googleId);
-        if (!user) return;
-        if (this.teams[user[1]].lockedOut) return;
+        if (!user) return false;
+        if (this.teams[user[1]].lockedOut) return false;
         user[0].buzzing = true;
         this.buzzActive = user[0];
         this.answeringTeam = user[1];
         this.teams[user[1]].lockedOut = true;
-        this.cancelTimer();
+        return true;
     }
 
     clearBuzzer() {
