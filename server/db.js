@@ -164,11 +164,17 @@ async function updateTournamentInfo(next) {
 }
 
 async function clearTeamRoomAssignments() {
-    return await Team.update(
+    await Team.update(
         {
             roomId: null
         },
         { where: {} }
+    );
+    await User.update(
+        {
+            roomId: null
+        },
+        { where: { isPlayer: true }}
     );
 }
 

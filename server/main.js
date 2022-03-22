@@ -124,10 +124,6 @@ io.on('connection', async socket => {
             function roomUpdate() {
                 try {
                     if (game) {
-                        if (!game.state().opened) {
-                            console.log(chalk.red('Gave the response that the game isn\'t open.'));
-                            console.log(game);
-                        }
                         io.to(roomId).emit('update', game.state());
                     } else {
                         console.error(chalk.red('Attempted to update game state when game does not exist'));
