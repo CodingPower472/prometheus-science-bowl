@@ -68,6 +68,7 @@ async function authSocket(socket) {
         return await db.findUserWithAuthToken(token);
     } catch (err) {
         console.error(chalk.red(err));
+        console.trace(err);
         return null;
     }
 }
@@ -82,13 +83,15 @@ io.on('connection', async socket => {
             errorCode: 'unauthed',
             errorMessage: 'Could not successfully authenticate user.'
         });
-        return;
+        //return; TODO: IN PRODUCTION PLEASE UNCOMMENT THIS FOR THE LOVE OF GOD
     }
     socket.emit('authorized');
     socket.on('join', async data => {
+        if (data.authToken) {
+            user = await db.findUserWithAuthToken(data.authToken);
+        }
         try {
-            console.log('Request to join.')
-            // TODO: check if player should actually be there
+            console.log('Request to join.');
             let roomId = parseInt(data.room);
             let unassignedMessage = {
                 errorCode: 'noassign',
@@ -795,14 +798,7 @@ async function createGames(roundNum) {
                 }
                 game.setTeamB(team);
             } else {
-                currentGames[roomId] = new Game(team, null, (a, b) => {
-                    console.log(`sending message: ${a}`);
-                    if (b) {
-                        io.to(roomId).emit(a, b);
-                    } else {
-                        io.to(roomId).emit(a);
-                    }
-                }, roundNum);
+                currentGames[roomId] = new Game(team, null, roundNum);
             }
         }
         for (let roomId in currentGames) {
@@ -943,7 +939,8 @@ app.get('/api/active-games', async (req, res) => {
         for (let roomId in currentGames) {
             let game = currentGames[roomId];
             let roomName = (await db.findRoomWithId(roomId)).roomName;
-            if (game.active()) {
+            //if (game.active()) {
+            if (!game.finished) {
                 active.push({
                     ...game,
                     roomName

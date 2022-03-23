@@ -17,7 +17,7 @@ class Game {
         }
     }
 
-    constructor(teamA, teamB, sendMessage, roundNum) {
+    constructor(teamA, teamB, roundNum) {
         console.log(chalk.green('GAME CONSTRUCTOR CALLED'));
         this.teams = [teamA, teamB];
         this.preprocessTeams();
