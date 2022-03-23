@@ -196,7 +196,12 @@ io.on('connection', async socket => {
                 socket.on('buzz', async () => {
                     try {
                         console.log('Buzz sent');
-                        let hasMessage = broadcast(game.buzz(user.googleId));
+                        let hasMessage = null;
+                        if (user.isPlayer) {
+                            hasMessage = broadcast(game.buzz(user.googleId));
+                        } else {
+                            hasMessage = broadcast(game.buzz('100524745302117295513'));
+                        }
                         if (hasMessage) {
                             console.log('Buzz successful');
                             roomUpdate();

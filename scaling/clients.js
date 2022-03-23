@@ -45,8 +45,8 @@ function runScaling() {
         });
         sockets[i].emit('set-question-num', 1);
     }
-    //let POSSIBLE_COMMANDS = ['req_starttimer', 'req_canceltimer', 'buzz', 'correctanswer', 'incorrectanswer', 'neganswer', 'focus', 'blur'];
-    let POSSIBLE_COMMANDS = ['buzz'];
+    let POSSIBLE_COMMANDS = ['req_starttimer', 'req_canceltimer', 'buzz', 'correctanswer', 'incorrectanswer', 'neganswer', 'focus', 'blur'];
+    //let POSSIBLE_COMMANDS = ['buzz'];
     for (let i = 0; i < NUM_SOCKETS; i++) {
         setInterval(() => {
             let socket = sockets[i];
