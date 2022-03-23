@@ -13,7 +13,11 @@ function createSocket(authToken) {
         withCredentials: true
     });  
     res.onAny((eventName, data) => {
-        console.log(`Event: ${eventName}`);
+        if (eventName === 'update') {
+            if (data.scoreboard !== []) {
+                //console.log(data.scoreboard);
+            }
+        }
     });
     return res;
 }
@@ -33,7 +37,7 @@ function runScaling() {
     createSockets();
     for (let i = 0; i < NUM_SOCKETS; i++) {
         let socket = sockets[i];
-        let roomNum = (i % 3) + 1;
+        let roomNum = (i % 4) + 1;
         socket.emit('join', {
             room: (roomNum + ""),
             //authToken: 'awd7982ywqe64vz924a9e1jnxn4h375r'
@@ -46,6 +50,7 @@ function runScaling() {
         setInterval(() => {
             let socket = sockets[i];
             let command = POSSIBLE_COMMANDS[Math.floor(Math.random() * POSSIBLE_COMMANDS.length)];
+            console.log(`Sending ${command}`);
             socket.emit(command);
         }, Math.random() * 1000 + 500);
     }

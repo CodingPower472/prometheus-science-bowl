@@ -277,6 +277,7 @@ io.on('connection', async socket => {
                 });
                 socket.on('neganswer', async () => {
                     try {
+                        console.log('Neg');
                         game.negLive();
                         roomUpdate();
                     } catch (err) {
