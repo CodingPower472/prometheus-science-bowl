@@ -88,6 +88,7 @@ class Game {
                 }
             }
         }
+        console.log(`Failed to find Google ID: ${googleId}`);
         return null;
     }
 
