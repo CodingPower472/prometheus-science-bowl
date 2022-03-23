@@ -145,6 +145,20 @@ io.on('connection', async socket => {
                     console.error(chalk.red(err));
                 }
             }
+            function broadcast(val) {
+                if (!val) return false;
+                if (val.length > 1) {
+                    let msg = val[0];
+                    let data = val[1];
+                    send(msg, data);
+                    return true;
+                } else if (val.length > 0) {
+                    let msg = val[0];
+                    send(msg);
+                    return true;
+                }
+                return false;
+            }
             console.log('Successfully joined');
             if (!game) {
                 console.warn(chalk.yellow('Game not found.'));
@@ -176,10 +190,9 @@ io.on('connection', async socket => {
             if (user.isPlayer) {
                 socket.on('buzz', async () => {
                     try {
-                        console.log('Successful buzz');
-                        let successful = game.buzz(user.googleId);
-                        if (successful) {
-                            send('timercancel');
+                        console.log('Buzz sent');
+                        let hasMessage = broadcast(game.buzz(user.googleId));
+                        if (hasMessage) {
                             roomUpdate();
                         }
                     } catch (err) {
@@ -234,10 +247,7 @@ io.on('connection', async socket => {
                 });
                 socket.on('correctanswer', async () => {
                     try {
-                        if (game.onBonus) {
-                            send('timercancel');
-                        }
-                        game.correctLive();
+                        broadcast(game.correctLive());
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -250,10 +260,9 @@ io.on('connection', async socket => {
                         if (onBonus) {
                             send('timercancel');
                         } else if (!wereAllLocked) {
-                            send('timerstart', game.onBonus ? 22 : 7);
-                            game.startTimer(() => {
+                            broadcast(game.startTimer(() => {
                                 roomUpdate();
-                            });
+                            }));
                         }
                         roomUpdate();
                     } catch (err) {
@@ -308,8 +317,7 @@ io.on('connection', async socket => {
                 
                 socket.on('next-question', async () => {
                     try {
-                        game.nextQuestion();
-                        send('timercancel');
+                        broadcast(game.nextQuestion());
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -317,8 +325,7 @@ io.on('connection', async socket => {
                 });
                 socket.on('set-question-num', async num => {
                     try {
-                        game.setQuestionNum(num);
-                        send('timercancel');
+                        broadcast(game.setQuestionNum(num));
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -326,8 +333,7 @@ io.on('connection', async socket => {
                 });
                 socket.on('set-on-bonus', isBonus => {
                     try {
-                        game.setOnBonus(isBonus);
-                        send('timercancel');
+                        broadcast(game.setOnBonus(isBonus));
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -345,12 +351,11 @@ io.on('connection', async socket => {
                 socket.on('req_starttimer', () => {
                     try {
                         if (game.timerRunning) return;
-                        let time = game.startTimer(wasBonus => {
+                        broadcast(game.startTimer(wasBonus => {
                             console.log('timer done!');
                             roomUpdate();
-                        });
+                        }));
                         roomUpdate();
-                        send('timerstart', time);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -359,9 +364,8 @@ io.on('connection', async socket => {
                 socket.on('req_canceltimer', () => {
                     try {
                         if (!game.timerRunning) return;
-                        game.cancelTimer();
+                        broadcast(game.cancelTimer());
                         roomUpdate();
-                        send('timercancel');
                     } catch (err) {
                         console.error(chalk.red(err));
                     }

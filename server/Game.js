@@ -108,16 +108,16 @@ class Game {
     }
     
     buzz(googleId) {
-        if (!this.active()) return false;
-        if (this.buzzActive || this.onBonus) return false;
+        if (!this.active()) return null;
+        if (this.buzzActive || this.onBonus) return null;
         let user = this.findGoogleID(googleId);
-        if (!user) return false;
-        if (this.teams[user[1]].lockedOut) return false;
+        if (!user) return null;
+        if (this.teams[user[1]].lockedOut) return null;
         user[0].buzzing = true;
         this.buzzActive = user[0];
         this.answeringTeam = user[1];
         this.teams[user[1]].lockedOut = true;
-        return true;
+        return this.cancelTimer();
     }
 
     clearBuzzer() {
@@ -184,9 +184,8 @@ class Game {
     }
 
     correctLive() {
-        if (!this.active()) return;
+        if (!this.active()) return null;
         this.correctAnswer(this.questionNum, this.buzzActive ? this.buzzActive.googleId : null, this.answeringTeam, this.onBonus);
-        this.cancelTimer();
         if (this.onBonus) {
             this.questionNum++;
             this.answeringTeam = null;
@@ -198,6 +197,7 @@ class Game {
             this.answeringTeam = answeringTeam; // undo the reset of answering team done by clearBuzzer()
             this.onBonus = true;
         }
+        return this.cancelTimer();
     }
 
     incorrectLive() {
@@ -258,14 +258,14 @@ class Game {
         if (this.onBonus) {
             this.setOnBonus(false);
         }
-        this.cancelTimer();
+        return this.cancelTimer();
     }
 
     setQuestionNum(num) {
         if (!this.active()) return;
         this.questionNum = num;
         this.unlockAll();
-        this.cancelTimer();
+        return this.cancelTimer();
     }
 
     setOnBonus(isBonus) {
@@ -275,7 +275,7 @@ class Game {
         if (this.onBonus) {
             this.answeringTeam = this.scoreboard.whoGotTU(this.questionNum);
         }
-        this.cancelTimer();
+        return this.cancelTimer();
     }
 
     setLocked(teamInd, locked) {
@@ -303,7 +303,7 @@ class Game {
             }
         }, time*1000);
         //this.sendMessage('timerstart', time);
-        return time;
+        return ['timerstart', time];
     }
 
     resetTimer() {
@@ -323,7 +323,7 @@ class Game {
             }
         }, time*1000);
         //this.sendMessage('timerreset');
-
+        return ['timerstart', time];
     }
 
     cancelTimer() {
@@ -332,6 +332,7 @@ class Game {
         this.timerRunning = false;
         clearTimeout(this.questionTimer);
         //this.sendMessage('timercancel');
+        return ['timercancel'];
     }
 
     setOffset(teamInd, amount) {

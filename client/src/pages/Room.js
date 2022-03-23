@@ -88,7 +88,10 @@ function BuzzComponent({ displayActive, movable }) {
     }*/
     let content = (
         <div className="BuzzComponent">
-            <button className={`buzzer ${displayActive ? "buzzer-active" : "buzzer-inactive"}`} onClick={displayActive ? socket.buzz : noop}>
+            <button className={`buzzer ${displayActive ? "buzzer-active" : "buzzer-inactive"}`} onClick={displayActive ? () => {
+                console.log('buzzer clicked');
+                socket.buzz();
+             } : noop}>
             </button>
         </div>
     );
