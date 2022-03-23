@@ -191,8 +191,8 @@ io.on('connection', async socket => {
                 }
             });
             // TODO: change this back
-            if (user.isPlayer) {
-            //if (user.isPlayer || user.isAdmin) {
+            //if (user.isPlayer) {
+            if (user.isPlayer || user.isAdmin) {
                 socket.on('buzz', async () => {
                     try {
                         console.log('Buzz sent');
