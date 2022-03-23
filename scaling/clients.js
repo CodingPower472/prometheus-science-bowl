@@ -31,7 +31,6 @@ function createSockets() {
 
 function runScaling() {
     createSockets();
-    let startTimer = true;
     for (let i = 0; i < NUM_SOCKETS; i++) {
         let socket = sockets[i];
         let roomNum = (i % 3) + 1;
@@ -40,19 +39,16 @@ function runScaling() {
             //authToken: 'awd7982ywqe64vz924a9e1jnxn4h375r'
             authToken: 'rd4gz5ivu905t435aql5o3n7mxseoidn'
         });
+        sockets[i].emit('set-question-num', 1);
     }
-    let POSSIBLE_COMMANDS = ['req_starttimer', 'req_canceltimer',]
-    setInterval(() => {
-        for (let i = 0; i < NUM_SOCKETS; i++) {
+    let POSSIBLE_COMMANDS = ['req_starttimer', 'req_canceltimer', 'buzz', 'correctanswer', 'incorrectanswer', 'neganswer', 'focus', 'blur'];
+    for (let i = 0; i < NUM_SOCKETS; i++) {
+        setInterval(() => {
             let socket = sockets[i];
-            if (startTimer) {
-                socket.emit('req_starttimer');
-            } else {
-                socket.emit('req_canceltimer');
-            }
-            startTimer = !startTimer;
-        }
-    }, Math.random() * 1000 + 500);
+            let command = POSSIBLE_COMMANDS[Math.floor(Math.random() * POSSIBLE_COMMANDS.length)];
+            socket.emit(command);
+        }, Math.random() * 1000 + 500);
+    }
 }
 
 runScaling();
