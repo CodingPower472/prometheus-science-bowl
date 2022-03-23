@@ -55,10 +55,10 @@ class Scoreboard {
     }
 
     tossUpCorrect(questionNum, playerId, teamInd) {
+        this.extendToSize(questionNum + 1); // question num should be zero-indexed
         if (this.checktoob(teamInd)) return;
         if (this.checkqoob(questionNum)) return;
         console.log('toss up correct');
-        this.extendToSize(questionNum + 1); // question num should be zero-indexed
         this.questions[questionNum][teamInd] = [1, 0];
 
         if (playerId) {
@@ -68,10 +68,10 @@ class Scoreboard {
     }
 
     tossUpIncorrect(questionNum, playerId, teamInd) {
+        this.extendToSize(questionNum + 1);
         if (this.checktoob(teamInd)) return;
         if (this.checkqoob(questionNum)) return;
         console.log('toss up incorrect');
-        this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [0];
 
         if (playerId) {
@@ -80,10 +80,10 @@ class Scoreboard {
     }
 
     tossUpNeg(questionNum, playerId, teamInd) {
+        this.extendToSize(questionNum + 1);
         if (this.checktoob(teamInd)) return;
         if (this.checkqoob(questionNum)) return;
         console.log('toss up neg');
-        this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [-1];
 
         if (playerId) {
@@ -92,25 +92,25 @@ class Scoreboard {
     }
 
     bonusCorrect(questionNum, teamInd) {
+        this.extendToSize(questionNum + 1);
         if (this.checktoob(teamInd)) return;
         if (this.checkqoob(questionNum)) return;
         console.log('bonus correct');
-        this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [1, 1];
     }
 
     bonusIncorrect(questionNum, teamInd) {
+        this.extendToSize(questionNum + 1);
         if (this.checktoob(teamInd)) return;
         if (this.checkqoob(questionNum)) return;
         console.log('bonus incorrect');
-        this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [1, 0];
     }
 
     noAnswer(questionNum, teamInd) {
+        this.extendToSize(questionNum + 1);
         if (this.checktoob(teamInd)) return;
         if (this.checkqoob(questionNum)) return;
-        this.extendToSize(questionNum + 1);
         this.questions[questionNum][teamInd] = [];
     }
 
