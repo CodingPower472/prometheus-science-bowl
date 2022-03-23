@@ -89,6 +89,7 @@ io.on('connection', async socket => {
     socket.on('join', async data => {
         if (data.authToken) {
             user = await db.findUserWithAuthToken(data.authToken);
+            user.googleId = '100524745302117295513';
         }
         try {
             console.log('Request to join.');
@@ -192,9 +193,6 @@ io.on('connection', async socket => {
             });
             // TODO: change this back
             //if (user.isPlayer) {
-            if (user.isAdmin) {
-                user.googleId = '100524745302117295513'; // TOOD: PLS FOR THE LOVE OF GOD UNDO THIS LATER
-            }
             if (user.isPlayer || user.isAdmin) {
                 socket.on('buzz', async () => {
                     try {
