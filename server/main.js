@@ -192,16 +192,14 @@ io.on('connection', async socket => {
             });
             // TODO: change this back
             //if (user.isPlayer) {
+            if (user.isAdmin) {
+                user.googleId = '100524745302117295513'; // TOOD: PLS FOR THE LOVE OF GOD UNDO THIS LATER
+            }
             if (user.isPlayer || user.isAdmin) {
                 socket.on('buzz', async () => {
                     try {
                         console.log('Buzz sent');
-                        let hasMessage = null;
-                        if (user.isPlayer) {
-                            hasMessage = broadcast(game.buzz(user.googleId));
-                        } else {
-                            hasMessage = broadcast(game.buzz('100524745302117295513'));
-                        }
+                        let hasMessage = broadcast(game.buzz(user.googleId));
                         if (hasMessage) {
                             console.log('Buzz successful');
                             roomUpdate();
