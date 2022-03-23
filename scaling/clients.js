@@ -21,7 +21,7 @@ function createSocket(authToken) {
 let sockets = [];
 //const AUTH_TOKEN = 's%3Amaqgnzq7nsb61x4dojt3pq7zucme9ed3.PwhjIh%2FqjRFLvtotLEotUKjf16YvSSKZRwLw%2FEmt0h4';
 const AUTH_TOKEN = 's%3Aiey4163cyjsw2erszygau78ftu3bx7d1.QxCW0a2FSXU3NnKGb7MOTr10Qx0j3KiUpRaYh%2Frbruk';
-const NUM_SOCKETS = 10;
+const NUM_SOCKETS = 100;
 
 function createSockets() {
     for (let i = 0; i < NUM_SOCKETS; i++) {
@@ -34,12 +34,14 @@ function runScaling() {
     let startTimer = true;
     for (let i = 0; i < NUM_SOCKETS; i++) {
         let socket = sockets[i];
+        let roomNum = (i % 3) + 1;
         socket.emit('join', {
-            room: '2',
+            room: (roomNum + ""),
             //authToken: 'awd7982ywqe64vz924a9e1jnxn4h375r'
             authToken: 'rd4gz5ivu905t435aql5o3n7mxseoidn'
         });
     }
+    let POSSIBLE_COMMANDS = ['req_starttimer', 'req_canceltimer',]
     setInterval(() => {
         for (let i = 0; i < NUM_SOCKETS; i++) {
             let socket = sockets[i];

@@ -942,7 +942,7 @@ app.get('/api/active-games', async (req, res) => {
             //if (game.active()) {
             if (!game.finished) {
                 active.push({
-                    ...game,
+                    game: game.state(),
                     roomName
                 });
             }
