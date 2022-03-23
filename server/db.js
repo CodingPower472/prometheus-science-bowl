@@ -139,7 +139,6 @@ async function addToken(user, token) {
 }
 
 async function createTeam(teamName, joinCode) {
-    // TODO: fix issue with primary keys here
     await Team.create({
         name: teamName,
         joinCode,

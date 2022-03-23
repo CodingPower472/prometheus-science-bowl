@@ -206,7 +206,6 @@ async function reloadRound() {
 }
 
 async function advanceRound() {
-    // TODO: emd all matches in the previous round
     let currTournament = await db.getTournamentInfo();
     let currRound = currTournament.currentRound;
     if (currRound === null) return null;

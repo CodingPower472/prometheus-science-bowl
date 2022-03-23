@@ -190,7 +190,9 @@ io.on('connection', async socket => {
                     console.error(chalk.red(err));
                 }
             });
+            // TODO: change this back
             if (user.isPlayer) {
+            //if (user.isPlayer || user.isAdmin) {
                 socket.on('buzz', async () => {
                     try {
                         console.log('Buzz sent');
@@ -219,7 +221,8 @@ io.on('connection', async socket => {
                         console.error(chalk.red(err));
                     }
                 });
-            } else if (user.isMod || user.isAdmin) {
+            }
+            if (user.isMod || user.isAdmin) {
                 socket.on('start', async () => {
                     try {
                         if (game) {
@@ -768,7 +771,6 @@ async function saveGames() {
         let roundNum = currentGames[arr[0]].roundNum;
         await autoRound.saveScores(currentGames, roundNum)
     }
-    // TODO: save all games from this current round to database
     let promises = [];
     for (let roomId in currentGames) {
         if (!currentGames[roomId].active()) continue;
