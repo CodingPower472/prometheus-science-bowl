@@ -4,3 +4,4 @@ server/config/config.json
 **/package-lock.json
 **/.env
 server/rounds/*
+server/log.txt
