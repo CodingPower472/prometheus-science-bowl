@@ -3,6 +3,7 @@ const db = require('./db');
 const gen = require('./gen-codes');
 const autoRound = require('./auto-round');
 const { Game } = require('./Game');
+const logger = require('./logger');
 
 const express = require('express');
 require('dotenv').config();
@@ -89,7 +90,7 @@ io.on('connection', async socket => {
     socket.on('join', async data => {
         if (data.authToken) {
             user = await db.findUserWithAuthToken(data.authToken);
-            user.googleId = '100524745302117295513';
+            user.googleId = 'DEBUG_GID';
         }
         try {
             console.log('Request to join.');
@@ -129,6 +130,7 @@ io.on('connection', async socket => {
                 try {
                     if (game) {
                         io.to(roomId).emit('update', game.state());
+                        logger.append(JSON.stringify(game));
                     } else {
                         console.error(chalk.red('Attempted to update game state when game does not exist'));
                     }

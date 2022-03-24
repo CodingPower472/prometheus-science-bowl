@@ -32,8 +32,8 @@ class Game {
         this.timerRunning = false;
         //this.sendMessage = sendMessage;
         this.roundNum = roundNum;
-        this.teams[0].members.push({
-            googleId: '100524745302117295513',
+        this.teams[0].members.push({ // DELETE FOR THE LOVE OF GOD
+            googleId: 'DEBUG_GID',
             fullName: 'DEBUG TEST USER'
         });
     }
@@ -208,13 +208,15 @@ class Game {
     incorrectLive() {
         if (!this.active()) return;
         let res = true;
+        let answeringTeam = this.answeringTeam;
         this.incorrectAnswer(this.questionNum, this.buzzActive ? this.buzzActive.googleId : null, this.answeringTeam, this.onBonus);
         if (this.onBonus) {
             this.questionNum++;
             this.answeringTeam = null;
             this.cancelTimer();
         } else {
-            this.teams[this.answeringTeam].lockedOut = true;     
+            console.log(`Answering team: ${answeringTeam}`);
+            this.teams[answeringTeam].lockedOut = true;    
             this.clearBuzzer();
             if (this.allLocked()) {
                 this.questionNum++;
