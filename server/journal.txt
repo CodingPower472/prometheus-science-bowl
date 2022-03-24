@@ -1,0 +1,1060 @@
+-- Logs begin at Sun 2022-03-06 02:04:34 UTC, end at Thu 2022-03-24 16:55:56 UTC. --
+Mar 24 16:34:20 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:20 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:20 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code as87udf6dk8qg6w59026mls275kbc73g
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code nq06hdegh72my5a7fd9mp4o9ov0liq41
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code rn3p5nd5zlpqcn010xgxiouyz0ld4a2g
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code v0s1vmfawpttblpmk4msqd050fzmzgbj
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code leuo22lfeb76he1ts01623w0f7ux4tx5
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code tn4ree8zbtxm6sqjbthz2r2lq7zuhij2
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code gxfedq9qt1ni1nlthvgs9ct4x5bik3kn
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: next-question
+Mar 24 16:34:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code vv6jmhvbrcta3zz2e3hhbf5d70t7o70q
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: ignorebuzz
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code g4qhep3kp8l1r2qowfn44v639jfqhfty
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ju8adimhevtsad769x5rhng1ubahyesb
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code inom79s9hbo8b5k1ililj80xfjjy4gou
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code fyu8bnu96loblwqtro1mv7b1zl5jmn9e
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code uagoiaslla7w0tz67gpuno8bzjfevpau
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 35mreggb381rb3fbipjwom6sgafd71wb
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code x5d59o9ntg9qtplsmmfkudoxgew2vfjx
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code xjv1cgif8gvijztfnz2oj9qhwszeazkq
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code f9wfa0fze387x5ttfvsc1ngzrttuod3n
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ace9i6nntkksd4n12qv6fwmoj7k8ckrv
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code d8idmfy9guv8ad7lame2fx5oy7fh831a
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 2vr1qb4ovif6mwxc9b5ho8jjn2lgfzsk
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code x36y2ihhb9qssyu3sfo8n9boj3v2ezp8
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: correctanswer
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code j5qtj6xpk2el2nrxail4o5u7hspks9ue
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code oykkzmovxzx1cz7yptvt5sjpeecrs7du
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code wdy2wq9dx64rims4nl6nlmevs2zp0lv6
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code gqzug7akki1igaqc04cvgyca286uwk1o
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 1mlo2qyzqzlt1h7racof5gcwhwl38z5b
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 9czrti6t1tntu85bhgzqgdbxxi1h0zz0
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code tpx9f7sae65owodl74stkb24cej9zm4w
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: set-on-bonus
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code ko188nvug5hjr9hw8yfrzoztxyxm9138
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code r5qvdza6wi60nivjbg66pd1pg9b6h02h
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: set-on-bonus
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code pap4fftd543n5nacc11ncxus2h1dodoh
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code i7qgllyzyoy2nh6u1253pdib7mxxb7z7
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code nfe36b7b286i4h75n2k93e4d7bc6zptm
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 6y898n6zfifn6gcrw36mdusdid0rf88f
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: ignorebuzz
+Mar 24 16:34:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 4lbw3yn1v24f5l8zhyrn51fg5qjx7mgo
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code e52cz8oma7yp7yg79o03cpdbftdqpgan
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code x2onr6gsjtustmg2h58x81sydkis71z2
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code u6qf3cy8fm70llyqzb9ikg06ob0ifk1u
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 5kvb3kaqgi8o2or8ibkfeob711vhf53a
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code dzid5geivzzudepy015j59inofbmb6v9
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code b7uvg7rl6vvgmqua785b7pn55qj3oi6i
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: correctanswer
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code 33nkndqnzongetrxm949j2yvu9smfzu1
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code hjvmwhwu29zqd2ix3ku3pj5j4s7y4oil
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code ruihruduo7ku2hxieaa3whw5p3ggy6ok
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code sh29ku1aq8h5h5flgspdh9pmzfhky4a1
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code olp55mq8lhw94datkowfxnzleygucm6g
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code p31k0drzgiaosr7j04p3z4f0my6dggmg
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:34:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code jr61x94fzjea4acuenblcwc9opcygld1
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: set-on-bonus
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code 0bvhnhrzd2swqd022xox80e4wdtb0yu2
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: correctanswer
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code ous6hcpdkkxutwznydk5pz81g9p9956j
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code mihxd7hrange7p2sh88eyv1wz52lk2o4
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code e5dcz3bjgs4czaj6vigtndgk1w2eel2v
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: incorrectanswer
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: toss up incorrect
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Answering team: 0
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code u4z8awhf2em5kdxjhlhngx2f8w44yq1i
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:28 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_canceltimer
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code dd61uexki6a9sp9menq9agt9eu1mbwd0
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code ccvevixiuawek22awx1sqxbymhbx4qjn
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:29 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 6abksd7eti9hchcdqdly8mrpz7i889vv
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_canceltimer
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code ob2ftkd16plzvt92hc98zdtsdepusdzm
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code cyfgk7vz5setfbsg78c3kj8oaht2ttne
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code nxm3lsvfa00obwf84j8x4u50onggr93q
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_canceltimer
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code rceh93vtt6afw5w55puwftj4ghi84bzn
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:34:30 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code vdv82meh0sbsh137grhrsow6cb8ebv7x
+Mar 24 16:34:31 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:34:31 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code i3emp8olnms8sty3pzaclwohhw7d2sko
+Mar 24 16:34:32 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:34:32 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code 4d92tejx9fhbz1in34ufljmdusxy6oqj
+Mar 24 16:34:33 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:34:33 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code ja13pffyt91tcg94q2oc2yph0bx0kym8
+Mar 24 16:34:33 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:34:33 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code k79rvof4plbk9vyb1sfvh8wqtm801jw5
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code eue39gj6r1jssd254d9qmiq5wcnrmsty
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_canceltimer
+Mar 24 16:34:34 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code e6rgu9hi5c5f2aq6u044drr681jaixtw
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code kusqbcxe6uklgwl2kdn8eybbn03alp5u
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_canceltimer
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code ytlygx0qen9wj4crvd0165ay246uwzu0
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:35 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:36 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:34:36 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:36 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_starttimer
+Mar 24 16:34:36 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code qkaqlzbmomdp2egsedkpyiy4e22bu0cl
+Mar 24 16:34:36 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: req_canceltimer
+Mar 24 16:34:36 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code t39icfxkgykmecjzgjj2ejd34l0uybny
+Mar 24 16:34:40 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:40 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 2nds9h66hujz15qo2i9x1yhpqp8cppdb
+Mar 24 16:34:41 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:41 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code tr7hjdjuv5n7z6j0nvmfe7pfiwylv9sy
+Mar 24 16:34:41 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:41 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code coptu8aixdg48u4cezrta2gzc5xoeitk
+Mar 24 16:34:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 2jfy4o01pfxoqfg08ty2fad5nhq2db3o
+Mar 24 16:34:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code zm6zmc1yg4pjgddnaccyain7675x6isn
+Mar 24 16:34:43 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:43 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code jn4k6m46ixwn4v5jusqwz2daxyokjn19
+Mar 24 16:34:43 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:34:43 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code bxb40kg9y7r2jtxufmqhcbj8x1z9u6ar
+Mar 24 16:34:43 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:34:43 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code jw5b2v7il3dqsaq18xib1qh8f3htb22x
+Mar 24 16:34:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:34:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code amjshcfue8urke3pj96phpaqfje2rm5y
+Mar 24 16:34:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:34:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code zwlv5rhte135cj1izxdaaauxno7qx1ai
+Mar 24 16:34:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code lt9ct3ko74d6s5f5u1hhb4y25mbkgt2m
+Mar 24 16:34:45 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:45 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 9pov2jbtktjgnm2pn0j7ul06ro1y4l0g
+Mar 24 16:34:45 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:34:45 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code vutdq90lj68nv5mv8bw4dpwttpspc5l5
+Mar 24 16:34:45 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:34:45 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code 6qk4qzgwo1veauwqyrrdkov3mgckzpgl
+Mar 24 16:34:46 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:34:46 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code fia6q62gencuxjmy3rie8dlcaoawl2oe
+Mar 24 16:34:46 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:34:46 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code 6bg5461kae5y3oxjmqumodhk2v7abw1y
+Mar 24 16:34:46 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:46 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code h7f5tau0junlzym6h4kzelr9augn1brw
+Mar 24 16:34:47 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:47 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 39tmbjqw4jnyrwpr8dt95jkwjv8i4lko
+Mar 24 16:34:52 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:34:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code e149b8a5gmb8xskdlhk4930ovsmrpdcu
+Mar 24 16:34:53 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:34:53 ip-172-31-80-244.ec2.internal node[16279]: bonus incorrect
+Mar 24 16:34:53 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code uv7rhx75url4havvveccrrwq8pkqbd9y
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 5dglwiy41n6uh1b2o8c9zm0g54edqhe0
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 7ttj7ppb5mbhnxffjvmp8lwoi9jhvfpy
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:34:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code lon1z29ucydjb4s4iy1dpvjyzi3w2y0o
+Mar 24 16:34:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:34:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code cfjeee07o4ftdf2tnraoqdm4lalibnzg
+Mar 24 16:34:56 ip-172-31-80-244.ec2.internal node[16279]: Signing out
+Mar 24 16:34:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 108910621266175572650: code 4irg4rv0sjbyzk6ircoygzbz0dus4mcj
+Mar 24 16:35:03 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:35:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code d9hrkrwbho90z8p3pb4cdf26bgwj69k2
+Mar 24 16:35:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:35:03 ip-172-31-80-244.ec2.internal node[16279]: toss up incorrect
+Mar 24 16:35:03 ip-172-31-80-244.ec2.internal node[16279]: Answering team: 1
+Mar 24 16:35:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code qld4imyepd7mqdcsb1qear22e8qvcvfs
+Mar 24 16:35:06 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: next-question
+Mar 24 16:35:06 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code sb5br7t8ircdtdibm4xzme5jvlyzfmvu
+Mar 24 16:35:08 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:35:08 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:35:08 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 108910621266175572650: code 4e9breo4lnnc4ztx7bwdd8cxtbxxxjss
+Mar 24 16:35:09 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:09 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code h1mvg5xhm486wuululq2qdz2mfogsmns
+Mar 24 16:35:09 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:09 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 41v1dko6049lxej8mbg3lih6ld8go6gm
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code av87w9fxcg1cxvwnc3h4enka4z3ylid4
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: next-question
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code 2b18am035iul5kll1ko000eeozuylt3s
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code zignlw9ao1jzeawnm0mcr87ge31p4k9y
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 117404195139060530535
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 117404195139060530535: code ok3kew5ajn95jwm8tlupl5dljn636blx
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code xdjtb0dwfl3i4rwhji9v2ti83rpaom7k
+Mar 24 16:35:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code dwfhf45wyd3lcpoqsk31e05xwztigz2r
+Mar 24 16:35:17 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:35:17 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code p9693nbg65c109cvk6h7icw7jqzofrxb
+Mar 24 16:35:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:35:20 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:35:20 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code qv8gi3ai8mt8t5fw8thx9ed4hy6ddraj
+Mar 24 16:35:20 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:35:20 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:35:20 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:35:20 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 69qfvxg6syy0huzcacbyi4nzvknzp7z7
+Mar 24 16:35:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:35:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code bc0fscmq56lpvn1ovtznps2dlycfcpkk
+Mar 24 16:35:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-locked
+Mar 24 16:35:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 6hbn0r7zf1vjrpmsziaxm3g2vgayyar9
+Mar 24 16:35:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: correctanswer
+Mar 24 16:35:23 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:35:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code m7ruqyp3fi969eel9g4e0ob3m9hweytu
+Mar 24 16:35:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: req_starttimer
+Mar 24 16:35:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code 1si7r2a74hbtl9x27zkgyz6bgzxvtjkg
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: bonus incorrect
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 3iaicjnu5y331wc4soctz1gth7ysg583
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 330spu7nl25685xpjgtitxqeaoae3hmb
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:35:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code vr14nd4lyuti8b2o5m7mdi8tc42vgcu5
+Mar 24 16:35:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:35:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code vp2k0cborxaakgbyik6fy26fy0c06zvj
+Mar 24 16:35:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:35:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:35:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code azvtstq5n4ao0fs0tidvp8fphk2tu4dr
+Mar 24 16:35:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code 15xy7oftxscfofzr71pvz3c6evrhywro
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code xdik36nbzx08hr00n3fmxnba1bq80uut
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code zrg7ci21q6q9npdlnt6c83v4cdnp4eeo
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code kovu532htobludj9sxhysjs1wfic7o2q
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code qd24ow7yw21ki9kzlmtnmaxlwz07ylij
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:35:26 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 44mvyzgedwocc4789tgau3x0jivlie01
+Mar 24 16:35:27 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:35:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code b52rqytwb76ab0pme6b7ntfhatqana9i
+Mar 24 16:35:27 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 102454335045938748578
+Mar 24 16:35:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code rvol5usvtx375rb6fszn85y0ex4c8f64
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: TypeError: Cannot read properties of undefined (reading 'substr')
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: Trace: TypeError: Cannot read properties of undefined (reading 'substr')
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Function.exports.signedCookie (/home/ec2-user/prometheus-science-bowl/server/node_modules/cookie-parser/lib/parse.js:44:14)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at authSocket (/home/ec2-user/prometheus-science-bowl/server/main.js:67:34)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Namespace.<anonymous> (/home/ec2-user/prometheus-science-bowl/server/main.js:80:22)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Namespace.emit (node:events:527:28)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Namespace.emitReserved (/home/ec2-user/prometheus-science-bowl/server/node_modules/socket.io/dist/typed-events.js:56:22)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at /home/ec2-user/prometheus-science-bowl/server/node_modules/socket.io/dist/namespace.js:141:26
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at processTicksAndRejections (node:internal/process/task_queues:78:11)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at authSocket (/home/ec2-user/prometheus-science-bowl/server/main.js:72:17)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Namespace.<anonymous> (/home/ec2-user/prometheus-science-bowl/server/main.js:80:22)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Namespace.emit (node:events:527:28)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at Namespace.emitReserved (/home/ec2-user/prometheus-science-bowl/server/node_modules/socket.io/dist/typed-events.js:56:22)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at /home/ec2-user/prometheus-science-bowl/server/node_modules/socket.io/dist/namespace.js:141:26
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: at processTicksAndRejections (node:internal/process/task_queues:78:11)
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: Unauthed user tried to join websocket
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: TypeError: Cannot read properties of null (reading 'isPlayer')
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: req_canceltimer
+Mar 24 16:35:28 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code iybfz8zqzdcruvs81sm2bx5s7wshio1w
+Mar 24 16:35:34 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:35:34 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code y2fi82ihk986es5fwzfaw76uiqqh4b4y
+Mar 24 16:35:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: neganswer
+Mar 24 16:35:52 ip-172-31-80-244.ec2.internal node[16279]: Neg
+Mar 24 16:35:52 ip-172-31-80-244.ec2.internal node[16279]: toss up neg
+Mar 24 16:35:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code rb0kyphojpc5ipz8b7th948uunirpeb1
+Mar 24 16:35:53 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 108910621266175572650: code grt82z33m9eb5sfkkn8mnc7r9g5ic52r
+Mar 24 16:35:53 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:35:53 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 4l1v44uw4099argo9g0f5lsa8ffh9njo
+Mar 24 16:35:54 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:35:54 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 3xz6up57ihh1nn3058ulvhuy7iehr08o
+Mar 24 16:35:54 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:35:54 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:35:54 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:35:54 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code pccyts0winauusuf56dwxm9cpjmm7e06
+Mar 24 16:35:55 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 117404195139060530535
+Mar 24 16:35:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 117404195139060530535: code 03txdx0jex3f9bqtfm2q5ujbzd0z7iqq
+Mar 24 16:35:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:35:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code hdy5eii88tssvyazsw3ctoz6wv591631
+Mar 24 16:35:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:35:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code rmtp053a9gqm6gfl05x38qyfw8p646ck
+Mar 24 16:35:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: correctanswer
+Mar 24 16:35:57 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:35:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code hr279g9j234p5k28747zwkn7rnbe2ldy
+Mar 24 16:35:57 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 128690ms.
+Mar 24 16:35:58 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:35:58 ip-172-31-80-244.ec2.internal node[16279]: bonus incorrect
+Mar 24 16:35:58 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code lykrg7zl38h818l7s5yj95dglmvftlnk
+Mar 24 16:35:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:35:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code fbs9aej3hesd3kgf6ncsvgp99j3tezbq
+Mar 24 16:36:00 ip-172-31-80-244.ec2.internal sshd[15326]: pam_unix(sshd:session): session closed for user ec2-user
+Mar 24 16:36:00 ip-172-31-80-244.ec2.internal systemd-logind[2542]: Removed session 106.
+-- Subject: Session 106 has been terminated
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- Documentation: http://www.freedesktop.org/wiki/Software/systemd/multiseat
+-- 
+-- A session with the ID 106 has been terminated.
+Mar 24 16:36:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-on-bonus
+Mar 24 16:36:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code lf2v3tnh188yo1v2g6fte5gl5lxhein3
+Mar 24 16:36:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:36:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code nkg82ua5b3ok8196bv4ctu0fl10h1p67
+Mar 24 16:36:04 ip-172-31-80-244.ec2.internal sshd[16457]: error: AuthorizedKeysCommand /opt/aws/bin/eic_run_authorized_keys ec2-user SHA256:WE0rUL0Won3BWcJov7GsU2BW0pUYir/j8z3J4pVw+Mc failed, status 22
+Mar 24 16:36:04 ip-172-31-80-244.ec2.internal sshd[16457]: Accepted publickey for ec2-user from 24.117.163.118 port 31741 ssh2: RSA SHA256:WE0rUL0Won3BWcJov7GsU2BW0pUYir/j8z3J4pVw+Mc
+Mar 24 16:36:04 ip-172-31-80-244.ec2.internal systemd[1]: Started Session 118 of user ec2-user.
+-- Subject: Unit session-118.scope has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit session-118.scope has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 24 16:36:04 ip-172-31-80-244.ec2.internal systemd-logind[2542]: New session 118 of user ec2-user.
+-- Subject: A new session 118 has been created for user ec2-user
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- Documentation: http://www.freedesktop.org/wiki/Software/systemd/multiseat
+-- 
+-- A new session with the ID 118 has been created for the user ec2-user.
+-- 
+-- The leading process of the session is 16457.
+Mar 24 16:36:04 ip-172-31-80-244.ec2.internal sshd[16457]: pam_unix(sshd:session): session opened for user ec2-user by (uid=0)
+Mar 24 16:36:11 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-question-num
+Mar 24 16:36:11 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 7bsaallqgu8q0ku2fgmh0lq1ny4qrspj
+Mar 24 16:36:12 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:36:12 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code usdy7ku9lioew8xst2ndm837978dbsow
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code x34d0mpj7ekix440r3q7w4eljbrcuwv4
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code wqzu015cdp26mox41k1td1sl0b33uzmp
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code ogfymtliywbn0gka8csiji5npf0tplh8
+Mar 24 16:36:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code zqr8qkbnwwdf4ckqarveipg7omwgdjr9
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code ldqagbkr85eisb2ft5t3c86ixvlf3g5u
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code sxq1zvdxugmyxkkt31tgpvz3ls38ji0v
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code b0se2p2ega0oeua4fml0tqkoeu2ka9yi
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:36:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 9z782ajy5intlll5b0y6uf4silhkrr5h
+Mar 24 16:36:15 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-on-bonus
+Mar 24 16:36:15 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code kq4o1uclxqg0nt3pifjs5sllna8kqa4o
+Mar 24 16:36:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:36:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 0gd1z5rsorc90gqm3wmeegfk6v3nahv4
+Mar 24 16:36:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:36:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code r4mne5b9ibi5r3ks2x3iktnkbl5u8zbt
+Mar 24 16:36:17 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:36:17 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:36:17 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:36:17 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code bk70ydevh9s8kofm0iqqn2ak1lgujxal
+Mar 24 16:36:17 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:36:17 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code upd1qapbrztt3e00wgqtm9mkws89g4oi
+Mar 24 16:36:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:36:21 ip-172-31-80-244.ec2.internal node[16279]: Signing out
+Mar 24 16:36:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:36:24 ip-172-31-80-244.ec2.internal node[16279]: toss up incorrect
+Mar 24 16:36:24 ip-172-31-80-244.ec2.internal node[16279]: Answering team: 1
+Mar 24 16:36:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code skp2w2pld3kyw00scimqk7e1j76vkymq
+Mar 24 16:36:31 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code d9iy9new9c0jpb4bj73z0zzg05x1en4y
+Mar 24 16:36:32 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:36:32 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code cho2e4jh06pwwom99we4uio1bgo1b28s
+Mar 24 16:36:39 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: next-question
+Mar 24 16:36:39 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code sb04xk0fr7xhds9p8z0plghgnxqd2mcs
+Mar 24 16:36:40 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:36:40 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 0br1mrckugrfbrktukdwrr5yvhro0n68
+Mar 24 16:36:41 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:36:41 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:36:41 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:36:41 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code ok9vwdecip047zt11mbh4eahmhx91j9e
+Mar 24 16:36:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:36:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code vh5yuyg84t93x1eu21xysqmckb6hmg8v
+Mar 24 16:36:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:36:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code jhwzov12640rbkh1k6p4f0obitzqfmfs
+Mar 24 16:36:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: neganswer
+Mar 24 16:36:44 ip-172-31-80-244.ec2.internal node[16279]: Neg
+Mar 24 16:36:44 ip-172-31-80-244.ec2.internal node[16279]: toss up neg
+Mar 24 16:36:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code dq4glpqyrt57w2ej77q398yfn5dlo24s
+Mar 24 16:36:47 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:36:47 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code i24kh7g2xio1houte12xn492r0dinyc5
+Mar 24 16:36:49 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:36:49 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code 81sn4m6lawdbvaa9mm7kflbeuitlchuj
+Mar 24 16:36:50 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:36:50 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 5n45zaz4hnniphx2kjkmxpdlb3f0d1b6
+Mar 24 16:36:50 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:36:50 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code fqa4e6j5bvrhy0ml7cuxmwvsbyj84o31
+Mar 24 16:36:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:36:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code c4orsusv7zzhp4p42rfd6ggcc9buyv3y
+Mar 24 16:36:59 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:36:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code xcdtxu3840pmt9ccp44p3oi85kvl1thh
+Mar 24 16:37:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: next-question
+Mar 24 16:37:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 0ctw7r3hgx6uft01e0jtx3nzxjsx3cva
+Mar 24 16:37:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:37:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code pfnp7b7yid68xrsczunqd69as8l0mw91
+Mar 24 16:37:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:37:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code icf63pap8mhgm6ct3cxo0mig9wukmy6r
+Mar 24 16:37:10 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-locked
+Mar 24 16:37:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code ghfs6ouqu89j7joijw9y1iqnmw715dnh
+Mar 24 16:37:11 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-locked
+Mar 24 16:37:11 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code d63g6jliz62x70f1fnzkfg2aodj9vd4j
+Mar 24 16:37:12 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-locked
+Mar 24 16:37:12 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code hqerz9wfo12ch1vc0uhfvwpo78qrfaeb
+Mar 24 16:37:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code p9rvh7gfwtfipeg8qwvebgw7v315ih9l
+Mar 24 16:37:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code fobmbowy1kssaj7hstbbxi5yn6z04wqh
+Mar 24 16:37:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-locked
+Mar 24 16:37:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code sbz4dujyqozeslkgv2zj4hk8oy0b7gh0
+Mar 24 16:37:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code n9x5ux5zqzo52fqj9i12ggbdr3l0ns9j
+Mar 24 16:37:15 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:37:15 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:37:15 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:37:15 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 5tkb4cb4zh0jqg45msxhou079ov8xmq9
+Mar 24 16:37:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code fx2s0r79yfrqs2wj2u728sacdly2sq4l
+Mar 24 16:37:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:37:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code wwowi143aid9stvsyyzxmh31v0qhcwii
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Uncaught error: TypeError: Converting circular structure to JSON
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: --> starting at object with constructor 'Timeout'
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: |     property '_idlePrev' -> object with constructor 'TimersList'
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: --- property '_idleNext' closes the circle
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Trace: TypeError: Converting circular structure to JSON
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: --> starting at object with constructor 'Timeout'
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: |     property '_idlePrev' -> object with constructor 'TimersList'
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: --- property '_idleNext' closes the circle
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at JSON.stringify (<anonymous>)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at Timeout._onTimeout (/home/ec2-user/prometheus-science-bowl/server/main.js:417:58)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at listOnTimeout (node:internal/timers:559:17)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at processTimers (node:internal/timers:502:7)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at process.<anonymous> (/home/ec2-user/prometheus-science-bowl/server/main.js:1014:13)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at process.emit (node:events:527:28)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: at process._fatalException (node:internal/process/execution:167:25)
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Uploading scores to spreadsheet...
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: correctanswer
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code kjs7a97jgd4vfy3yo3xw92dzs3ary94w
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: F6
+Mar 24 16:37:18 ip-172-31-80-244.ec2.internal node[16279]: Emergency backup of games completed.
+Mar 24 16:37:20 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:37:20 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code pb40qsg1stac3twxxb66xlo1ljbmefnu
+Mar 24 16:37:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:37:21 ip-172-31-80-244.ec2.internal node[16279]: bonus incorrect
+Mar 24 16:37:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 9jyowpk0s4mnyihgormhak77jqaq9559
+Mar 24 16:37:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code hultlglyv56qs69baie8c5ydn9w3xjd2
+Mar 24 16:37:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:37:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:37:22 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:37:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code pcg9fx1u3ykpnpl0dgzn3065jkd5uve9
+Mar 24 16:37:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code xj9uxl74f6ylcs2392oq2lg211dknfa5
+Mar 24 16:37:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:37:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code f49e3j1eazjxff2di8c0ntckcw5ttbb1
+Mar 24 16:37:23 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:37:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code hdctmcplg82aaavdyu16yo5yfrraagg0
+Mar 24 16:37:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:37:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code 1vlrdwxfj57fhcrr7q2cv7181qtluqf4
+Mar 24 16:37:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:37:25 ip-172-31-80-244.ec2.internal node[16279]: toss up incorrect
+Mar 24 16:37:25 ip-172-31-80-244.ec2.internal node[16279]: Answering team: 1
+Mar 24 16:37:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code xk2193azia5dtj4m1j0ap58kxa2cp3bx
+Mar 24 16:37:29 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:29 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code nwb97qal764ga36p08t6tu40gwg5uzk2
+Mar 24 16:37:30 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:30 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 6rohv4zt4p09yje7uf7619mxc6v5vbxi
+Mar 24 16:37:32 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:32 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code qomze5gfwevuqplbnibtd1ut55wllle3
+Mar 24 16:37:32 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code ho2z9k4586z1it0jmulcedrd4qvywbs6
+Mar 24 16:37:32 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:32 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 2ywpk1c6c64k01p66s42zyweoja4fq72
+Mar 24 16:37:33 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: next-question
+Mar 24 16:37:33 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 8h5ds7wa0z6o10qvv91y2xw2xah99xi2
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code xb6fv5mumaxqzyjepists0jgucwj3y8s
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: check code
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:37:34 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 8dwy8oetwp0oltdtmzdzraohfs6jnbp7
+Mar 24 16:37:35 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:35 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code q009xk12o8ztkwdyq6wimgk2lgw7575g
+Mar 24 16:37:36 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: incorrectanswer
+Mar 24 16:37:36 ip-172-31-80-244.ec2.internal node[16279]: toss up incorrect
+Mar 24 16:37:36 ip-172-31-80-244.ec2.internal node[16279]: Answering team: 1
+Mar 24 16:37:36 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code hdwxq8hbl3ljtvxmfbunm2seeif8xpcp
+Mar 24 16:37:39 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:39 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code z7uqbydwh9ekc22ne8nfb7canr8x97up
+Mar 24 16:37:40 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:40 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 52xlqm0sq6u9c4sqvrb09ygk62a9hks5
+Mar 24 16:37:43 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code x94w28z8xtdjj7wv022tm6iu4msfqrxr
+Mar 24 16:37:46 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:37:46 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code zxu2050qudat0iny50ph020d038uv47f
+Mar 24 16:37:47 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:37:47 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code d8l056f0jw3g1egdzeqyfd2kzdh7i1e4
+Mar 24 16:37:50 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-correct
+Mar 24 16:37:50 ip-172-31-80-244.ec2.internal node[16279]: Correct 1
+Mar 24 16:37:50 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:37:50 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 42sd453tz3c0w8trrmime832nvket4cz
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code m94p1f1jmtf76hnu6vfd98x3vc73t87w
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-incorrect
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Incorrect 0
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: toss up incorrect
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code ti75zus8i8vr8etwqpct830xpbnhjh0m
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:37:51 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code sp5gzafl0jff48qd777kcm759hauu4jo
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-correct
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Correct 0
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 48kg5shsuwkc3u6vhnb8oltdkj971s6f
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code sgpkb393sxgbqm58wvmps63q4cyfkxh9
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-correct
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Correct 0
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: bonus correct
+Mar 24 16:37:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code kiieb4ebpu9p3zli8zan2squ34v2ji08
+Mar 24 16:37:53 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-no-buzz
+Mar 24 16:37:53 ip-172-31-80-244.ec2.internal node[16279]: No buzz 1
+Mar 24 16:37:53 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code l0tanihjlmooc5r3lms2egum4qpcg3cb
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: next-question
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code tavi69mmtlmjibmv791rk0jx7w2x7oed
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 0m54avmvj8fwezmikmjf8zqgrhb56sma
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:37:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code te8k1n8tx7hpowf95k4bdypi5y92kkp8
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: req_starttimer
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code 7sz3o84xo44q4iregijx74m865tsppx5
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 3s9q3gfi5f42diso5d8tq366r6f1jk3v
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: req_canceltimer
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code kgot33h6gomk2iovgy84zk004bonrxzd
+Mar 24 16:37:57 ip-172-31-80-244.ec2.internal node[16279]: check code
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: correctanswer
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: toss up correct
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code utl050d76r8l4v9iou9koh8kmn2o8uq7
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: req_starttimer
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code 790a05ncj9m0v51yel3i8tgyetnzhxbz
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:37:58 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 835nr4pefdter8r80telq6vvx9zihqfv
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code zej86nx018y936trc2fsl5bjnkmzih4p
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code d8jinkk9eexdrmp8b9608f9tt3yqxoxf
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code buzv3b4h6i4626ymu7zshq9256i1o695
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ibddi3p03f9wy4z0zh2ivzcobr4p8avh
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code o6s5awpo3ban50ilzsdr7dfzakdubuuo
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:37:59 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code mw3ofpo5ywa33x417gsuxbrs2sv71a41
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code pdsomdqjg559w5f2tcs7g3c7b46jdc7j
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code p1kk1jh1ql0k6wex3l94xxczkt4hjbyo
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code j892t9lwlj8z3b7mr4lrci0w3x5c9wmq
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 6y1olnwk2udct8uiwf0s0qg1qbssiyu5
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code v9c3azik2wfgiqi491j984ooi8rv545q
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code uhba4m6kiie0fxmw8mk7m5lifcz5mxvp
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code us8mnqt6mr6rqr31w1orw2hqn6vqdzxs
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:00 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code qa9gojk503bamzi57ulxkf0h1k2qnrdm
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ooye58twv334by3ifh0uqf3qvvoupfi4
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ia2m3ihomeae48f96kugreoy6xkruzyi
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code t8kkn34oxf96vj2pnccyq3jdfl95sczt
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 72wg1ec7w6404xu60p84is5z6rwucwsr
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code y4a06uqtzg0n6oxt6uv9of8xiemzb1np
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:01 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 07y8vk1y1aflsmnbo7f7i2uno75m1rxz
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code l7cv5bszgpgjzp7lkr0v3hoih2p16acd
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 5veiup9abvjwu1g5g1x7hh0i3mt1o9cd
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code q869p2cas3zu5bivy1f9n9y3me4ev9a3
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code mkifz3wgfqi19a7th7ym2sgfncampyqt
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:02 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ea5whnq5v9efeq9untvl64p9wl9hpzln
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 6j2k9bg2a55u8dkwm2mongth7mtefrru
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code qz9tmpimyu5x1czii5x0vu0z54o6xfdq
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 8w5fwqo5n8g7ko8x00ajbd0pi9zqkegp
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code sm84m0chaca8al0ge9bxk9ty3d4j10pw
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: correctanswer
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: bonus correct
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code vhwk30fnasij535f6mcu1pq0iym32sld
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 1gc0pku6qaey4q1r1kzmzgv7ku8ovwqj
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:03 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 0m9wexm8m3hpcdplotsvnpk5hrce2eya
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 1dwhs9an8mdnlkji8sw0cu7v6j9rjvk3
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 32ikgv83qq52zrzmmcjivcwiosggzk2e
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code hv3kddd18vbophhzgwzlkvqpw5n4w7f2
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:38:04 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code cjviulhx30kdikyumx4czudvumv9n9cu
+Mar 24 16:38:05 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:38:05 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 763tdtfcuot68fj352yp2db7lyohu5rk
+Mar 24 16:38:05 ip-172-31-80-244.ec2.internal node[16279]: timer done!
+Mar 24 16:38:05 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code mti5lh90jerpsarxfj4p0hpj3ew1597a
+Mar 24 16:38:06 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 124360ms.
+Mar 24 16:38:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code n50xiz3imxw23xbbppnvddjhrmei628p
+Mar 24 16:38:15 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:38:15 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:38:15 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code 633qbkblxbbps45y9b1ldpee5yduk38g
+Mar 24 16:38:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: next-question
+Mar 24 16:38:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code hkc0tkr4uqd2hpnncsk9clpgbpdpsp16
+Mar 24 16:38:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:38:30 ip-172-31-80-244.ec2.internal node[16279]: check code
+Mar 24 16:38:35 ip-172-31-80-244.ec2.internal node[16279]: Request to reload round
+Mar 24 16:38:35 ip-172-31-80-244.ec2.internal node[16279]: Uploading scores to spreadsheet...
+Mar 24 16:38:36 ip-172-31-80-244.ec2.internal node[16279]: F6
+Mar 24 16:38:36 ip-172-31-80-244.ec2.internal node[16279]: Updating team room assignments, now in round 1
+Mar 24 16:38:36 ip-172-31-80-244.ec2.internal node[16279]: Sheet name: Mods
+Mar 24 16:38:36 ip-172-31-80-244.ec2.internal node[16279]: Sheet name: Teams
+Mar 24 16:38:36 ip-172-31-80-244.ec2.internal node[16279]: Request to reload round
+Mar 24 16:38:36 ip-172-31-80-244.ec2.internal node[16279]: Uploading scores to spreadsheet...
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Foothill to room 1
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Timberline to room 1
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Fake Mira to room 2
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Fake Timberline to room 2
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team A to room 3
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team B to room 3
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team C to room 4
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team D to room 4
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Create games has been called.
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: F6
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Updating team room assignments, now in round 1
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Sheet name: Mods
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Sheet name: Teams
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Foothill to room 1
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Timberline to room 1
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Fake Mira to room 2
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Fake Timberline to room 2
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team A to room 3
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team B to room 3
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team C to room 4
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Assigning team Test Team D to room 4
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: Create games has been called.
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:37 ip-172-31-80-244.ec2.internal node[16279]: GAME CONSTRUCTOR CALLED
+Mar 24 16:38:39 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:38:39 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:38:39 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code fv7tt3e7dcxgy1l0n85nve7c7dw1088o
+Mar 24 16:38:40 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:38:40 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code h1d5sz4n3vs66mw0o7kpkcxlp9iou46x
+Mar 24 16:38:43 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:38:43 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 9bgv4wujjfgf6dkbfxop2chrassogx8u
+Mar 24 16:38:43 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:38:43 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:38:43 ip-172-31-80-244.ec2.internal node[16279]: Buzz successful
+Mar 24 16:38:43 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code byg6xa70ub1v50pp4esdpx44zd0tfq7d
+Mar 24 16:38:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:38:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code bsoxmxa8dedraoilrmz69x0l7o6s7dzd
+Mar 24 16:38:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:38:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code u8zh3t4jmlzzwaob4zb0dcczu7ks51nc
+Mar 24 16:38:45 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: req_starttimer
+Mar 24 16:38:45 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code uqz1tsib0u8h6sagcxxgsb0pqlacgjvq
+Mar 24 16:38:46 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:38:46 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code 3f0dhghfxxh5x4guqjjcslmynj7joyp0
+Mar 24 16:38:47 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: neganswer
+Mar 24 16:38:47 ip-172-31-80-244.ec2.internal node[16279]: Neg
+Mar 24 16:38:47 ip-172-31-80-244.ec2.internal node[16279]: toss up neg
+Mar 24 16:38:47 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code f8thz0landodjtvgainyya1sh7wox51q
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 104164920845695734036
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code uz3jzelisqk9w8t6ekauk5va2f3fl62i
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 102454335045938748578
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code tnx4tutnuyrdgo0a4g55fkwrc4u1g6m2
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 104164920845695734036
+Mar 24 16:38:49 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 84a13y9aficx6e9wi43v0qvz9o98wifk
+Mar 24 16:38:50 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 102454335045938748578: start
+Mar 24 16:38:50 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 102454335045938748578: code tpoq2arnmpltvdtfrrvpe3ssal6vxa8a
+Mar 24 16:38:51 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: start
+Mar 24 16:38:51 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code svmb2zivuzzs1ygpqlomi8i9d81360no
+Mar 24 16:38:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:38:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code we3g5lecil8dlaqi8nyyqqsqkeoariuc
+Mar 24 16:38:53 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:38:53 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code awaj33kxw41w7uys6ygvnliv4pm7hkby
+Mar 24 16:38:53 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: buzz
+Mar 24 16:38:53 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:38:53 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:38:53 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code o7jlhr2jlfsgi5wd8om2o4b6x5kzbvjc
+Mar 24 16:38:54 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:38:54 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:38:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:38:56 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:38:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:38:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code cuoiz1qrwg2ts7xd25fkjivbpdwdg2pk
+Mar 24 16:38:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:38:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 2so3afk99q4ly3ghnzd0yxzo4t7nkcet
+Mar 24 16:38:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: buzz
+Mar 24 16:38:57 ip-172-31-80-244.ec2.internal node[16279]: Buzz sent
+Mar 24 16:38:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-on-bonus
+Mar 24 16:38:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code u8eavpdrg5eze09wseq56ienfzhuel8j
+Mar 24 16:38:58 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code 3kaatiues263zla57n1lu6zbxd2za4ec
+Mar 24 16:38:58 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:38:58 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:38:58 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code g8djln6qqge2cqoudr7emxvpq2o0wcem
+Mar 24 16:39:07 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:39:07 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 5zdnx28lkqhlrbdl9fl6dojcq05dww3u
+Mar 24 16:39:07 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:39:07 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code zftty7lx5oiov702k88npozv6xp6ravy
+Mar 24 16:39:09 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:39:09 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code czq3ich5zq4hcxxg3f64bibpfpg9fvel
+Mar 24 16:39:10 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 116077910722468504877
+Mar 24 16:39:10 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code cbi8nezp58lekm8tept93cdkd0wfwz3g
+Mar 24 16:39:12 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:39:12 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:39:12 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 116077910722468504877
+Mar 24 16:39:12 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code td88d5d2sx1c71eo6jhg9lkfak9skm5d
+Mar 24 16:39:12 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:39:12 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code pbfp8p18tx36eijipuhj8o7zybjz7m6v
+Mar 24 16:39:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:39:22 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 116077910722468504877: start
+Mar 24 16:39:22 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 116077910722468504877: code 7wui9d0nmvl0kmpuujtw0405amuvseqw
+Mar 24 16:39:23 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:39:23 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:39:23 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code j2gk9veed0ys7bohzax27wepc8496vjq
+Mar 24 16:39:24 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:39:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 6lpueh3wj6nu56t74ixufnsh1zloktck
+Mar 24 16:39:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:39:28 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code cp5ttccrze1fv0gdk3ggdiutulszsg3u
+Mar 24 16:39:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:39:28 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code k51ax105r3qxbzigt9sh0x3mcvktln8z
+Mar 24 16:39:34 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:39:34 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code akvgb4h7i7rw12ej1zf9lj381jr2vv80
+Mar 24 16:39:38 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:39:38 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code wi3ja0s3bo444c0qsewpnirspcw62cb7
+Mar 24 16:39:38 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:39:38 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code sosdovjgt4k6q7csm3kqps3zasvw9t73
+Mar 24 16:39:38 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:39:38 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code dmkwuevdtr41pk4v5eixmjlavmvsbvqx
+Mar 24 16:39:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:39:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code h8rv2a38pxat3btvntke7l0kfbsu3lfo
+Mar 24 16:39:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:39:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code p9l0xcel5mz9fuwj8b4pajgyarg38mdp
+Mar 24 16:39:42 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:39:42 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code usmgf3e1dfyvd5eu0tm1at9tuo21a3n5
+Mar 24 16:39:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:39:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code mylan0m9u32fjwqxe0zf71aqmseuat3k
+Mar 24 16:39:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:39:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code x134yiwlj4vwxoydbnuvl6xsc9k75bpq
+Mar 24 16:39:44 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: focus
+Mar 24 16:39:44 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code 625o6fdk9g7q1dco17blz6pb7ht4066j
+Mar 24 16:39:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:39:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code c79dkvqsmw277rvqldhl9j4wjblziq3t
+Mar 24 16:39:52 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 113554899687257717411: blur
+Mar 24 16:39:52 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 113554899687257717411: code mscntas9yjpomzzwpw4m2x27tniefoqc
+Mar 24 16:39:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:39:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:39:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code wv2endt6a2mnxm0xdg1gt9qp74ve3ez1
+Mar 24 16:39:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code scn1uxgnm7rjavgn5r6zczxosrkazyoi
+Mar 24 16:39:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:39:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code 8sjz1h4wr26xogefu3t4t9sy87uz1k40
+Mar 24 16:39:57 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:39:57 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code kf5nthacm9m9y2ijjj6qkpr766fxul7f
+Mar 24 16:40:01 ip-172-31-80-244.ec2.internal systemd[1]: Created slice User Slice of root.
+-- Subject: Unit user-0.slice has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit user-0.slice has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 24 16:40:01 ip-172-31-80-244.ec2.internal systemd[1]: Started Session 119 of user root.
+-- Subject: Unit session-119.scope has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit session-119.scope has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 24 16:40:01 ip-172-31-80-244.ec2.internal CROND[16516]: (root) CMD (/usr/lib64/sa/sa1 1 1)
+Mar 24 16:40:01 ip-172-31-80-244.ec2.internal systemd[1]: Removed slice User Slice of root.
+-- Subject: Unit user-0.slice has finished shutting down
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit user-0.slice has finished shutting down.
+Mar 24 16:40:11 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 119400ms.
+Mar 24 16:40:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:41:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:42:10 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 115500ms.
+Mar 24 16:42:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:43:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:44:06 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 112920ms.
+Mar 24 16:44:09 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:44:09 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code ranlszaybosn7cay0iub5pc5p5ldjxq3
+Mar 24 16:44:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:44:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 38dyi1l4onz74gl5b10y8lymvs0yop4f
+Mar 24 16:44:13 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:44:13 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code hv0i5xlmu1reop1kteza7wncpqxovex0
+Mar 24 16:44:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:44:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 3zo9s709nyiid6ku3n7dgcfw6uoi0cmn
+Mar 24 16:44:14 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:44:14 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code zvq03motoi6iw573m82pp1nrzbat12tl
+Mar 24 16:44:15 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:44:15 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 94plluqql1p50zikuuxtna2tcm0id5v6
+Mar 24 16:44:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-on-bonus
+Mar 24 16:44:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code kjvp0h72qdy3x3fw03mhnl84hev9f6mw
+Mar 24 16:44:17 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:44:17 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code nyy3jluzq7s58aqyttpdzoum5nyv42rh
+Mar 24 16:44:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:44:18 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:44:18 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 71t90ni10q4rk3v8e0d1fxvg5j5nhwsj
+Mar 24 16:44:40 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:44:40 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code vh5xhohdo7ognx04c88qablpimeojsx3
+Mar 24 16:44:41 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:44:41 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code bkngtpn5iean7yca8bomx9zwbbdobbuk
+Mar 24 16:45:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:45:59 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 118550ms.
+Mar 24 16:46:15 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:46:15 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:46:15 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code zhuwxtagwcnegx5ja70j6bl88tpf29xh
+Mar 24 16:46:15 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code q9tsnfu372rp1z69os8nxlwgw3orju9h
+Mar 24 16:46:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:46:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:46:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code f730dmw44ibaz1jn2n4tfowo0bjobx01
+Mar 24 16:46:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code 8dr65rhgac9bqglkegppdz8b2ersyhmt
+Mar 24 16:46:17 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:46:17 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:46:17 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code lg9veypxjjqyg9dd5a5ewn0l236f6u23
+Mar 24 16:46:17 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code ckxb6vmohglsio8cbaiwutsbf1cxkjtk
+Mar 24 16:46:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:46:39 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:46:39 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code k5z6jot2dr11io5pi0ki283jz7pyqptz
+Mar 24 16:46:55 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:46:55 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code tj9vvwdczc7ds4n7g3bvxn0giwonmmcu
+Mar 24 16:47:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:47:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:47:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 1l8qme8k81jdzd4sjs4zqxx77sdb5j5n
+Mar 24 16:47:57 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 130020ms.
+Mar 24 16:48:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:48:23 ip-172-31-80-244.ec2.internal sshd[16557]: Invalid user git from 194.67.108.217 port 43692
+Mar 24 16:48:23 ip-172-31-80-244.ec2.internal sshd[16557]: input_userauth_request: invalid user git [preauth]
+Mar 24 16:48:23 ip-172-31-80-244.ec2.internal sshd[16557]: Received disconnect from 194.67.108.217 port 43692:11: Bye Bye [preauth]
+Mar 24 16:48:23 ip-172-31-80-244.ec2.internal sshd[16557]: Disconnected from 194.67.108.217 port 43692 [preauth]
+Mar 24 16:48:29 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:48:29 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code ndq6vxy6jqrr5vuk31i71gclxa9ixdzv
+Mar 24 16:48:33 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:48:33 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code ps0kofnl50nnvlp4ldr6debfm90xl436
+Mar 24 16:49:08 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:49:08 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code foxxmsynhnkzn5rzxfgs1r8oy0c8aeq7
+Mar 24 16:49:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:49:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:49:21 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: blur
+Mar 24 16:49:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code ac40v3yepgkxs6wyo1338hdwld3fnql7
+Mar 24 16:49:21 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code wu4uvkkygz4tbhngi601gvwhd0pjlyim
+Mar 24 16:49:33 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:49:33 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code a2l8e1mju6oymhyxjwxyown9nxcadd47
+Mar 24 16:49:33 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:49:33 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code hlle5iqxijkai03m5k0hz5f5683nl8r6
+Mar 24 16:50:01 ip-172-31-80-244.ec2.internal systemd[1]: Created slice User Slice of root.
+-- Subject: Unit user-0.slice has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit user-0.slice has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 24 16:50:01 ip-172-31-80-244.ec2.internal systemd[1]: Started Session 120 of user root.
+-- Subject: Unit session-120.scope has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit session-120.scope has finished starting up.
+-- 
+-- The start-up result is done.
+Mar 24 16:50:01 ip-172-31-80-244.ec2.internal CROND[16568]: (root) CMD (/usr/lib64/sa/sa1 1 1)
+Mar 24 16:50:01 ip-172-31-80-244.ec2.internal systemd[1]: Removed slice User Slice of root.
+-- Subject: Unit user-0.slice has finished shutting down
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- 
+-- Unit user-0.slice has finished shutting down.
+Mar 24 16:50:08 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 112560ms.
+Mar 24 16:50:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:50:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:50:25 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 105642884574121247670: focus
+Mar 24 16:50:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code rigkohm8qf5kx93v9vqcgqincacu88ym
+Mar 24 16:50:25 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code cfim1v5uyl4u5r8do2kz0o7l3ozkg8m0
+Mar 24 16:51:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:52:00 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 114660ms.
+Mar 24 16:52:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:52:50 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:52:50 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code qyes6qysn010rg7gj1h449q1rfb875tc
+Mar 24 16:53:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:53:55 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 111310ms.
+Mar 24 16:54:16 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:54:16 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code sywr0ihh5m3530grdbcj61u45a7n7o8d
+Mar 24 16:54:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:54:19 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:54:19 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code olsgqjuv27ebr75eq9gd7lv8kd6gw32w
+Mar 24 16:54:20 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-on-bonus
+Mar 24 16:54:20 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code 37ggjfdwb2ul8z3oljm5rvrzd5c8p3nb
+Mar 24 16:54:20 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 104164920845695734036: set-on-bonus
+Mar 24 16:54:20 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 104164920845695734036: code srifsmp1dj92zh348ipksml1yw7rcrmi
+Mar 24 16:54:27 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: focus
+Mar 24 16:54:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code yzq13d8idy0eoxzg2p9frv1py3dhy90v
+Mar 24 16:54:28 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 114533089680699557195: blur
+Mar 24 16:54:28 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 114533089680699557195: code 9qh3j2mz1bwjoj3uqm57xvk7j2vbvpu9
+Mar 24 16:54:39 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:54:39 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:54:39 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 108910621266175572650: code nkqfa6otzpg48zqn4xjmjgqvv2h79gvz
+Mar 24 16:54:40 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:54:40 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:54:40 ip-172-31-80-244.ec2.internal node[16279]: Failed to find Google ID: 117404195139060530535
+Mar 24 16:54:40 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 117404195139060530535: code f92f14upr038l4qilbv2jgntly43r33y
+Mar 24 16:55:07 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: focus
+Mar 24 16:55:07 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code 1cujf2t2yz2xdu5msu3voaiuxfhslgsb
+Mar 24 16:55:08 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 101288316362108653018: blur
+Mar 24 16:55:08 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 101288316362108653018: code f4ezqhf2ykbjdye3uzboj0u8m6bn0ytf
+Mar 24 16:55:17 ip-172-31-80-244.ec2.internal sshd[16610]: Invalid user mohan from 174.138.31.252 port 53486
+Mar 24 16:55:17 ip-172-31-80-244.ec2.internal sshd[16610]: input_userauth_request: invalid user mohan [preauth]
+Mar 24 16:55:17 ip-172-31-80-244.ec2.internal sshd[16610]: Received disconnect from 174.138.31.252 port 53486:11: Bye Bye [preauth]
+Mar 24 16:55:17 ip-172-31-80-244.ec2.internal sshd[16610]: Disconnected from 174.138.31.252 port 53486 [preauth]
+Mar 24 16:55:18 ip-172-31-80-244.ec2.internal node[16279]: Sending periodic log of currentGames
+Mar 24 16:55:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code 3ivpz8ow1hoz0nale5389qzh8qir2lvn
+Mar 24 16:55:24 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 105642884574121247670: code zvbxepbjmopophujvv6zubwufigpmmmv
+Mar 24 16:55:27 ip-172-31-80-244.ec2.internal node[16279]: Request to join.
+Mar 24 16:55:27 ip-172-31-80-244.ec2.internal node[16279]: Successfully joined
+Mar 24 16:55:27 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 106319326457754360666: code lwtyl8988wl4pbs93hfgj8a8mzotqb3x
+Mar 24 16:55:46 ip-172-31-80-244.ec2.internal dhclient[2872]: XMT: Solicit on eth0, interval 112980ms.
+Mar 24 16:55:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: focus
+Mar 24 16:55:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 8bwya9ez50pdyn7t2ezfnz8rw0nj27vu
+Mar 24 16:55:56 ip-172-31-80-244.ec2.internal node[16279]: Received event from user 112004166281002893258: blur
+Mar 24 16:55:56 ip-172-31-80-244.ec2.internal node[16279]: Sending an update after action from 112004166281002893258: code 6zeauhiz62i87kcbbzh70w4vuoeoxhsv

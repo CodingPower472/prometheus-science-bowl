@@ -216,9 +216,9 @@ class Game {
             this.cancelTimer();
         } else {
             console.log(`Answering team: ${answeringTeam}`);
-            if (answeringTeam) {
+            //if (answeringTeam) {
                 this.teams[answeringTeam].lockedOut = true;
-            }
+            //}
             this.clearBuzzer();
             if (this.allLocked()) {
                 this.questionNum++;
