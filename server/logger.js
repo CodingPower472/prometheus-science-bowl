@@ -3,7 +3,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const LOG_FILE = 'log.txt';
 
-fs.open(LOG_FILE, 'w');
+fs.openSync(LOG_FILE, 'w');
 
 function append(str) {
     fs.appendFile(LOG_FILE, str, {
