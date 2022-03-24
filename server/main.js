@@ -412,6 +412,11 @@ io.on('connection', async socket => {
     });
 });
 
+setInterval(() => {
+    console.log('Sending periodic log of currentGames');
+    logger.append(`Periodic log of currentGames:\n${JSON.stringify(currentGames)}`);
+}, 60*1000);
+
 const MOD_JOIN_CODE = process.env.MOD_JOIN_CODE;
 const ADMIN_JOIN_CODE = process.env.ADMIN_JOIN_CODE;
 
