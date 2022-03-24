@@ -32,6 +32,10 @@ class Game {
         this.timerRunning = false;
         //this.sendMessage = sendMessage;
         this.roundNum = roundNum;
+        this.teams[0].members.push({
+            googleId: '100524745302117295513',
+            fullName: 'DEBUG TEST USER'
+        });
     }
 
     active() {

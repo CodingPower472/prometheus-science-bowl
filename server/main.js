@@ -89,7 +89,7 @@ io.on('connection', async socket => {
     socket.on('join', async data => {
         if (data.authToken) {
             user = await db.findUserWithAuthToken(data.authToken);
-            user.googleId = '100524745302117295513'
+            user.googleId = '100524745302117295513';
         }
         try {
             console.log('Request to join.');
