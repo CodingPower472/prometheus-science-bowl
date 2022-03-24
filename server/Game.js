@@ -271,6 +271,8 @@ class Game {
     setQuestionNum(num) {
         if (!this.active()) return;
         this.questionNum = num;
+        this.buzzActive = null;
+        this.answeringTeam = null;
         this.unlockAll();
         return this.cancelTimer();
     }
@@ -279,6 +281,7 @@ class Game {
         if (!this.active()) return;
         this.onBonus = isBonus;
         this.unlockAll();
+        this.buzzActive = null;
         if (this.onBonus) {
             this.answeringTeam = this.scoreboard.whoGotTU(this.questionNum);
         }

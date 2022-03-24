@@ -130,7 +130,7 @@ io.on('connection', async socket => {
                 try {
                     if (game) {
                         io.to(roomId).emit('update', game.state());
-                        logger.append(JSON.stringify(game));
+                        logger.append(JSON.stringify(game, null, 4));
                     } else {
                         console.error(chalk.red('Attempted to update game state when game does not exist'));
                     }

@@ -6,7 +6,7 @@ const LOG_FILE = 'log.txt';
 fs.openSync(LOG_FILE, 'w');
 
 function append(str) {
-    fs.appendFile(LOG_FILE, str, {
+    fs.appendFile(LOG_FILE, str + '\n\n', {
         encoding: 'utf-8'
     }, err => {
         if (err) {
