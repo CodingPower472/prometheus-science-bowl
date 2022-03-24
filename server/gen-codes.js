@@ -17,7 +17,12 @@ function genSessionToken() {
     return res;
 }
 
+function genUpdateCode() {
+    return genSessionToken();
+}
+
 module.exports = {
     genJoinCode,
-    genSessionToken
+    genSessionToken,
+    genUpdateCode
 };

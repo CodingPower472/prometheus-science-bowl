@@ -45,9 +45,9 @@ function Join({ authCallback }) {
                     joinMessage = <h1>Join as {codeInfo.role}</h1>
                 }
             } else {
-                joinMessage = <h1 className="error">Sorry, your join code is invalid.</h1>
+                //joinMessage = <h1 className="error">Sorry, your join code is invalid.</h1>
                 return (
-                    <ErrorPage error="Sorry, your join code is invalid." />
+                    <ErrorPage error="Our website is currently undergoing maintenance." />
                 );
             }
         } else {

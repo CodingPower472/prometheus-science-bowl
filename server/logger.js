@@ -13,7 +13,6 @@ function append(str) {
             console.error(chalk.red(`Error logging file: ${err}`));
             console.trace(err);
         }
-        console.log(chalk.green('Saved game state to log.'));
     });
 }
 

@@ -120,7 +120,9 @@ io.on('connection', async socket => {
             let nextRoom = await room.get({ plain: true });
             let game = null;
             if (data.room in currentGames) {
-                currentGames[data.room].setJoined(user.googleId, true);
+                if (user.isPlayer) {
+                    currentGames[data.room].setJoined(user.googleId, true);
+                }
                 game = currentGames[data.room];
                 nextRoom.game = game.state();
             } else {
@@ -129,8 +131,13 @@ io.on('connection', async socket => {
             function roomUpdate() {
                 try {
                     if (game) {
-                        io.to(roomId).emit('update', game.state());
-                        logger.append(JSON.stringify(game, null, 4));
+                        let updateCode = gen.genUpdateCode();
+                        console.log(chalk.green(`Sending an update after action from ${user.googleId}: code ${updateCode}`));
+                        io.to(roomId).emit('update', {
+                            ...game.state(),
+                            updateCode
+                        });
+                        logger.append(`Update code: ${updateCode}\n${JSON.stringify(game.state())}`);
                     } else {
                         console.error(chalk.red('Attempted to update game state when game does not exist'));
                     }
@@ -193,6 +200,11 @@ io.on('connection', async socket => {
                     console.error(chalk.red(err));
                 }
             });
+
+            socket.onAny((eventName) => {
+                console.log(`Received event from user ${user.googleId}: ${eventName}`);
+            });
+
             // TODO: change this back
             //if (user.isPlayer) {
             if (user.isPlayer || user.isAdmin) {
@@ -277,6 +289,8 @@ io.on('connection', async socket => {
                         roomUpdate();
                     } catch (err) {
                         console.error(chalk.red(err));
+                        console.trace(err);
+                        console.log('LOOK HERE');
                     }
                 });
                 socket.on('neganswer', async () => {

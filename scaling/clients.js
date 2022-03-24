@@ -14,8 +14,9 @@ function createSocket(authToken) {
     });  
     res.onAny((eventName, data) => {
         if (eventName === 'update') {
-            if (data.scoreboard !== []) {
-                //console.log(data.scoreboard);
+            if (!data.opened) {
+                console.log('NOT OPENED');
+                console.log(data);
             }
         }
     });
@@ -51,7 +52,7 @@ function runScaling() {
         setInterval(() => {
             let socket = sockets[i];
             let command = POSSIBLE_COMMANDS[Math.floor(Math.random() * POSSIBLE_COMMANDS.length)];
-            console.log(`Sending ${command}`);
+            //console.log(`Sending ${command}`);
             socket.emit(command);
         }, Math.random() * 1000 + 500);
     }
