@@ -297,6 +297,7 @@ class Game {
 
     startTimer(onTimeUp) {
         if (!this.active()) return;
+        if (this.buzzActive) return;
         clearTimeout(this.questionTimer);
         if (onTimeUp) {
             this.onTimeUp = onTimeUp;
