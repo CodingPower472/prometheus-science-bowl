@@ -76,7 +76,7 @@ async function authSocket(socket) {
 
 let currentGames = {};
 
-function roomUpdate(roomId) {
+function roomUpdate(roomId, googleId) {
     try {
         let game = currentGames[roomId];
         if (game) {
@@ -188,9 +188,10 @@ io.on('connection', async socket => {
                     teamIndex: found ? found[1] : null,
                     roomWarning: roomWarning // if TRUST_MODS is on, a warning message will be displayed to mods when they join a room they are not assigned to.  Otherwise, they will be prevented from joining.
                 });
-                roomUpdate(roomId);
+                roomUpdate(roomId, user.googleId);
             } catch (err) {
                 console.error(chalk.red(err));
+                console.trace(err);
             }
             
             socket.on('disconnect', () => {
@@ -198,10 +199,11 @@ io.on('connection', async socket => {
                     let g = currentGames[roomId];
                     if (g) {
                         g.setJoined(user.googleId, false);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     }
                 } catch (err) {
                     console.error(chalk.red(err));
+                    console.trace(err);
                 }
             });
 
@@ -219,7 +221,7 @@ io.on('connection', async socket => {
                         let hasMessage = broadcast(g.buzz(user.googleId));
                         if (hasMessage) {
                             console.log('Buzz successful');
-                            roomUpdate(roomId);
+                            roomUpdate(roomId, user.googleId);
                         }
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -228,8 +230,9 @@ io.on('connection', async socket => {
                 socket.on('focus', async () => {
                     try {
                         let g = currentGames[roomId];
+                        //console.log(user);
                         g.setPlayedFocused(user.googleId, true);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                         console.trace(err);
@@ -239,9 +242,10 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         g.setPlayedFocused(user.googleId, false);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
+                        console.trace(err);
                     }
                 });
             }
@@ -251,17 +255,18 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         if (g) {
                             g.start();
-                            roomUpdate(roomId);
+                            roomUpdate(roomId, user.googleId);
                         }
                     } catch (err) {
                         console.error(chalk.red(err));
+                        console.trace(err);
                     }
                 });
                 socket.on('end', async () => {
                     try {
                         let g = currentGames[roomId];
                         g.end();
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                         gameSave(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -272,7 +277,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         g.ignoreBuzz();
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -281,7 +286,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         broadcast(g.correctLive());
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -295,10 +300,10 @@ io.on('connection', async socket => {
                             send('timercancel');
                         } else if (!wereAllLocked) {
                             broadcast(g.startTimer(() => {
-                                roomUpdate(roomId);
+                                roomUpdate(roomId, user.googleId);
                             }));
                         }
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                         console.trace(err);
@@ -310,7 +315,7 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         console.log('Neg');
                         g.negLive();
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -321,7 +326,7 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         console.log(`Correct ${teamInd}`);
                         g.correctAnswer(questionNum, null, teamInd, isBonus);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -331,7 +336,7 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         console.log(`Incorrect ${teamInd}`)
                         g.incorrectAnswer(questionNum, null, teamInd, isBonus);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -341,7 +346,7 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         console.log(`Negging ${teamInd}`);
                         g.negAnswer(questionNum, null, teamInd);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -351,7 +356,7 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         console.log(`No buzz ${teamInd}`);
                         g.noAnswer(questionNum, teamInd);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -361,7 +366,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         broadcast(g.nextQuestion());
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -370,7 +375,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         broadcast(g.setQuestionNum(num));
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -379,7 +384,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         broadcast(g.setOnBonus(isBonus));
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -388,7 +393,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         g.setLocked(teamInd, locked);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -400,9 +405,9 @@ io.on('connection', async socket => {
                         if (g.timerRunning) return;
                         broadcast(g.startTimer(wasBonus => {
                             console.log('timer done!');
-                            roomUpdate(roomId);
+                            roomUpdate(roomId, user.googleId);
                         }));
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -413,7 +418,7 @@ io.on('connection', async socket => {
                         let g = currentGames[roomId];
                         if (!g.timerRunning) return;
                         broadcast(g.cancelTimer());
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -423,7 +428,7 @@ io.on('connection', async socket => {
                     try {
                         let g = currentGames[roomId];
                         g.setOffset(teamInd, amount);
-                        roomUpdate(roomId);
+                        roomUpdate(roomId, user.googleId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -432,6 +437,7 @@ io.on('connection', async socket => {
             }
         } catch (err) {
             console.error(chalk.red(err));
+            console.trace(err);
         }
     });
 });
