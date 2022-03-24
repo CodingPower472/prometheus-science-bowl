@@ -81,7 +81,7 @@ function roomUpdate(roomId, googleId) {
         let game = currentGames[roomId];
         if (game) {
             let updateCode = gen.genUpdateCode();
-            console.log(chalk.green(`Sending an update after action from ${user.googleId}: code ${updateCode}`));
+            console.log(chalk.green(`Sending an update after action from ${googleId}: code ${updateCode}`));
             io.to(roomId).emit('update', {
                 ...game.state(),
                 updateCode
