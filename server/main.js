@@ -76,6 +76,25 @@ async function authSocket(socket) {
 
 let currentGames = {};
 
+function roomUpdate(roomId) {
+    try {
+        let game = currentGames[roomId];
+        if (game) {
+            let updateCode = gen.genUpdateCode();
+            console.log(chalk.green(`Sending an update after action from ${user.googleId}: code ${updateCode}`));
+            io.to(roomId).emit('update', {
+                ...game.state(),
+                updateCode
+            });
+            logger.append(`Update code: ${updateCode}\n${JSON.stringify(game.state())}`);
+        } else {
+            console.error(chalk.red('Attempted to update game state when game does not exist'));
+        }
+    } catch (err) {
+        console.error(chalk.red(err));
+    }
+}
+
 io.on('connection', async socket => {
     let user = await authSocket(socket);
     if (!user) {
@@ -128,26 +147,10 @@ io.on('connection', async socket => {
             } else {
                 nextRoom.game = null;
             }
-            function roomUpdate() {
-                try {
-                    if (game) {
-                        let updateCode = gen.genUpdateCode();
-                        console.log(chalk.green(`Sending an update after action from ${user.googleId}: code ${updateCode}`));
-                        io.to(roomId).emit('update', {
-                            ...game.state(),
-                            updateCode
-                        });
-                        logger.append(`Update code: ${updateCode}\n${JSON.stringify(game.state())}`);
-                    } else {
-                        console.error(chalk.red('Attempted to update game state when game does not exist'));
-                    }
-                } catch (err) {
-                    console.error(chalk.red(err));
-                }
-            }
             function send(a, b) {
                 try {
-                    if (game) {
+                    let g = currentGames[roomId];
+                    if (g) {
                         if (b) {
                             io.to(roomId).emit(a, b);
                         } else {
@@ -185,16 +188,17 @@ io.on('connection', async socket => {
                     teamIndex: found ? found[1] : null,
                     roomWarning: roomWarning // if TRUST_MODS is on, a warning message will be displayed to mods when they join a room they are not assigned to.  Otherwise, they will be prevented from joining.
                 });
-                roomUpdate();
+                roomUpdate(roomId);
             } catch (err) {
                 console.error(chalk.red(err));
             }
             
             socket.on('disconnect', () => {
                 try {
-                    if (game) {
-                        game.setJoined(user.googleId, false);
-                        roomUpdate();
+                    let g = currentGames[roomId];
+                    if (g) {
+                        g.setJoined(user.googleId, false);
+                        roomUpdate(roomId);
                     }
                 } catch (err) {
                     console.error(chalk.red(err));
@@ -209,12 +213,13 @@ io.on('connection', async socket => {
             //if (user.isPlayer) {
             if (user.isPlayer || user.isAdmin) {
                 socket.on('buzz', async () => {
+                    let g = currentGames[roomId];
                     try {
                         console.log('Buzz sent');
-                        let hasMessage = broadcast(game.buzz(user.googleId));
+                        let hasMessage = broadcast(g.buzz(user.googleId));
                         if (hasMessage) {
                             console.log('Buzz successful');
-                            roomUpdate();
+                            roomUpdate(roomId);
                         }
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -222,8 +227,9 @@ io.on('connection', async socket => {
                 });
                 socket.on('focus', async () => {
                     try {
-                        game.setPlayedFocused(user.googleId, true);
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        g.setPlayedFocused(user.googleId, true);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                         console.trace(err);
@@ -231,8 +237,9 @@ io.on('connection', async socket => {
                 });
                 socket.on('blur', async () => {
                     try {
-                        game.setPlayedFocused(user.googleId, false);
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        g.setPlayedFocused(user.googleId, false);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -241,9 +248,10 @@ io.on('connection', async socket => {
             if (user.isMod || user.isAdmin) {
                 socket.on('start', async () => {
                     try {
-                        if (game) {
-                            game.start();
-                            roomUpdate();
+                        let g = currentGames[roomId];
+                        if (g) {
+                            g.start();
+                            roomUpdate(roomId);
                         }
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -251,8 +259,9 @@ io.on('connection', async socket => {
                 });
                 socket.on('end', async () => {
                     try {
-                        game.end();
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        g.end();
+                        roomUpdate(roomId);
                         gameSave(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
@@ -261,32 +270,35 @@ io.on('connection', async socket => {
                 
                 socket.on('ignorebuzz', async () => {
                     try {
-                        game.ignoreBuzz();
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        g.ignoreBuzz();
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('correctanswer', async () => {
                     try {
-                        broadcast(game.correctLive());
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        broadcast(g.correctLive());
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('incorrectanswer', async () => {
                     try {
-                        let onBonus = game.onBonus;
-                        let wereAllLocked = game.incorrectLive();
+                        let g = currentGames[roomId];
+                        let onBonus = g.onBonus;
+                        let wereAllLocked = g.incorrectLive();
                         if (onBonus) {
                             send('timercancel');
                         } else if (!wereAllLocked) {
-                            broadcast(game.startTimer(() => {
-                                roomUpdate();
+                            broadcast(g.startTimer(() => {
+                                roomUpdate(roomId);
                             }));
                         }
-                        roomUpdate();
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                         console.trace(err);
@@ -295,9 +307,10 @@ io.on('connection', async socket => {
                 });
                 socket.on('neganswer', async () => {
                     try {
+                        let g = currentGames[roomId];
                         console.log('Neg');
-                        game.negLive();
-                        roomUpdate();
+                        g.negLive();
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -305,36 +318,40 @@ io.on('connection', async socket => {
                 
                 socket.on('set-correct', ({questionNum, teamInd, isBonus}) => {
                     try {
+                        let g = currentGames[roomId];
                         console.log(`Correct ${teamInd}`);
-                        game.correctAnswer(questionNum, null, teamInd, isBonus);
-                        roomUpdate();
+                        g.correctAnswer(questionNum, null, teamInd, isBonus);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('set-incorrect', ({questionNum, teamInd, isBonus}) => {
                     try {
+                        let g = currentGames[roomId];
                         console.log(`Incorrect ${teamInd}`)
-                        game.incorrectAnswer(questionNum, null, teamInd, isBonus);
-                        roomUpdate();
+                        g.incorrectAnswer(questionNum, null, teamInd, isBonus);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('set-neg', ({questionNum, teamInd}) => {
                     try {
+                        let g = currentGames[roomId];
                         console.log(`Negging ${teamInd}`);
-                        game.negAnswer(questionNum, null, teamInd);
-                        roomUpdate();
+                        g.negAnswer(questionNum, null, teamInd);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('set-no-buzz', ({questionNum, teamInd}) => {
                     try {
+                        let g = currentGames[roomId];
                         console.log(`No buzz ${teamInd}`);
-                        game.noAnswer(questionNum, teamInd);
-                        roomUpdate();
+                        g.noAnswer(questionNum, teamInd);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -342,32 +359,36 @@ io.on('connection', async socket => {
                 
                 socket.on('next-question', async () => {
                     try {
-                        broadcast(game.nextQuestion());
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        broadcast(g.nextQuestion());
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('set-question-num', async num => {
                     try {
-                        broadcast(game.setQuestionNum(num));
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        broadcast(g.setQuestionNum(num));
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('set-on-bonus', isBonus => {
                     try {
-                        broadcast(game.setOnBonus(isBonus));
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        broadcast(g.setOnBonus(isBonus));
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
                 });
                 socket.on('set-locked', ({ teamInd, locked }) => {
                     try {
-                        game.setLocked(teamInd, locked);
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        g.setLocked(teamInd, locked);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -375,12 +396,13 @@ io.on('connection', async socket => {
                 
                 socket.on('req_starttimer', () => {
                     try {
-                        if (game.timerRunning) return;
-                        broadcast(game.startTimer(wasBonus => {
+                        let g = currentGames[roomId];
+                        if (g.timerRunning) return;
+                        broadcast(g.startTimer(wasBonus => {
                             console.log('timer done!');
-                            roomUpdate();
+                            roomUpdate(roomId);
                         }));
-                        roomUpdate();
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -388,9 +410,10 @@ io.on('connection', async socket => {
                 
                 socket.on('req_canceltimer', () => {
                     try {
-                        if (!game.timerRunning) return;
-                        broadcast(game.cancelTimer());
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        if (!g.timerRunning) return;
+                        broadcast(g.cancelTimer());
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
@@ -398,8 +421,9 @@ io.on('connection', async socket => {
 
                 socket.on('set-offset', ({teamInd, amount}) => {
                     try {
-                        game.setOffset(teamInd, amount);
-                        roomUpdate();
+                        let g = currentGames[roomId];
+                        g.setOffset(teamInd, amount);
+                        roomUpdate(roomId);
                     } catch (err) {
                         console.error(chalk.red(err));
                     }
