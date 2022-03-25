@@ -30,9 +30,6 @@ function AdminPage({ user }) {
         listTeams()
             .then(res => {
                 let ourTeams = res.data.teams;
-                if (ourTeams) {
-                    ourTeams.sort((a, b) => new Date(a.createdAt) < new Date(b.createdAt));
-                }
                 setTeams(ourTeams);
             })
             .catch(console.error);

@@ -949,11 +949,13 @@ app.post('/api/set-round', async (req, res) => {
         await saveGames();
         let roundNum = req.body.roundNum;
         await autoRound.setRound(roundNum);
+        console.log('Done setting round.');
         res.send({
             success: true,
             currentRound: roundNum
         });
         await createGames(roundNum);
+        console.log('Done creating games');
     } catch (err) {
         res.send(INTERNAL);
         console.error(err);

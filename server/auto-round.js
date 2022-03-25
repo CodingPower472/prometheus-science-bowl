@@ -190,9 +190,9 @@ async function updateModRoomAssignments(roundNum) {
 }
 
 async function updateRoomAssignments(roundNum) {
-    let teams = updateTeamRoomAssignments(roundNum);
-    let mods = updateModRoomAssignments(roundNum);
     try {
+        let teams = updateTeamRoomAssignments(roundNum);
+        let mods = updateModRoomAssignments(roundNum);
         return await Promise.all([teams, mods]);
     } catch (err) {
         console.error(`Error updating room assignments: ${err}`);
