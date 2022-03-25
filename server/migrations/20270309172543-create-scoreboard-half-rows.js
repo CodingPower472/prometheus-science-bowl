@@ -11,6 +11,7 @@ module.exports = {
       gameRecordId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'GameRecords',
           key: 'id',

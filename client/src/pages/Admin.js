@@ -68,6 +68,9 @@ function AdminPage({ user }) {
                     {game.teams[1].name}
                 </td>
                 <td>
+                    {game.questionNum + 1}
+                </td>
+                <td>
                     {game.teams[0].score}-{game.teams[1].score}
                 </td>
                 <td>
@@ -246,6 +249,7 @@ function AdminPage({ user }) {
                     <tr>
                         <th scope="col">Team A</th>
                         <th scope="col">Team B</th>
+                        <th scope="col">Question #</th>
                         <th scope="col">Score</th>
                         <th scope="col">Room</th>
                     </tr>

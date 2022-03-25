@@ -32,10 +32,10 @@ class Game {
         this.timerRunning = false;
         //this.sendMessage = sendMessage;
         this.roundNum = roundNum;
-        this.teams[0].members.push({ // DELETE FOR THE LOVE OF GOD
+        /*this.teams[0].members.push({ // DELETE FOR THE LOVE OF GOD
             googleId: 'DEBUG_GID',
             fullName: 'DEBUG TEST USER'
-        });
+        });*/
     }
 
     active() {

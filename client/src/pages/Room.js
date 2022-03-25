@@ -17,7 +17,7 @@ let timer = new CountdownTimer();
 
 const noop = ( () => {} );
 
-function TeamsDisplay({ teams, isMod, isBonus }) {
+function TeamsDisplay({ teams, isMod, isBonus, buzzActive }) {
     function mapPlayers(players) {
         return players.map((player, i) => {
             let cl = "player-name away";
@@ -27,7 +27,7 @@ function TeamsDisplay({ teams, isMod, isBonus }) {
             return (
                 <li key={i}>
                     <span className={cl}>{player.fullName}</span>
-                    {player.buzzing && <span className="dot"></span>}
+                    {(buzzActive && buzzActive.googleId === player.googleId) && <span className="dot"></span>}
                 </li>
             );
         });
@@ -608,7 +608,7 @@ function ModUI({ gameState, room, user }) {
     } else if (!gameState.opened) {
         return (
             <div className="ModUI">
-                <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
+                <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} buzzActive={gameState.buzzActive} />
                 <h1 className="text-center">The game in this room hasn't been started yet.</h1>
                 <Button variant="success" onClick={() => socket.startGame()}>Start Game</Button>
             </div>
@@ -625,7 +625,7 @@ function ModUI({ gameState, room, user }) {
     return (
         <div className="ModUI">
             <ModBuzzManager buzzActive={gameState.buzzActive} isBonus={gameState.onBonus} answeringTeam={gameState.teams[gameState.answeringTeam]} />
-            <TeamsDisplay teams={gameState.teams} isMod isBonus={gameState.onBonus} />
+            <TeamsDisplay teams={gameState.teams} isMod isBonus={gameState.onBonus} buzzActive={gameState.buzzActive} />
             <QuestionInfo questionNum={gameState.questionNum} isBonus={gameState.onBonus} isMod />
             {/*<BuzzerName buzzer={gameState.buzzActive} user={user} />*/}
             <TimerMan isBonus={gameState.onBonus} timeUp={gameState.timeUp} isMod />
@@ -681,7 +681,7 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
     } else if (!gameState.opened) {
         return (
             <div className="PlayerUI">
-                <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
+                <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} buzzActive={gameState.buzzActive}/>
                 <h1 className="text-center">Your game hasn't been started yet</h1>
                 <h3 className="text-center">Please stand by.</h3>
             </div>
@@ -698,7 +698,7 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
     return (
         <div className="PlayerUI">
             <a className="text-center player-meeting-link" href={room.meetingLink}>{room.meetingLink}</a>
-            <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} />
+            <TeamsDisplay teams={gameState.teams} isBonus={gameState.onBonus} buzzActive={gameState.buzzActive} />
             <TimerMan isBonus={gameState.onBonus} />
             <BuzzComponent displayActive={shouldBuzzShowActive(gameState, teamIndex)} movable={movable} />
             <BuzzerName buzzer={gameState.buzzActive} user={user} />

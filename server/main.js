@@ -95,6 +95,16 @@ function roomUpdate(roomId, googleId) {
     }
 }
 
+const unassignedMessage = {
+    errorCode: 'noassign',
+    errorMessage: 'User is not assigned to this room.'
+};
+
+function disconnectAllSockets() {
+    //io.emit('joinerr', unassignedMessage);
+    io.disconnectSockets();
+}
+
 io.on('connection', async socket => {
     let user = await authSocket(socket);
     if (!user) {
@@ -103,22 +113,18 @@ io.on('connection', async socket => {
             errorCode: 'unauthed',
             errorMessage: 'Could not successfully authenticate user.'
         });
-        //return; TODO: IN PRODUCTION PLEASE UNCOMMENT THIS FOR THE LOVE OF GOD
+        return;// TODO: IN PRODUCTION PLEASE UNCOMMENT THIS FOR THE LOVE OF GOD
     }
     socket.emit('authorized');
     socket.on('join', async data => {
-        if (data.authToken) {
+        /*if (data.authToken) { FOR THE LOVE OF GOD CHANGE
             user = await db.findUserWithAuthToken(data.authToken);
             user.googleId = 'DEBUG_GID';
-        }
+        }*/
         try {
             console.log('Request to join.');
             let roomId = parseInt(data.room);
-            let unassignedMessage = {
-                errorCode: 'noassign',
-                errorMessage: 'User is not assigned to this room.',
-                correctRoom: roomId
-            };
+            
             if (user.isPlayer && user.roomId !== roomId) {
                 socket.emit('joinerr', unassignedMessage);
                 return;
@@ -839,6 +845,7 @@ async function saveGames() {
 async function createGames(roundNum) {
     try {
         console.log(chalk.green('Create games has been called.'));
+        disconnectAllSockets();
         let teams = await db.listTeams();
         teams.sort((a, b) => a.name.localeCompare(b.name));
         currentGames = {};
@@ -860,8 +867,8 @@ async function createGames(roundNum) {
         for (let roomId in currentGames) {
             let game = currentGames[roomId];
             if (game.teams[0] === null || game.teams[1] === null) {
-                console.warn(`Warning: game on room ${roomId} is being deleted because it does not have two teams.`);
-                delete game[roomId];
+                console.warn(chalk.yellow(`Warning: game on room ${roomId} is being deleted because it does not have two teams.`));
+                delete currentGames[roomId];
             }
         }
     } catch (err) {

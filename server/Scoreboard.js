@@ -2,6 +2,7 @@
 const chalk = require('chalk');
 
 const INITIAL_SIZE = 24;
+const MAX_SIZE = 99;
 
 class Scoreboard {
 
@@ -47,6 +48,7 @@ class Scoreboard {
 
     // will change nothing if size < this.currentSize
     extendToSize(size) {
+        if (size > MAX_SIZE) return;
         for (let i = this.currentSize; i < size; i++) {
             this.questions.push([[], []]);
             this.whoBuzzed.push([null, null]);
