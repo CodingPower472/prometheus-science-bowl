@@ -110,73 +110,83 @@ async function saveScores(games, roundNum) {
 }
 
 async function updateTeamRoomAssignments(roundNum) {
-    console.log(`Updating team room assignments, now in round ${roundNum}`);
-    await db.clearTeamRoomAssignments();
-    let sheet = await getSheetInfo(teamRoomsSheet);
-    let teamNames = sheet[0];
-    let col = sheet[roundNum];
-    if (!col) {
-        console.warn(chalk.yellow('Warning: cannot auto-assign rooms.'));
-        return;
-    }
-    let promises = [];
-    for (let i = 1; i < col.length; i++) {
-        if (col[i].length === 0) continue;
-        promises.push(new Promise(async (resolve, reject) => {
-            try {
-                let tn = teamNames[i];
-                let team = await db.findTeamWithName(tn, { include: 'members' });
-                if (!team) {
-                    console.warn(chalk.yellow(`Warning: team with name ${tn} not found. Skipping.`));
-                    return resolve();
+    try {
+        console.log(`Updating team room assignments, now in round ${roundNum}`);
+        await db.clearTeamRoomAssignments();
+        let sheet = await getSheetInfo(teamRoomsSheet);
+        let teamNames = sheet[0];
+        let col = sheet[roundNum];
+        if (!col) {
+            console.warn(chalk.yellow('Warning: cannot auto-assign rooms.'));
+            return;
+        }
+        let promises = [];
+        for (let i = 1; i < col.length; i++) {
+            if (col[i].length === 0) continue;
+            promises.push(new Promise(async (resolve, reject) => {
+                try {
+                    let tn = teamNames[i];
+                    let team = await db.findTeamWithName(tn, { include: 'members' });
+                    if (!team) {
+                        console.warn(chalk.yellow(`Warning: team with name ${tn} not found. Skipping.`));
+                        return resolve();
+                    }
+                    let room = await db.findRoomWithName(col[i]);
+                    if (!room) {
+                        console.warn(chalk.yellow(`Warning: room with name ${col[i]} not found. Skipping.`));
+                        return resolve();
+                    }
+                    await db.assignTeamRoom(team, room.id);
+                    resolve();
+                } catch (err) {
+                    reject(err);
                 }
-                let room = await db.findRoomWithName(col[i]);
-                if (!room) {
-                    console.warn(chalk.yellow(`Warning: room with name ${col[i]} not found. Skipping.`));
-                    return resolve();
-                }
-                await db.assignTeamRoom(team, room.id);
-                resolve();
-            } catch (err) {
-                reject(err);
-            }
-        }));
+            }));
+        }
+        await Promise.all(promises);
+        console.log('Done updating team room assignments.');
+    } catch (err) {
+        console.error(chalk.red(`Error updating team room assignments: ${err}`));
+        console.trace(err);
     }
-    await Promise.all(promises);
-    console.log('Done updating team room assignments.');
 }
 
 async function updateModRoomAssignments(roundNum) {
-    await db.clearModRoomAssignments();
-    let sheet = await getSheetInfo(modRoomsSheet);
-    let modEmails = sheet[0];
-    let col = sheet[roundNum + 1];
-    let promises = [];
-    for (let i = 1; i < col.length; i++) {
-        promises.push(new Promise(async (resolve, reject) => {
-            try {
-                let modEmail = modEmails[i];
-                if (!modEmail) return;
-                let mod = await db.findModWithEmail(modEmail);
-                if (!mod) {
-                    console.error(`Warning: moderator with email ${modEmail} not found. Skipping.`);
-                    return resolve();
+    try {
+        await db.clearModRoomAssignments();
+        let sheet = await getSheetInfo(modRoomsSheet);
+        let modEmails = sheet[0];
+        let col = sheet[roundNum + 1];
+        let promises = [];
+        for (let i = 1; i < col.length; i++) {
+            promises.push(new Promise(async (resolve, reject) => {
+                try {
+                    let modEmail = modEmails[i];
+                    if (!modEmail) return;
+                    let mod = await db.findModWithEmail(modEmail);
+                    if (!mod) {
+                        console.error(`Warning: moderator with email ${modEmail} not found. Skipping.`);
+                        return resolve();
+                    }
+                    let room = await db.findRoomWithName(col[i]);
+                    if (!room) {
+                        console.error(`Warning: room with name ${col[i]} not found. Skipping.`);
+                        return resolve();
+                    }
+                    await db.assignModRoom(mod, room.id);
+                    resolve();
+                    
+                } catch (err) {
+                    reject(err);
                 }
-                let room = await db.findRoomWithName(col[i]);
-                if (!room) {
-                    console.error(`Warning: room with name ${col[i]} not found. Skipping.`);
-                    return resolve();
-                }
-                await db.assignModRoom(mod, room.id);
-                resolve();
-                
-            } catch (err) {
-                reject(err);
-            }
-        }));
+            }));
+        }
+        await Promise.all(promises);
+        console.log('Done updating mod room assignments');
+    } catch (err) {
+        console.error(chalk.red(`Error updating mod room assignments: ${err}`));
+        console.trace(err);
     }
-    await Promise.all(promises);
-    console.log('Done updating mod room assignments');
 }
 
 async function updateRoomAssignments(roundNum) {
