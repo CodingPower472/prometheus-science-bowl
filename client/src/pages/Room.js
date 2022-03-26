@@ -657,7 +657,8 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
         }
     }, []);
 
-    useEffect(() => {
+    // TODO: BRING BACK FOR ANTI-CHEAT RED
+    /*useEffect(() => {
         function onBlur(e) {
             socket.blur();
         }
@@ -668,7 +669,7 @@ function PlayerUI({ gameState, room, user, teamIndex }) {
 
         window.addEventListener('blur', onBlur);
         window.addEventListener('focus', onFocus);
-    }, []);
+    }, []);*/
 
     if (!gameState) {
         console.log('No game at all');

@@ -101,7 +101,7 @@ const unassignedMessage = {
 };
 
 function disconnectAllSockets() {
-    //io.emit('joinerr', unassignedMessage);
+    io.emit('joinerr', unassignedMessage);
     io.disconnectSockets();
 }
 
@@ -117,7 +117,7 @@ io.on('connection', async socket => {
     }
     socket.emit('authorized');
     socket.on('join', async data => {
-        /*if (data.authToken) { FOR THE LOVE OF GOD CHANGE
+        /*if (data.authToken) { // FOR THE LOVE OF GOD CHANGE
             user = await db.findUserWithAuthToken(data.authToken);
             user.googleId = 'DEBUG_GID';
         }*/
@@ -217,9 +217,9 @@ io.on('connection', async socket => {
                 console.log(`Received event from user ${user.googleId}: ${eventName}`);
             });
 
-            // TODO: change this back
-            //if (user.isPlayer) {
-            if (user.isPlayer || user.isAdmin) {
+            // TODO: change this back FOR THE LOVE OF GOD
+            if (user.isPlayer) {
+            //if (user.isPlayer || user.isAdmin) {
                 socket.on('buzz', async () => {
                     let g = currentGames[roomId];
                     try {
@@ -233,7 +233,8 @@ io.on('connection', async socket => {
                         console.error(chalk.red(err));
                     }
                 });
-                socket.on('focus', async () => {
+                // TODO: BRING BACK FOR ANTI-CHEAT RED
+                /*socket.on('focus', async () => {
                     try {
                         let g = currentGames[roomId];
                         //console.log(user);
@@ -253,7 +254,7 @@ io.on('connection', async socket => {
                         console.error(chalk.red(err));
                         console.trace(err);
                     }
-                });
+                });*/
             }
             if (user.isMod || user.isAdmin) {
                 socket.on('start', async () => {
@@ -1048,7 +1049,7 @@ app.get('/api/packets/:roundNum', async (req, res) => {
     }
 });
 
-process.on('uncaughtException', err => {
+/*process.on('uncaughtException', err => {
     console.error(chalk.red(`Uncaught error: ${err}`));
     console.trace(err);
     saveGames()
@@ -1056,6 +1057,6 @@ process.on('uncaughtException', err => {
             console.log('Emergency backup of games completed.');
         })
         .catch(console.error);
-});
+});*/
 
 server.listen(8080);
