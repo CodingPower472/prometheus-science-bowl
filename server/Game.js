@@ -45,7 +45,8 @@ class Game {
         this.finished = gameState.finished;
         this.buzzActive = gameState.buzzActive;
         this.onBonus = gameState.onBonus;
-        this.scoreboard = gameState.scoreboard;
+        this.scoreboard = new Scoreboard();
+        this.scoreboard.makeFromState(gameState.scoreboard);
         this.questionTimer = null;
         this.timeUp = gameState.timeUp;
         this.timerRunning = gameState.timerRunning;
