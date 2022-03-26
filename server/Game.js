@@ -37,6 +37,20 @@ class Game {
             fullName: 'DEBUG TEST USER'
         });*/
     }
+    
+    constructor(gameState) {
+        this.teams = gameState.teams;
+        this.opened = gameState.opened;
+        this.questionNum = gameState.questionNum;
+        this.finished = gameState.finished;
+        this.buzzActive = gameState.buzzActive;
+        this.onBonus = gameState.onBonus;
+        this.scoreboard = gameState.scoreboard;
+        this.questionTimer = null;
+        this.timeUp = gameState.timeUp;
+        this.timerRunning = gameState.timerRunning;
+        this.roundNum = gameState.roundNum;
+    }
 
     active() {
         return this.opened && !this.finished;
