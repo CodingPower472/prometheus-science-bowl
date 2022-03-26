@@ -13,6 +13,12 @@ class Scoreboard {
         this.currentSize = 0;
         this.extendToSize(INITIAL_SIZE);
     }
+    
+    makeFromState(questions) {
+       this.offsets = [0, 0];
+       this.extendToSize(questions.length);
+        this.questions = questions;
+    }
 
     rawScore(teamInd) {
         if (this.checktoob(teamInd)) return;
