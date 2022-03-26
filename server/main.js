@@ -799,6 +799,7 @@ app.post('/api/start-tournament', async (req, res) => {
                 success: true,
                 currentRound: 1
             });
+            await createGames(1);
         } else {
             res.send({
                 success: false,
@@ -806,7 +807,6 @@ app.post('/api/start-tournament', async (req, res) => {
                 errorMessage: 'Can\'t start the tournament because it\'s already started!'
             });
         }
-        await createGames(worked);
     } catch (err) {
         console.error(`Error starting the tournament: ${err}`);
         res.send(INTERNAL);
