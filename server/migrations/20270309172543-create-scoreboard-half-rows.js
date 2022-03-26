@@ -18,6 +18,10 @@ module.exports = {
           as: 'gameRecordId'
         }
       },
+      questionNum: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
       score: {
         type: Sequelize.INTEGER,
         allowNull: false

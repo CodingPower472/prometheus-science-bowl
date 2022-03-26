@@ -264,21 +264,15 @@ async function saveToGameRecord(gameRecordId, teams, scoreboard) {
             let buzzer = whoBuzzed[teamInd];
             let teamId = teams[teamInd].id;
             let isTeamA = (teamInd === 0);
-            /*promises.push(ScoreboardHalfRow.create({
+            promises.push(ScoreboardHalfRow.create({
                 gameRecordId,
-                score,
-                whoBuzzedGID: buzzer,
-                teamId,
-                isTeamA
-            }));*/
-            await ScoreboardHalfRow.create({
-                gameRecordId,
+                questionNum: i + 1,
                 score,
                 whoBuzzedGID: buzzer,
                 teamId,
                 isTeamA,
                 isEmpty: (frag.length === 0)
-            });
+            }));
         }
     }
     return Promise.all(promises);

@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ScoreboardHalfRow.init({
     gameRecordId: DataTypes.INTEGER,
+    questionNum: DataTypes.INTEGER,
     score: DataTypes.INTEGER,
     whoBuzzedGID: DataTypes.STRING,
     teamId: DataTypes.INTEGER,
