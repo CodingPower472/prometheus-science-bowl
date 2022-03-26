@@ -38,7 +38,7 @@ class Game {
         });*/
     }
     
-    constructor(gameState) {
+    makeGameFromState(games) {
         this.teams = gameState.teams;
         this.opened = gameState.opened;
         this.questionNum = gameState.questionNum;
