@@ -455,8 +455,12 @@ io.on('connection', async socket => {
 });
 
 setInterval(() => {
+try {
     console.log('Sending periodic log of currentGames');
     logger.append(`Periodic log of currentGames:\n${JSON.stringify(currentGames)}`);
+} catch (err) {
+console.trace(err);
+}
 }, 60*1000);
 
 const MOD_JOIN_CODE = process.env.MOD_JOIN_CODE;
