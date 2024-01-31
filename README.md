@@ -1,7 +1,8 @@
 # Prometheus Science Bowl
-
-<img width="1418" alt="image" src="https://github.com/CodingPower472/prometheus-science-bowl/assets/8381348/08c7dac3-b10c-49c5-b326-a11da61259c8">
-<img width="1415" alt="image" src="https://github.com/CodingPower472/prometheus-science-bowl/assets/8381348/c536153b-482f-4ee7-9f20-46f52b7808fc">
+<p float="left">
+  <img width="200" alt="image" src="https://github.com/CodingPower472/prometheus-science-bowl/assets/8381348/08c7dac3-b10c-49c5-b326-a11da61259c8">
+  <img width="200" alt="image" src="https://github.com/CodingPower472/prometheus-science-bowl/assets/8381348/c536153b-482f-4ee7-9f20-46f52b7808fc">
+</p>
 
 
 
